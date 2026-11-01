@@ -211,6 +211,18 @@
         </dl>
       </div>
 
+      <section class="product" aria-labelledby="overtrained-title overtrained-product">
+        <h3 class="section-title" id="overtrained-product">The product</h3>
+        <ul class="phones" tabindex="0" aria-label="0VERTRAINED screens">
+          <li><figure><img src="assets/img/overtrained/today.webp" width="540" height="1169" loading="lazy" decoding="async" alt="The Today screen on a Monday: Upper A, push and triceps, a Start session button, and protein, steps and calories so far."><figcaption>Today: the day’s session, one tap from starting.</figcaption></figure></li>
+          <li><figure><img src="assets/img/overtrained/recovery.webp" width="540" height="1169" loading="lazy" decoding="async" alt="Recovery: the check-in taps above the verdict, Fresh at 97 and rising, and Green light, load the bar."><figcaption>Recovery asks how you feel before it shows the number.</figcaption></figure></li>
+          <li><figure><img src="assets/img/overtrained/session.webp" width="540" height="1169" loading="lazy" decoding="async" alt="A session on barbell bench press: last time 240 pounds for four sets of six, and today’s target, 245, since every set reached six reps without a technique flag."><figcaption>Every set last time hit its reps cleanly, so today’s target goes up the smallest step.</figcaption></figure></li>
+          <li><figure><img src="assets/img/overtrained/sunday-edition.webp" width="540" height="1169" loading="lazy" decoding="async" alt="The Sunday Edition: the week’s mornings with their recovery states, sleep debt, the load ledger and a volume digest."><figcaption>The Sunday Edition reviews the week, each morning scored as it was that day.</figcaption></figure></li>
+          <li><figure><img src="assets/img/overtrained/fuel.webp" width="540" height="1169" loading="lazy" decoding="async" alt="Fuel: protein first, with 78 grams and 1,530 calories left today, and the next meal that closes the gap."><figcaption>Fuel shows what’s still needed today and the next meal that closes it.</figcaption></figure></li>
+        </ul>
+        <p class="note">Captured from the app’s demo build, with seeded, made-up data.</p>
+      </section>
+
       <dl class="features">
         <div><dt>Recovery</dt><dd>Six named states, from Fresh to Deload advised, worked out from a week of HRV against the athlete’s own four-week baseline, never from a single morning. Oura is the main series and Whoop the fallback, and the two are never mixed.</dd></div>
         <div><dt>Training</dt><dd>Targets that move from the last session, reps in reserve on every set, estimated one-rep-max trends, weekly sets per muscle against its growth range, a box score after every session, and a race plan that counts down through build and taper.</dd></div>
@@ -220,6 +232,30 @@
         <div><dt>Privacy</dt><dd>Wearable tokens are encrypted and stay on the server. Server functions take the user from a verified session, never from the request. Strava data never reaches a model, and a forgotten password is reset with a recovery phrase, so no email is involved.</dd></div>
       </dl>
 
+      <section class="evidence" aria-labelledby="overtrained-title overtrained-checked">
+        <h3 class="section-title" id="overtrained-checked">How it’s checked</h3>
+        <table class="scorecard">
+          <thead>
+            <tr><th scope="col">What was measured</th><th scope="col">Result</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Automated tests, all passing</th><td>2,030 in 170 files</td></tr>
+            <tr><th scope="row">Lint errors</th><td>0, with 31 warnings</td></tr>
+            <tr><th scope="row">Secrets found by the release gate’s scan of the built app</th><td>0</td></tr>
+            <tr><th scope="row">Database tables with row-level security</th><td>31 of 31</td></tr>
+            <tr><th scope="row">Coach routing and safety cases, run offline</th><td>10 of 10</td></tr>
+          </tbody>
+        </table>
+        <p class="note">Measured on version 19.6 on November 1, 2026.</p>
+      </section>
+
+      <section class="lesson" aria-labelledby="overtrained-lesson">
+        <h3 class="section-title" id="overtrained-lesson">The same morning, four times</h3>
+        <div class="prose">
+          <p>By version 19.5, about twenty modules gave advice, and a dozen had a panel of their own. The Recovery tab read the same morning four times on the way down a phone: a verdict, a list of signals, a coach’s interpretation and a readiness score, with a caution between them. It ran to 2.7 screens.</p>
+          <p>Version 19.6 keeps the verdict at the top and moves the rest under Technical details, which brings the tab to just over one screen. Nothing it weighed was dropped. The verdict already counted every limiter, so moving the signals changed what you see, not what decides the day.</p>
+        </div>
+      </section>
     </article>
 
     <article class="project project--wip" id="lattice" aria-labelledby="lattice-title">
