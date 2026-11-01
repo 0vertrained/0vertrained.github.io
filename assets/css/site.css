@@ -883,8 +883,7 @@ main {
 }
 
 .walkthrough figcaption,
-.screens figcaption,
-.volume figcaption {
+.screens figcaption {
   max-width: 36rem;
   margin-top: 0.85rem;
   color: var(--ink-soft);
@@ -994,87 +993,6 @@ main {
 
 /* 0VERTRAINED */
 
-.volume {
-  margin: clamp(3.5rem, 7vw, 5.5rem) 0 0;
-  padding: clamp(1.25rem, 3vw, 2.25rem);
-  border: 1px solid var(--rule);
-  border-radius: 0.5rem;
-  background: var(--surface);
-}
-
-/* Drawn by script; without it, the captions say what these would show. */
-html:not(.js) .volume__chart,
-html:not(.js) .fleet__stage {
-  display: none;
-}
-
-.volume__chart {
-  width: 100%;
-  height: auto;
-  overflow: visible;
-  font-family: var(--sans);
-}
-
-.volume__chart text {
-  fill: var(--ink-soft);
-  font-size: 13px;
-}
-
-.volume__chart .volume__name {
-  fill: var(--ink);
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.volume__chart .volume__value {
-  fill: var(--ink);
-  font-size: 13px;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-}
-
-.volume__chart .volume__track {
-  fill: var(--rule);
-}
-
-.volume__chart .volume__grid {
-  stroke: var(--rule);
-  stroke-width: 1;
-}
-
-.volume__chart .volume__band {
-  fill: var(--turquoise-wash);
-}
-
-.volume__chart .volume__limit {
-  stroke: var(--ink-soft);
-  stroke-width: 1;
-  stroke-dasharray: 3 3;
-}
-
-.volume__chart .volume__bar {
-  fill: var(--turquoise);
-  transform-box: fill-box;
-  transform-origin: left center;
-  transition: transform 900ms cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.volume__chart .volume__bar--over {
-  fill: var(--chamisa);
-}
-
-.volume[data-state="ready"] .volume__bar {
-  transform: scaleX(0);
-}
-
-.volume[data-state="ready"] .volume__value {
-  opacity: 0;
-}
-
-.volume__chart .volume__value {
-  transition: opacity 400ms ease 500ms;
-}
-
 .features {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
@@ -1103,6 +1021,11 @@ html:not(.js) .fleet__stage {
 
 .fleet {
   margin: clamp(3.5rem, 7vw, 5.5rem) 0 0;
+}
+
+/* Drawn by script; without it, the caption says what it would show. */
+html:not(.js) .fleet__stage {
+  display: none;
 }
 
 .fleet__stage {
