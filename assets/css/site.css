@@ -130,6 +130,18 @@ p {
   text-wrap: pretty;
 }
 
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
 .skip {
   position: absolute;
   z-index: 10;
@@ -993,6 +1005,541 @@ main {
 }
 
 /* 0VERTRAINED */
+
+/* One verdict a morning */
+
+.verdict {
+  margin: clamp(4.5rem, 9vw, 7rem) 0;
+}
+
+.verdict__intro {
+  max-width: var(--measure);
+  margin-bottom: 2rem;
+}
+
+.verdict__title {
+  margin: 0 0 0.75rem;
+  font: 750 clamp(1.375rem, 2.2vw, 1.75rem)/1.2 var(--sans);
+  font-stretch: 112%;
+}
+
+.verdict__intro p {
+  margin: 0;
+}
+
+/* Driven by script; without it, the verdict reads as a worked example. */
+html:not(.js) .verdict__inputs,
+html:not(.js) .verdict__ladder {
+  display: none;
+}
+
+.verdict__stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  border: 1px solid var(--rule);
+  border-radius: 0.5rem;
+  background: var(--surface);
+}
+
+.verdict__inputs,
+.verdict__out {
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+}
+
+.verdict__ladder {
+  padding: 1rem clamp(1.25rem, 3vw, 2.25rem) 0.9rem;
+}
+
+/* On a phone the ladder and the verdict join the stage's single column, so the ladder can stick. */
+.verdict__result {
+  display: contents;
+}
+
+@container (min-width: 56rem) {
+  .verdict__stage {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  }
+
+  .verdict__inputs {
+    border-right: 1px solid var(--rule);
+  }
+
+  /* The verdict stays in view while the inputs scroll past it. */
+  .verdict__result {
+    position: sticky;
+    top: 1rem;
+    display: block;
+    align-self: start;
+  }
+
+  .verdict__ladder {
+    padding-top: clamp(1.25rem, 3vw, 2.25rem);
+  }
+
+  .verdict__out {
+    padding-top: 0.75rem;
+  }
+}
+
+/* On a phone the inputs run past the bottom of the screen, so the ladder waits there while they're in view. */
+@container (max-width: 55.99rem) {
+  .verdict__ladder {
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+    border-block: 1px solid var(--rule);
+    background: var(--surface);
+    box-shadow: 0 -10px 20px -18px rgb(16 22 30 / 0.35);
+  }
+}
+
+@media (max-width: 64rem) {
+  html {
+    scroll-padding-bottom: 6.5rem;
+  }
+}
+
+/* The morning */
+
+.verdict__group {
+  min-width: 0;
+  margin: 0 0 1.75rem;
+  padding: 0;
+  border: 0;
+}
+
+.verdict__group:last-child {
+  margin-bottom: 0;
+}
+
+/* Floated, so the legend takes a margin like any heading. */
+.verdict__group > legend {
+  float: left;
+  width: 100%;
+  margin: 0 0 0.85rem;
+  padding: 0;
+  color: var(--ink-soft);
+  font: 650 0.875rem/1.3 var(--sans);
+  font-stretch: 108%;
+}
+
+.verdict__group > legend + * {
+  clear: both;
+}
+
+.verdict__slider {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  column-gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.verdict__slider label {
+  font: 600 0.9375rem/1.3 var(--sans);
+}
+
+.verdict__slider output {
+  font: 700 0.9375rem/1.3 var(--sans);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.verdict__slider input,
+.verdict__slider .verdict__note {
+  grid-column: 1 / -1;
+}
+
+.verdict__note {
+  margin: 0;
+  color: var(--ink-soft);
+  font: 400 0.8125rem/1.4 var(--sans);
+}
+
+.verdict input[type="range"] {
+  --fill: 50%;
+  width: 100%;
+  height: 2.75rem;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  touch-action: manipulation;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.verdict input[type="range"]::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(to right, var(--ink) var(--fill), var(--rule-strong) var(--fill));
+}
+
+.verdict input[type="range"]::-moz-range-track {
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(to right, var(--ink) var(--fill), var(--rule-strong) var(--fill));
+}
+
+.verdict input[type="range"]::-webkit-slider-thumb {
+  width: 22px;
+  height: 22px;
+  margin-top: -8px;
+  border: 3px solid var(--surface);
+  border-radius: 50%;
+  background: var(--ink);
+  box-shadow: 0 0 0 1px var(--ink);
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.verdict input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border: 3px solid var(--surface);
+  border-radius: 50%;
+  background: var(--ink);
+  box-shadow: 0 0 0 1px var(--ink);
+}
+
+/* The ring goes on the thumb, where the value is. */
+.verdict input[type="range"]:focus-visible {
+  outline: none;
+}
+
+.verdict input[type="range"]:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 1px var(--ink), 0 0 0 5px var(--turquoise);
+}
+
+.verdict input[type="range"]:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 1px var(--ink), 0 0 0 5px var(--turquoise);
+}
+
+.verdict__row {
+  min-width: 0;
+  margin: 0 0 0.45rem;
+  padding: 0;
+  border: 0;
+}
+
+.verdict__row legend {
+  float: left;
+  width: 4.5rem;
+  padding: 0;
+  font: 600 0.9375rem/2.75rem var(--sans);
+}
+
+/* A flex box keeps clear of the floated legend without clipping focus rings. */
+.verdict__options {
+  display: flex;
+}
+
+.verdict__options label {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.verdict__options input,
+.verdict__switch input {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.verdict__options span {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0 0.5rem;
+  border: 1.5px solid var(--rule-strong);
+  color: var(--ink-soft);
+  font: 600 0.9375rem/1.2 var(--sans);
+  transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+}
+
+.verdict__options label + label span {
+  margin-left: -1.5px;
+}
+
+.verdict__options label:first-child span {
+  border-radius: 0.3rem 0 0 0.3rem;
+}
+
+.verdict__options label:last-child span {
+  border-radius: 0 0.3rem 0.3rem 0;
+}
+
+.verdict__options label:hover span {
+  z-index: 1;
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.verdict__options input:checked + span {
+  z-index: 1;
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--surface);
+}
+
+.verdict__options input:focus-visible + span {
+  z-index: 2;
+  outline: 3px solid var(--turquoise);
+  outline-offset: 2px;
+}
+
+.verdict__switch {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: fit-content;
+  min-height: 2.75rem;
+  font: 600 0.9375rem/1.3 var(--sans);
+}
+
+.verdict__row + .verdict__switch {
+  margin-top: 0.4rem;
+}
+
+.verdict__toggle {
+  position: relative;
+  flex: none;
+  width: 2.75rem;
+  height: 1.5rem;
+  border: 1.5px solid var(--rule-strong);
+  border-radius: 999px;
+  background: var(--rule);
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.verdict__toggle::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  width: 1.05rem;
+  height: 1.05rem;
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: 0 1px 2px rgb(16 22 30 / 0.35);
+  transform: translateY(-50%);
+  transition: transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.verdict__switch:hover .verdict__toggle {
+  border-color: var(--ink);
+}
+
+.verdict__switch input:checked + .verdict__toggle {
+  border-color: var(--ink);
+  background: var(--ink);
+}
+
+.verdict__switch input:checked + .verdict__toggle::before {
+  transform: translate(1.2rem, -50%);
+}
+
+.verdict__switch input:focus-visible + .verdict__toggle {
+  outline: 3px solid var(--turquoise);
+  outline-offset: 3px;
+}
+
+/* The ladder, from the hardest call to the easiest */
+
+.verdict__track {
+  position: relative;
+}
+
+.verdict__rungs {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 3px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.verdict__rungs li {
+  position: relative;
+  padding-top: 1.35rem;
+  color: var(--ink-soft);
+  font: 600 0.8125rem/1.2 var(--sans);
+  text-align: center;
+  transition: color 200ms ease;
+}
+
+.verdict__rungs li::before {
+  content: "";
+  position: absolute;
+  top: 0.5rem;
+  right: 0;
+  left: 0;
+  height: 6px;
+  background: var(--rule-strong);
+  transition: background-color 200ms ease;
+}
+
+.verdict__rungs li:first-child::before {
+  border-radius: 3px 0 0 3px;
+}
+
+.verdict__rungs li:last-child::before {
+  border-radius: 0 3px 3px 0;
+}
+
+.verdict__rungs li.is-verdict {
+  color: var(--ink);
+  font-weight: 750;
+}
+
+.verdict__rungs li.is-verdict::before {
+  background: var(--ink);
+}
+
+.verdict__span {
+  position: absolute;
+  top: 0.5rem;
+  left: 0;
+  width: 1px;
+  height: 6px;
+  background: var(--chamisa);
+  transform-origin: 0 50%;
+  transition: transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.verdict__mark {
+  position: absolute;
+  top: calc(0.5rem + 3px);
+  left: 0;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border-radius: 50%;
+  background: var(--ink);
+  box-shadow: 0 0 0 3px var(--surface);
+  transition: transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.verdict__mark--score {
+  background: var(--surface);
+  box-shadow: inset 0 0 0 2px var(--ink-soft), 0 0 0 3px var(--surface);
+}
+
+.verdict__ladder.is-revealing .verdict__mark,
+.verdict__ladder.is-revealing .verdict__span {
+  transition-duration: 900ms;
+  transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.verdict__key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  margin: 0.8rem 0 0;
+  color: var(--ink-soft);
+  font: 500 0.8125rem/1.3 var(--sans);
+}
+
+.verdict__key span::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 0.45em;
+  border-radius: 50%;
+  vertical-align: -1px;
+}
+
+.verdict__key-score::before {
+  box-shadow: inset 0 0 0 2px var(--ink-soft);
+}
+
+.verdict__key-verdict::before {
+  background: var(--ink);
+}
+
+/* The verdict, in the app's words */
+
+.verdict__headline {
+  margin: 0 0 0.6rem;
+  font: 600 clamp(1.5rem, 3.2cqi, 2rem)/1.15 var(--serif);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.verdict__deck {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 1.0625rem;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.verdict__diverge {
+  margin: 1rem 0 0;
+  padding-left: 0.9rem;
+  border-left: 2px solid var(--rule-strong);
+  color: var(--ink-soft);
+  font-size: 1rem;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.verdict__limiter {
+  margin: 1.25rem 0 0;
+  padding: 0.1rem 0 0.1rem 0.9rem;
+  border-left: 3px solid var(--chamisa);
+}
+
+.verdict__limiter p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.verdict__limiter .verdict__limiter-label {
+  margin-bottom: 0.2rem;
+  color: var(--ink);
+  font: 650 0.9375rem/1.35 var(--sans);
+}
+
+.verdict__also {
+  margin: 0.85rem 0 0;
+  color: var(--ink-soft);
+  font: 500 0.875rem/1.45 var(--sans);
+}
+
+.verdict__echo {
+  margin: 1.5rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.verdict__echo-label {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--ink-soft);
+  font: 600 0.8125rem/1.3 var(--sans);
+}
+
+.verdict__foot {
+  max-width: var(--measure);
+  margin: 1.25rem 0 0;
+  color: var(--ink-soft);
+  font-size: 1rem;
+}
 
 /* The phone screens: a strip to swipe on a phone, a row of five on a wide screen. */
 

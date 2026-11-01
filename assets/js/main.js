@@ -1,12 +1,14 @@
 import { initHero } from "./hero.js";
 import { initLeaves } from "./leaves.js";
 import { initScreens } from "./screens.js";
+import { initVerdict } from "./verdict.js";
 import { initFleet } from "./fleet.js";
 
 const parts = [
   ["[data-hero]", initHero],
   ["[data-leaves]", initLeaves],
   ["[data-screens]", initScreens],
+  ["[data-verdict]", initVerdict],
   ["[data-fleet]", initFleet],
 ];
 

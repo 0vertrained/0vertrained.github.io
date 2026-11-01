@@ -211,6 +211,107 @@
         </dl>
       </div>
 
+      <figure class="verdict" data-verdict aria-labelledby="verdict-title">
+        <figcaption class="verdict__intro">
+          <h3 class="verdict__title" id="verdict-title">One answer to “how hard today?”</h3>
+          <p>Every morning, 0VERTRAINED weighs the night’s recovery score against sleep debt, training load, overnight warning signs and a four-tap check-in, then gives one verdict. Everything but the score can only make the day more cautious, and the most serious reason is the one it names. This is the app’s own resolver, ported from its source, in the app’s own words.</p>
+        </figcaption>
+        <div class="verdict__stage">
+          <form class="verdict__inputs" data-verdict-form aria-label="This morning">
+            <fieldset class="verdict__group">
+              <legend>Overnight, from the wearables</legend>
+              <div class="verdict__slider">
+                <label for="verdict-score">Recovery score</label>
+                <output for="verdict-score" data-verdict-out="score">88</output>
+                <input type="range" id="verdict-score" name="score" min="0" max="100" step="1" value="88" aria-describedby="verdict-score-note">
+                <p class="verdict__note" id="verdict-score-note">From HRV, resting heart rate, sleep and temperature</p>
+              </div>
+              <div class="verdict__slider">
+                <label for="verdict-debt">Sleep debt this week</label>
+                <output for="verdict-debt" data-verdict-out="debt">2h 30m</output>
+                <input type="range" id="verdict-debt" name="debt" min="0" max="8" step="0.25" value="2.5">
+              </div>
+              <label class="verdict__switch"><input type="checkbox" name="illnessMarkers" role="switch" aria-describedby="verdict-markers-note"><span class="verdict__toggle" aria-hidden="true"></span><span>Illness markers</span></label>
+              <p class="verdict__note" id="verdict-markers-note">Temperature up, HRV down and another marker off</p>
+            </fieldset>
+            <fieldset class="verdict__group">
+              <legend>From the training log</legend>
+              <div class="verdict__slider">
+                <label for="verdict-load">Recent load against usual</label>
+                <output for="verdict-load" data-verdict-out="load">1.10×, optimal</output>
+                <input type="range" id="verdict-load" name="load" min="0.5" max="2" step="0.05" value="1.1">
+              </div>
+            </fieldset>
+            <fieldset class="verdict__group">
+              <legend>Your check-in</legend>
+              <fieldset class="verdict__row">
+                <legend>Slept</legend>
+                <div class="verdict__options">
+                  <label><input type="radio" name="sleepQuality" value="3"><span>poorly</span></label>
+                  <label><input type="radio" name="sleepQuality" value="6" checked><span>fine</span></label>
+                  <label><input type="radio" name="sleepQuality" value="9"><span>well</span></label>
+                </div>
+              </fieldset>
+              <fieldset class="verdict__row">
+                <legend>Sore</legend>
+                <div class="verdict__options">
+                  <label><input type="radio" name="soreness" value="2"><span>no</span></label>
+                  <label><input type="radio" name="soreness" value="5" checked><span>some</span></label>
+                  <label><input type="radio" name="soreness" value="8"><span>very</span></label>
+                </div>
+              </fieldset>
+              <fieldset class="verdict__row">
+                <legend>Stress</legend>
+                <div class="verdict__options">
+                  <label><input type="radio" name="stress" value="2"><span>low</span></label>
+                  <label><input type="radio" name="stress" value="5" checked><span>some</span></label>
+                  <label><input type="radio" name="stress" value="8"><span>high</span></label>
+                </div>
+              </fieldset>
+              <fieldset class="verdict__row">
+                <legend>Energy</legend>
+                <div class="verdict__options">
+                  <label><input type="radio" name="energy" value="3"><span>low</span></label>
+                  <label><input type="radio" name="energy" value="6" checked><span>ok</span></label>
+                  <label><input type="radio" name="energy" value="9"><span>high</span></label>
+                </div>
+              </fieldset>
+              <label class="verdict__switch"><input type="checkbox" name="illnessOrInjury" role="switch"><span class="verdict__toggle" aria-hidden="true"></span><span>Ill or injured</span></label>
+            </fieldset>
+          </form>
+          <div class="verdict__result">
+            <div class="verdict__ladder" data-verdict-ladder>
+              <div class="verdict__track">
+                <ol class="verdict__rungs" aria-label="From the hardest day to the easiest">
+                  <li data-call="push">Push</li>
+                  <li data-call="train">Train</li>
+                  <li data-call="capped">Capped</li>
+                  <li data-call="easy">Easy</li>
+                  <li data-call="recover">Recover</li>
+                </ol>
+                <span class="verdict__span" data-verdict-span aria-hidden="true"></span>
+                <span class="verdict__mark verdict__mark--score" data-verdict-mark="score" aria-hidden="true"></span>
+                <span class="verdict__mark" data-verdict-mark="verdict" aria-hidden="true"></span>
+              </div>
+              <p class="verdict__key" aria-hidden="true"><span class="verdict__key-score">The score alone</span> <span class="verdict__key-verdict">The verdict</span></p>
+            </div>
+            <div class="verdict__out">
+              <p class="visually-hidden" aria-live="polite" data-verdict-live></p>
+              <p class="verdict__headline" data-verdict-headline>Train today. Don’t chase the PR.</p>
+              <p class="verdict__deck" data-verdict-deck>Readiness supports training, but a limiter lowers the ceiling — run the planned session as written and skip added volume.</p>
+              <p class="verdict__diverge" data-verdict-diverge hidden></p>
+              <div class="verdict__limiter" data-verdict-limiter>
+                <p class="verdict__limiter-label" data-verdict-limiter-label>Ceiling · sleep debt 2h 30m</p>
+                <p data-verdict-limiter-detail>Sleep debt lowers today’s ceiling. Complete the planned session; skip extra volume and max attempts.</p>
+              </div>
+              <p class="verdict__also" data-verdict-also hidden></p>
+              <p class="verdict__echo"><span class="verdict__echo-label">Repeated by the rest of the Recovery tab</span> <span data-verdict-prescription>Complete the planned session as written — do not add volume or chase a PR today.</span></p>
+            </div>
+          </div>
+        </div>
+        <p class="verdict__foot">Checked against the app’s own code on 4,319,568 mornings: the same call, words and limiter every time. The score itself never moves, so it means the same thing across an athlete’s whole history.</p>
+      </figure>
+
       <section class="product" aria-labelledby="overtrained-title overtrained-product">
         <h3 class="section-title" id="overtrained-product">The product</h3>
         <ul class="phones" tabindex="0" aria-label="0VERTRAINED screens">
