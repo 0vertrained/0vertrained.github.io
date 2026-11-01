@@ -191,29 +191,35 @@
         <h2 class="project__title" id="overtrained-title" translate="no">0VERTRAINED</h2>
         <p class="project__kind">A training app for athletes who lift and race, designed and built alone</p>
       </header>
+
       <div class="project__body">
         <div class="project__main">
           <div class="prose">
-            <p>I train for strength and for running races, and I built 0VERTRAINED around how I train. Every screen is mine, from the design system to the data model, and it’s invite-only while it heads to beta.</p>
+            <p>0VERTRAINED is a private training ledger for people who lift and race. It logs strength, cardio, food and recovery, typed in or pulled from a wearable, and answers one question each morning: how hard should today be? I train this way myself, and I designed and built all of it, from the design system and the data model to the wearable integrations and the coach.</p>
+            <p>It’s in beta, with a cap on sign-ups. The camera form check is opt-in, and the AI coach is open only to my account for now.</p>
           </div>
           <ul class="actions">
+            <li><a class="button button--primary" href="https://0vertrained.netlify.app/#/demo">See the demo</a></li>
             <li><a class="button" href="https://0vertrained.netlify.app/"><span>Visit <span translate="no">0VERTRAINED</span></span></a></li>
           </ul>
         </div>
         <dl class="facts">
-          <div><dt>Built with</dt><dd>React, Vite, Supabase, Netlify Functions, Web Push</dd></div>
-          <div><dt>Model</dt><dd>Claude Haiku, for the coach</dd></div>
-          <div><dt>Status</dt><dd>Invite-only, heading to beta</dd></div>
+          <div><dt>Built with</dt><dd>React, Vite, Supabase (Postgres with row-level security), Netlify Functions, Web Push</dd></div>
+          <div><dt>Wearables</dt><dd>Oura, Whoop and Strava, over OAuth</dd></div>
+          <div><dt>Models</dt><dd>A coach on Ollama Cloud, routed between fast, main and deep models</dd></div>
+          <div><dt>Status</dt><dd>In beta, on version 19.6</dd></div>
         </dl>
       </div>
 
       <dl class="features">
-        <div><dt>Recovery</dt><dd>A state machine with six named states, fed by a morning check-in. Each wearable metric comes from the source most trusted for it, and sleep debt is reconciled across them.</dd></div>
-        <div><dt>Training</dt><dd>Progression that respects reps in reserve, estimated one-rep-max trends, weekly sets per muscle against its landmarks, a recovery heatmap, a session runner, and a box score after every session.</dd></div>
-        <div><dt>Food</dt><dd>Calorie needs that adapt to what you eat against how your weight trends, and meal plans from a constraint solver over 50&nbsp;recipes.</dd></div>
-        <div><dt>Coach</dt><dd>An AI coach on Claude Haiku, behind token checks on the server.</dd></div>
-        <div><dt>Engineering</dt><dd>Push notifications scheduled in each athlete’s time zone, atomic Postgres functions, lazy-loaded screens, a seeded demo mode that plays the same way every time, and a security audit with every finding fixed.</dd></div>
+        <div><dt>Recovery</dt><dd>Six named states, from Fresh to Deload advised, worked out from a week of HRV against the athlete’s own four-week baseline, never from a single morning. Oura is the main series and Whoop the fallback, and the two are never mixed.</dd></div>
+        <div><dt>Training</dt><dd>Targets that move from the last session, reps in reserve on every set, estimated one-rep-max trends, weekly sets per muscle against its growth range, a box score after every session, and a race plan that counts down through build and taper.</dd></div>
+        <div><dt>Food</dt><dd>Calorie needs measured from what the athlete eats against their smoothed weight trend, not a population formula, and meal plans from a constraint solver over 92&nbsp;recipes.</dd></div>
+        <div><dt>Coach</dt><dd>Each question goes to a fast, main or deep model by what it asks, with a fallback, a daily limit and a kill switch. The server picks the model, never the browser, and the coach’s logs keep no questions or answers.</dd></div>
+        <div><dt>Form check</dt><dd>A short clip of a lift goes to a hosted pose engine, which deletes it and sends back only measurements. The app turns those into cues, rep by rep.</dd></div>
+        <div><dt>Privacy</dt><dd>Wearable tokens are encrypted and stay on the server. Server functions take the user from a verified session, never from the request. Strava data never reaches a model, and a forgotten password is reset with a recovery phrase, so no email is involved.</dd></div>
       </dl>
+
     </article>
 
     <article class="project project--wip" id="lattice" aria-labelledby="lattice-title">
