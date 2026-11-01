@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Rami, full-stack and AI engineer</title>
+  <meta name="description" content="Rami builds AI products end to end: a prior-authorization agent that keeps patient data inside the clinic, a training app for athletes, and the infrastructure under them.">
+  <meta name="theme-color" content="#edefea" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0d131a" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
+  <link rel="canonical" href="https://0vertrained.github.io/">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://0vertrained.github.io/">
+  <meta property="og:title" content="Rami, full-stack and AI engineer">
+  <meta property="og:description" content="AI products built end to end, with the privacy, evaluation and interface work that is easy to skip.">
+  <meta property="og:image" content="https://0vertrained.github.io/assets/img/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The name RAMI in plaster relief, lit low by the evening sun over Santa Fe.">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preload" href="assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/source-serif-4.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script>document.documentElement.classList.add("js")</script>
+  <script type="module" src="assets/js/main.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to the work</a>
+
+  <header class="hero" data-hero>
+    <canvas class="hero__relief" data-relief aria-hidden="true"></canvas>
+    <p class="hero__flat" data-relief-flat aria-hidden="true">RAMI</p>
+
+    <nav class="hero__nav" aria-label="Elsewhere">
+      <a href="#work">Work</a>
+      <a href="https://www.linkedin.com/in/rami-m-2931099b">LinkedIn</a>
+    </nav>
+
+    <div class="hero__label">
+      <h1 class="hero__name">Rami</h1>
+      <p class="hero__role">Full-stack and AI engineer</p>
+      <p class="hero__caption" id="light-caption" data-light-caption>Santa Fe, New Mexico.</p>
+    </div>
+
+    <div class="sunpath">
+      <div class="sunpath__track">
+        <input class="sunpath__input" id="light-time" type="range" min="0" max="1439" step="5" value="720" data-light-time aria-describedby="light-caption">
+        <svg class="sunpath__graph" data-sun-path viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <defs>
+            <clipPath id="sunpath-above"><rect x="0" y="0" width="1440" height="50" data-horizon-clip></rect></clipPath>
+          </defs>
+          <line class="sunpath__horizon" x1="0" x2="1440" y1="50" y2="50" data-horizon-line></line>
+          <polyline class="sunpath__night" data-path-all points=""></polyline>
+          <polyline class="sunpath__day" data-path-day points="" clip-path="url(#sunpath-above)"></polyline>
+        </svg>
+        <span class="sunpath__marker" data-sun-marker aria-hidden="true"></span>
+        <span class="sunpath__tick" data-sunrise hidden></span>
+        <span class="sunpath__tick" data-sunset hidden></span>
+      </div>
+      <div class="sunpath__foot">
+        <label class="sunpath__label" for="light-time">Drag along the sun’s path to change the hour</label>
+        <button type="button" class="sunpath__now" data-light-now hidden>Back to now</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="intro" aria-label="About">
+      <p class="intro__lede">I build AI products end to end, from how a model is called to the screen a person uses. The parts I care about most are the ones that are easy to skip: keeping private data where it belongs, measuring on cases I never tuned on, and designing for people who would rather not learn new software.</p>
+      <nav class="index" id="work" aria-label="Work on this page">
+        <ul>
+          <li><a href="#caduceus"><span class="index__name" translate="no">Caduceus</span> <span class="index__what">An AI agent for prior authorization</span></a></li>
+          <li><a href="#overtrained"><span class="index__name" translate="no">0VERTRAINED</span> <span class="index__what">A training app for athletes who lift and race</span></a></li>
+          <li><a href="#lattice"><span class="index__name" translate="no">Lattice</span> <span class="index__what">A control plane for a fleet of robots</span></a></li>
+          <li><a href="#workload"><span class="index__name">AI Workload and Release Platform</span> <span class="index__what">Language models on shared capacity</span></a></li>
+        </ul>
+      </nav>
+    </section>
+
+    <article class="project" id="caduceus" aria-labelledby="caduceus-title">
+      <header class="project__head">
+        <h2 class="project__title" id="caduceus-title" translate="no">Caduceus</h2>
+        <p class="project__kind">A prior-authorization agent that keeps patient data inside the clinic</p>
+      </header>
+
+      <div class="project__body">
+        <div class="project__main">
+          <div class="prose">
+            <p>Before a medical group can schedule an MRI or a knee replacement, the patient’s insurer has to approve it. Staff read the chart against the insurer’s criteria, chase the doctor for whatever is missing, and send the request by fax or portal. Caduceus does the reading. It reads the faxed referral, checks the patient’s record against the insurer’s own policy, asks the ordering doctor only what the record can’t answer, and drafts the request. Nothing goes out until a specialist approves it.</p>
+            <p>The customer, Mesa Verde Health, is a simulated six-clinic group, and every patient is synthetic. The rules are real: the criteria quote Medicare’s policy text, and the requests follow the federal rule that gives insurers 7 days to decide, or 72&nbsp;hours when it’s urgent, and a specific reason for every denial.</p>
+          </div>
+          <ul class="actions">
+            <li><a class="button button--primary" href="https://caduceusdemo.netlify.app/">Try the live demo</a></li>
+            <li><a class="button" href="#caduceus-walkthrough">Watch the 2½-minute walkthrough</a></li>
+            <li><a class="button" href="https://github.com/0vertrained/Caduceus">Read the code</a></li>
+          </ul>
+        </div>
+        <dl class="facts">
+          <div><dt>Built with</dt><dd>Python, FastAPI, Postgres, React, TypeScript, Tesseract, Docker</dd></div>
+          <div><dt>Models</dt><dd>Qwen2.5-1.5B on llama.cpp inside the network; Kimi K2.6 on de-identified text</dd></div>
+          <div><dt>Standards</dt><dd>FHIR R4, SMART on FHIR, OpenID Connect, CMS-0057-F</dd></div>
+          <div><dt>Runs on</dt><dd>Google Cloud Run and Netlify</dd></div>
+        </dl>
+      </div>
+
+      <figure class="leaves" data-leaves aria-labelledby="leaves-title">
+        <figcaption class="leaves__intro">
+          <h3 class="leaves__title" id="leaves-title">What leaves the building</h3>
+          <p>Anything that names a patient stays on a small model inside the clinic’s network. Before text goes out to the model that drafts the request, Caduceus takes the identifiers out, stamps the result so it can’t be swapped on the way, and scans it once more. This is its real de-identifier, run on a synthetic referral.</p>
+        </figcaption>
+        <div class="leaves__stage" data-leaves-stage>
+          <section class="leaves__side" aria-labelledby="leaves-inside">
+            <h4 class="leaves__where" id="leaves-inside">Inside Mesa Verde’s network</h4>
+            <p class="leaves__text" data-leaves-source><mark class="leaves__id" data-token="[NAME_1]">Gilbert Romero</mark>, born <mark class="leaves__id" data-token="[DATE_1]">June 12, 1954</mark>, MRN <mark class="leaves__id" data-token="[RECORD_NUMBER_1]">MV-204417</mark>, phone <mark class="leaves__id" data-token="[PHONE_1]">(505)&nbsp;555-0182</mark>. Right knee osteoarthritis, Kellgren–Lawrence grade&nbsp;4 on X-ray. Twelve weeks of physical therapy without relief. Requesting a right total knee replacement.</p>
+            <p class="leaves__who">Read here by Qwen2.5-1.5B, on a CPU beside the app, to summarize the chart.</p>
+          </section>
+          <div class="leaves__edge" aria-hidden="true"><span>Edge of the network</span></div>
+          <section class="leaves__side leaves__side--out" aria-labelledby="leaves-outside">
+            <h4 class="leaves__where" id="leaves-outside">Sent to the drafting model</h4>
+            <p class="leaves__text" data-leaves-result><span class="leaves__token">[NAME_1]</span>, born <span class="leaves__token">[DATE_1]</span>, MRN <span class="leaves__token">[RECORD_NUMBER_1]</span>, phone <span class="leaves__token">[PHONE_1]</span>. Right knee osteoarthritis, Kellgren–Lawrence grade&nbsp;4 on X-ray. Twelve weeks of physical therapy without relief. Requesting a right total knee replacement.</p>
+            <dl class="leaves__checks" data-leaves-checks>
+              <div><dt>Stamped</dt><dd>safe-harbor/1, over the text’s SHA-256 <span translate="no">6c22f8ad…</span></dd></div>
+              <div><dt>Checked at the edge</dt><dd>Stamp verified, scanned again, no identifiers left</dd></div>
+            </dl>
+          </section>
+        </div>
+        <div class="leaves__foot">
+          <p>Across the test suite, 181 identifiers were planted in records and notes. None reached the outside model.</p>
+          <button type="button" class="button button--quiet" data-leaves-run>Send it again</button>
+        </div>
+      </figure>
+
+      <section class="product" aria-labelledby="caduceus-product">
+        <h3 class="section-title" id="caduceus-product">The product</h3>
+        <figure class="walkthrough" id="caduceus-walkthrough">
+          <video controls preload="none" playsinline width="1280" height="800" poster="assets/img/caduceus/walkthrough.webp">
+            <source src="assets/media/caduceus-walkthrough.mp4" type="video/mp4">
+          </video>
+          <figcaption>The 2½-minute walkthrough, from a faxed referral to the insurer’s answer, with captions on screen and no sound.</figcaption>
+        </figure>
+        <div class="screens" data-screens>
+          <ul class="screens__list" tabindex="0" aria-label="Caduceus screens. Scroll sideways for more.">
+            <li><figure><img src="assets/img/caduceus/queue.webp" width="1280" height="800" loading="lazy" decoding="async" alt="The queue, with three faxed referrals at the top, read inside the clinic’s systems."><figcaption>The queue: faxes are read inside the network, then the day’s cases, in plain words.</figcaption></figure></li>
+            <li><figure><img src="assets/img/caduceus/fax-check.webp" width="1280" height="800" loading="lazy" decoding="async" alt="A poorly copied fax, with each field the reader was unsure of set beside the part of the page it came from."><figcaption>Every field the fax reader was unsure of goes to a person, beside the part of the page it came from.</figcaption></figure></li>
+            <li><figure><img src="assets/img/caduceus/case-evidence.webp" width="1280" height="800" loading="lazy" decoding="async" alt="A coverage criterion beside the visit note, with the supporting sentence highlighted."><figcaption>Every criterion that is met opens the page and highlights the sentence behind it.</figcaption></figure></li>
+            <li><figure><img src="assets/img/caduceus/attest.webp" width="1280" height="800" loading="lazy" decoding="async" alt="The ordering clinician’s request to attest: a chart summary written inside the network, then the one question the chart can’t answer."><figcaption>The clinician answers one question, usually on her phone. The chart summary is written inside the network and checked against the record.</figcaption></figure></li>
+            <li><figure><img src="assets/img/caduceus/sent-to-model.webp" width="1280" height="800" loading="lazy" decoding="async" alt="The panel showing exactly what the drafting model was sent, with identifiers taken out and the stamp verified."><figcaption>Every draft shows exactly what the model was sent.</figcaption></figure></li>
+            <li><figure><img src="assets/img/caduceus/where-to-look.webp" width="1280" height="800" loading="lazy" decoding="async" alt="A passage in nine pages of outside therapy notes, offered as where to look rather than as evidence."><figcaption>In a nine-page packet, it shows where to look, and never treats that as evidence.</figcaption></figure></li>
+            <li><figure><img src="assets/img/caduceus/denial.webp" width="1280" height="800" loading="lazy" decoding="async" alt="A denial with the insurer’s specific reason, the policy sentence and the record side by side."><figcaption>A denial, with the insurer’s reason, the policy and the record side by side, and an appeal drafted from them.</figcaption></figure></li>
+            <li><figure><img src="assets/img/caduceus/history.webp" width="1280" height="800" loading="lazy" decoding="async" alt="The case history: every step, who took it and when, in plain words, sealed in a hash chain."><figcaption>Every step, who took it and when, sealed in a hash-chained log.</figcaption></figure></li>
+          </ul>
+          <div class="screens__controls">
+            <button type="button" class="button button--icon" data-screens-prev aria-label="Previous screen"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7"/></svg></button>
+            <button type="button" class="button button--icon" data-screens-next aria-label="Next screen"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
+      </section>
+
+      <section class="evidence" aria-labelledby="caduceus-checked">
+        <h3 class="section-title" id="caduceus-checked">How it’s checked</h3>
+        <table class="scorecard">
+          <thead>
+            <tr><th scope="col">What was measured</th><th scope="col">Result</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Patient identifiers that reached the outside model</th><td>0 of 181 planted</td></tr>
+            <tr><th scope="row">Attacks that worked: an instruction hidden in a note, a tool called out of turn, a send with no approval, a forged stamp</th><td>0 of 4</td></tr>
+            <tr><th scope="row">Wrong fax fields accepted without a person checking them</th><td>0 of 27</td></tr>
+            <tr><th scope="row">Rules engine on 11 cases built to known answers</th><td>47 of 47 criteria</td></tr>
+            <tr><th scope="row">Rules engine on 36 held-out cases with messy records</th><td>88.5%, 4 unsafe errors</td></tr>
+            <tr><th scope="row">Chart-summary sentences that said more than the record, caught before anyone saw them</th><td>3 of 4</td></tr>
+            <tr><th scope="row">Accessibility, axe-core against WCAG 2.2 AA</th><td>0 violations on 50 screens</td></tr>
+            <tr><th scope="row">Automated tests</th><td>389, and 82 more runs on Postgres</td></tr>
+          </tbody>
+        </table>
+        <p class="note">Every number comes from synthetic data, and none is a claim about real patients.</p>
+      </section>
+
+      <section class="lesson" aria-labelledby="caduceus-lesson">
+        <h3 class="section-title" id="caduceus-lesson">The number that went down</h3>
+        <div class="prose">
+          <p>On cases built to known answers, the rules engine was right every time. That was the easy test. So I generated 36 cases it had never seen, with the mess real charts have: diagnoses entered in error, therapy still under way, codes outside the expected lists, arthritis in the other knee. Agreement fell to 88.5%, with 4 unsafe errors, where it called a criterion met when it wasn’t.</p>
+          <p>I published that number, fixed the engine where it was wrong, and left the last two for a clinical reviewer, because changing approved criteria isn’t the software’s call.</p>
+        </div>
+      </section>
+    </article>
+
+    <article class="project" id="overtrained" aria-labelledby="overtrained-title">
+      <header class="project__head">
+        <h2 class="project__title" id="overtrained-title" translate="no">0VERTRAINED</h2>
+        <p class="project__kind">A training app for athletes who lift and race, designed and built alone</p>
+      </header>
+      <div class="project__body">
+        <div class="project__main">
+          <div class="prose">
+            <p>I train for strength and for running races, and I built 0VERTRAINED around how I train. Every screen is mine, from the design system to the data model, and it’s invite-only while it heads to beta.</p>
+          </div>
+          <ul class="actions">
+            <li><a class="button" href="https://0vertrained.netlify.app/"><span>Visit <span translate="no">0VERTRAINED</span></span></a></li>
+          </ul>
+        </div>
+        <dl class="facts">
+          <div><dt>Built with</dt><dd>React, Vite, Supabase, Netlify Functions, Web Push</dd></div>
+          <div><dt>Model</dt><dd>Claude Haiku, for the coach</dd></div>
+          <div><dt>Status</dt><dd>Invite-only, heading to beta</dd></div>
+        </dl>
+      </div>
+
+      <figure class="volume" data-volume>
+        <svg class="volume__chart" viewBox="0 0 720 316" role="img" aria-labelledby="volume-title volume-desc" data-volume-chart>
+          <title id="volume-title">Weekly sets per muscle against volume landmarks, an example week</title>
+          <desc id="volume-desc">Chest 14 sets, back 18, quads 12, hamstrings 9, side delts 18 and biceps 21. Each is drawn against its minimum effective volume, the range where growth is best, and the most a lifter can recover from.</desc>
+        </svg>
+        <figcaption>What the weekly volume audit measures, drawn with example numbers. Each muscle’s sets are set against three landmarks: the least that grows muscle, the range where growth is best, and the most you can recover from.</figcaption>
+      </figure>
+
+      <dl class="features">
+        <div><dt>Recovery</dt><dd>A state machine with six named states, fed by a morning check-in. Each wearable metric comes from the source most trusted for it, and sleep debt is reconciled across them.</dd></div>
+        <div><dt>Training</dt><dd>Progression that respects reps in reserve, estimated one-rep-max trends, weekly sets per muscle against its landmarks, a recovery heatmap, a session runner, and a box score after every session.</dd></div>
+        <div><dt>Food</dt><dd>Calorie needs that adapt to what you eat against how your weight trends, and meal plans from a constraint solver over 50&nbsp;recipes.</dd></div>
+        <div><dt>Coach</dt><dd>An AI coach on Claude Haiku, behind token checks on the server.</dd></div>
+        <div><dt>Engineering</dt><dd>Push notifications scheduled in each athlete’s time zone, atomic Postgres functions, lazy-loaded screens, a seeded demo mode that plays the same way every time, and a security audit with every finding fixed.</dd></div>
+      </dl>
+    </article>
+
+    <article class="project project--wip" id="lattice" aria-labelledby="lattice-title">
+      <header class="project__head">
+        <h2 class="project__title" id="lattice-title" translate="no">Lattice</h2>
+        <p class="project__kind">One intelligence, many bodies: a control plane for a fleet of robots</p>
+      </header>
+      <div class="project__body">
+        <div class="prose">
+          <p>Lattice runs many robots from one place. Missions wait in a queue and are assigned to bodies. Every command is signed and numbered, so a body can’t act on a stale one after its mission has been reassigned, and an interrupted mission goes back to the queue until a body can take it.</p>
+          <p>The core is Rust, split into domain, application and infrastructure crates so the compiler holds the architecture’s boundaries. The control center is React&nbsp;19 with a Three.js scene, and a Python AI gateway and a ROS&nbsp;2 gateway in C++ sit behind protobuf contracts, both still scaffolds.</p>
+        </div>
+        <dl class="facts">
+          <div><dt>Built with</dt><dd>Rust, React 19, Three.js, XState, TanStack Query, Python, C++, Protobuf, Postgres</dd></div>
+          <div><dt>Status</dt><dd>The first of eight milestones</dd></div>
+        </dl>
+      </div>
+
+      <figure class="fleet" data-fleet>
+        <div class="fleet__stage">
+          <svg class="fleet__map" viewBox="0 0 640 340" aria-hidden="true" focusable="false" data-fleet-map></svg>
+          <ol class="fleet__log" data-fleet-log aria-hidden="true"></ol>
+        </div>
+        <figcaption>
+          <span>A simulation of what Lattice’s first milestone does with mock bodies: missions assigned and numbered, one interrupted and requeued, and a stale command refused.</span>
+          <button type="button" class="button button--quiet" data-fleet-toggle aria-pressed="false">Pause</button>
+        </figcaption>
+      </figure>
+
+      <p class="status">The first milestone, a working slice on mock bodies, is in place. Seven service-level integration tests cover assignment, queueing, command order, expiry, who may report a result, stale commands after reassignment, and interrupted work going back to the queue.</p>
+    </article>
+
+    <article class="project project--wip" id="workload" aria-labelledby="workload-title">
+      <header class="project__head">
+        <h2 class="project__title" id="workload-title">AI Workload and Release Platform</h2>
+        <p class="project__kind">Interactive and batch inference on one pool of capacity</p>
+      </header>
+      <div class="project__body">
+        <div class="prose">
+          <p>A platform for running language models on shared hardware: interactive requests and batch jobs draw on the same pool, served by llama.cpp. I’m building it from a spec I wrote first, and Caduceus names it as one of the servers its in-network model can run on.</p>
+        </div>
+        <dl class="facts">
+          <div><dt>Built with</dt><dd>Rust, TypeScript, PostgreSQL, llama.cpp</dd></div>
+          <div><dt>Status</dt><dd>In build, from its second spec</dd></div>
+        </dl>
+      </div>
+    </article>
+
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+      <h2 class="contact__title" id="contact-title">Contact</h2>
+      <p>The quickest way to reach me is a message on LinkedIn.</p>
+      <a class="button button--primary" href="https://www.linkedin.com/in/rami-m-2931099b">Message me on LinkedIn</a>
+    </section>
+  </main>
+
+  <footer class="colophon">
+    <p>© 2026 Rami. Set in Archivo and Source Serif&nbsp;4. The light on my name follows NOAA’s solar equations for Santa Fe and a short series for the moon. It’s worked out in your browser, and nothing about your visit is tracked.</p>
+  </footer>
+</body>
+</html>
