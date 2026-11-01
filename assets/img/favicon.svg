@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <style>
+    .ground { fill: #17212b; }
+    .shadow { fill: #0b1117; }
+    .letter { fill: #edefea; }
+    @media (prefers-color-scheme: dark) {
+      .ground { fill: #edefea; }
+      .shadow { fill: #b9bcb4; }
+      .letter { fill: #17212b; }
+    }
+  </style>
+  <rect class="ground" width="32" height="32" rx="7"/>
+  <path class="shadow" d="M11 9h7.2c3.7 0 6 2 6 5.1 0 2.3-1.3 3.9-3.4 4.6l4 6.3h-4.6l-3.5-5.7h-1.6V25H11z"/>
+  <path class="letter" d="M8 7h7.2c3.7 0 6 2 6 5.1 0 2.3-1.3 3.9-3.4 4.6l4 6.3h-4.6l-3.5-5.7h-1.6V23H8zm4.1 3.3v4.3h2.9c1.5 0 2.3-.8 2.3-2.2 0-1.3-.8-2.1-2.3-2.1z"/>
+</svg>
