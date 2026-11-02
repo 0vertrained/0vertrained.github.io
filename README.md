@@ -12,7 +12,7 @@ JavaScript; the scripts add the parts that move.
   is a native range input, so it works by keyboard and screen reader. Where WebGL 2 is missing, the name is drawn
   in CSS with a shadow cast the same way.
 - **What leaves the building.** `assets/js/leaves.js` animates the real output of Caduceus's de-identifier.
-- **Lattice evidence.** `assets/js/lattice.js` replays recorded Gazebo map poses from a verified inspection. The section includes actual camera evidence, Control Center imagery, measured model results and downloadable evaluation/run artifacts. The replay has no connection to a live robot.
+- **Lattice evidence.** `assets/js/lattice.js` replays 271 measured Gazebo map poses from a complete inspection round, including an anomaly and reviewed restart recovery. The section includes a captioned video, actual camera evidence, Control Center imagery and downloadable evaluation/run artifacts. The replay has no connection to a live robot.
 
 Motion follows `prefers-reduced-motion`, colour follows `prefers-color-scheme`, and nothing is tracked.
 
@@ -27,3 +27,18 @@ python3 -m http.server 8000
 ## Credits
 
 Set in Archivo and Source Serif 4, both under the SIL Open Font License (`assets/fonts/`).
+
+## Lattice guided demo
+
+`lattice/` is a generated static build from `0vertrained/Lattice`, with a five-chapter
+walkthrough and optional 3D replay. It requires JavaScript; the portfolio case study
+and video remain available without it. The demo makes no robot API calls. Rebuild it
+from the Lattice checkout with:
+
+```bash
+node scripts/export-portfolio-demo.mjs /path/to/this/portfolio
+```
+
+The main portfolio retains its existing HTML/CSS and design. The Lattice project
+also includes `netlify.toml` for independent hosting; authenticated Cloud Run
+services still require provisioning.

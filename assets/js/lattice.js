@@ -1,9 +1,9 @@
 // Replays checked-in telemetry from a real Gazebo mission. Never contacts a robot API.
 export async function initLattice(root) {
-  const response = await fetch(new URL('../data/lattice-run.json', import.meta.url));
+  const response = await fetch(new URL('../data/lattice-round.json', import.meta.url));
   if (!response.ok) throw new Error('Recorded Lattice run unavailable');
   const run = await response.json();
-  const frames = run.frames;
+  const frames = run.poses;
   if (!Array.isArray(frames) || frames.length < 2 || frames.some(f =>
     !Number.isFinite(f.t) || !Number.isFinite(f.x) || !Number.isFinite(f.y) || !Number.isFinite(f.yaw))) {
     throw new Error('Recorded Lattice telemetry is invalid');
@@ -24,7 +24,8 @@ export async function initLattice(root) {
     rover.setAttribute('visibility', 'visible');
     slider.value = String(index);
     clock.textContent = `${f.t.toFixed(1)} s`;
-    state.textContent = `${f.status} · ${f.progress}% · map position ${f.x.toFixed(2)}, ${f.y.toFixed(2)} m. Recorded ${run.recorded_at.slice(0,10)}.`;
+    const event = run.events.findLast(e => e.t <= f.t);
+    state.textContent = `${event?.title ?? f.status} · map position ${f.x.toFixed(2)}, ${f.y.toFixed(2)} m. Recorded ${run.recorded_at.slice(0,10)}.`;
   }
   function stop() {
     clearTimeout(timer); timer = null;
