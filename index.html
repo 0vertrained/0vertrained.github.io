@@ -72,7 +72,7 @@
         <ul>
           <li><a href="#caduceus"><span class="index__name" translate="no">Caduceus</span> <span class="index__what">An AI agent for prior authorization</span></a></li>
           <li><a href="#overtrained"><span class="index__name" translate="no">0VERTRAINED</span> <span class="index__what">A training app for athletes who lift and race</span></a></li>
-          <li><a href="#lattice"><span class="index__name" translate="no">Lattice</span> <span class="index__what">Approved robot missions with camera evidence</span></a></li>
+          <li><a href="#lattice"><span class="index__name" translate="no">Lattice</span> <span class="index__what">Robot missions that retain memory across bodies</span></a></li>
           <li><a href="#workload"><span class="index__name">AI Workload and Release Platform</span> <span class="index__what">Language models on shared capacity</span></a></li>
         </ul>
       </nav>
@@ -261,12 +261,12 @@
     <article class="project" id="lattice" aria-labelledby="lattice-title">
       <header class="project__head">
         <h2 class="project__title" id="lattice-title" translate="no">Lattice</h2>
-        <p class="project__kind">A warehouse round that finds an exception, survives an interruption and finishes.</p>
+        <p class="project__kind">One mission, shared memory and a reviewed handoff between two rovers.</p>
       </header>
       <div class="project__body">
         <div class="project__main">
           <div class="prose">
-            <p>Inspect two stations, report a missing safety marker, and return to charge. Lattice turns that objective into a reviewed three-step round. A rover navigates the warehouse and captures camera evidence at each station. During its return, I deliberately kill the core service: the rover stops, its history survives, and a fresh approval lets it finish.</p>
+            <p>One rover inspects a warehouse station. A second takes over the unfinished route, keeps the first rover’s camera evidence, checks the loading dock and returns to charge. Lattice holds the objective and observation history while the bodies change. The operator reviews the exact transfer, and the second rover verifies the retained image before it moves.</p>
             <p>I built this to connect applied machine learning with the parts of robotics that have to keep working when the model is uncertain or a connection disappears. The Rust core owns approval and command signing. A separate Rust body agent verifies every command before the C++ gateway can pass it to ROS&nbsp;2 and Nav2. Python supplies the model’s proposal and perception result.</p>
           </div>
           <ul class="actions">
@@ -277,11 +277,25 @@
         </div>
         <dl class="facts">
           <div><dt>Built with</dt><dd>Rust, React, TypeScript, C++20, ROS 2 Jazzy, Nav2, Gazebo, Python, scikit-learn, OpenCV, PostgreSQL, OIDC</dd></div>
-          <div><dt>What runs</dt><dd>Reviewed inspection rounds, camera evidence, persistent history and restart recovery</dd></div>
+          <div><dt>What runs</dt><dd>Reviewed rounds, shared observation memory, two-rover continuation and restart recovery</dd></div>
           <div><dt>My focus</dt><dd>ML evaluation, robot integration, execution boundaries and observable failures</dd></div>
-          <div><dt>Scope</dt><dd>One simulated rover. User roles and scoped device credentials tested with Keycloak. No physical robot or general-purpose LLM.</dd></div>
+          <div><dt>Scope</dt><dd>Two simulated rovers in one Gazebo world. User roles and scoped device credentials are tested separately. Different body types, physical hardware and general-purpose planning remain future work.</dd></div>
         </dl>
       </div>
+
+      <section class="product" aria-labelledby="lattice-continuity-title">
+        <h3 class="section-title" id="lattice-continuity-title">Change the body, keep the objective</h3>
+        <div class="prose">
+          <p>The new four-step demonstration runs two independently localized rovers in the same warehouse. Rover A completes the bay inspection. When its next step is paused for transfer, the core withdraws its motion authorization and waits for the old signed command to expire. A reviewed continuation gives Rover B the remaining three steps and the original observation.</p>
+          <p>Shared memory answers where the supported marker was last seen, with its observing body, timestamp, detector version and original image. A later image with no detection stays visible as counter-evidence. These records describe a marker class at a station; they do not claim to track an individual object or reconstruct its world position.</p>
+        </div>
+        <ul class="actions">
+          <li><a class="button button--primary" href="lattice/#handoff">Explore the two-rover continuation</a></li>
+          <li><a class="button" href="lattice/demo/handoff.json" download>Download the two-rover run</a></li>
+          <li><a class="button" href="https://github.com/0vertrained/Lattice/blob/main/docs/HANDOFF.md">Read the handoff protocol</a></li>
+        </ul>
+        <p class="note">The demo replays measured simulator poses and retained camera images. It proves continuity between two instances of the same rover type. The earlier restart-recovery experiment remains available below.</p>
+      </section>
 
       <section class="product" id="lattice-run" aria-labelledby="lattice-title lattice-execution-title">
         <h3 class="section-title" id="lattice-execution-title">One round, including the interruption</h3>
@@ -333,6 +347,7 @@
         <h3 class="section-title" id="lattice-product">The product</h3>
         <div class="screens" data-screens>
           <ul class="screens__list" tabindex="0" aria-label="Lattice screens. Scroll sideways for more.">
+            <li><figure><img src="assets/img/lattice/shared-memory-handoff.png" width="1328" height="1348" loading="lazy" decoding="async" alt="Lattice’s completed two-rover replay: Rover A remains at the inspection bay while Rover B finishes the loading-dock route and returns to charge."><figcaption>The measured continuation keeps A’s completed inspection and original evidence while B finishes the remaining route. Both body paths share the same map.</figcaption></figure></li>
             <li><figure><img src="assets/img/lattice/review.webp" width="1440" height="1000" loading="lazy" decoding="async" alt="Lattice’s review screen, with the original request, grounded inspection command, model score and approval deadline."><figcaption>Before anything moves, the operator reviews the exact command. Editing the request requires a new proposal.</figcaption></figure></li>
             <li><figure><img src="assets/img/lattice/round-evidence.webp" width="1280" height="960" loading="lazy" decoding="async" alt="Lattice guided demo showing the detected marker at the bay and the missing-marker image at the dock."><figcaption>Both camera outcomes remain available with model and image provenance. A failed inspection can be useful evidence.</figcaption></figure></li>
             <li><figure><img src="assets/img/lattice/control-center.webp" width="1440" height="1250" loading="lazy" decoding="async" alt="Lattice Control Center showing the rover’s map position and a completed inspection with camera evidence."><figcaption>After arrival, the mission shows the camera image, detected marker and model score beside the rover’s reported position.</figcaption></figure></li>
@@ -342,7 +357,7 @@
             <button type="button" class="button button--icon" data-screens-next aria-label="Next screen"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></button>
           </div>
         </div>
-        <p class="note">Captured from the working local simulator. The replay and camera image above come from the same recorded round. The guided tour also preserves the failed dock inspection.</p>
+        <p class="note">The two-rover screen replays the new measured handoff. The earlier review, inspection and recovery screens remain here for comparison. Both guided scenarios retain their original camera evidence.</p>
       </section>
 
       <dl class="features" aria-label="How a Lattice mission runs">
@@ -350,6 +365,8 @@
         <div><dt>Approve</dt><dd>The core binds the full plan and its failure policy to a digest. PostgreSQL commits approval, commands and audit records together. Altered or expired reviews fail; retries do not duplicate dispatch.</dd></div>
         <div><dt>Navigate</dt><dd>The body checks the signature, target, sequence and deadline before passing the goal to Nav2. Local speed limits and connection watchdogs remain in control.</dd></div>
         <div><dt>Inspect</dt><dd>A fresh image becomes a detection result with model identity and image hashes. A missing marker may continue only under the reviewed policy; a capture or navigation failure stops the round.</dd></div>
+        <div><dt>Remember</dt><dd>Validated observations retain their source body, capture time, confidence scope and image hash. Later negative evidence does not erase a prior positive sighting.</dd></div>
+        <div><dt>Continue</dt><dd>A frozen handoff binds the source, target, unfinished steps and retained evidence. The replacement body fetches and verifies that evidence, acknowledges its context, and continues without repeating completed steps.</dd></div>
       </dl>
 
       <section class="evidence" aria-labelledby="lattice-title lattice-results-title">
@@ -365,6 +382,10 @@
             <tr><th scope="row">Observed stop after core interruption / drift measured afterward</th><td>0.34 s / 1.76 cm</td></tr>
             <tr><th scope="row">Images retained across restart / completed round after fresh approval</th><td>2 / passed</td></tr>
             <tr><th scope="row">User roles, robot identity binding/revocation, immutable rounds and old-revision fencing</th><td>Checks passed</td></tr>
+            <tr><th scope="row">Four-step round completed across two real simulated rovers</th><td>141.039 s / 996 recorded poses</td></tr>
+            <tr><th scope="row">Source stop after handoff preparation / drift while held</th><td>1.453 s / 2.04 cm</td></tr>
+            <tr><th scope="row">Remaining steps completed by Rover B / completed steps repeated</th><td>3 / 0</td></tr>
+            <tr><th scope="row">Retained image verified by replacement body before ROS dispatch</th><td>Passed</td></tr>
           </tbody>
         </table>
         <p class="note">Three clear requests also triggered clarification. These small language and synthetic-image test sets do not establish adversarial robustness or physical-camera accuracy. <a href="assets/data/lattice-evaluation.json" download>Read the complete evaluation.</a></p>
