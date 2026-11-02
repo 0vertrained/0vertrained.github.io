@@ -12,8 +12,7 @@ JavaScript; the scripts add the parts that move.
   is a native range input, so it works by keyboard and screen reader. Where WebGL 2 is missing, the name is drawn
   in CSS with a shadow cast the same way.
 - **What leaves the building.** `assets/js/leaves.js` animates the real output of Caduceus's de-identifier.
-- **The figures.** `assets/js/volume.js` draws 0VERTRAINED's volume audit and `assets/js/fleet.js` simulates
-  Lattice's first milestone. Both draw at their real width, so their type stays legible on a phone.
+- **Lattice evidence.** `assets/js/lattice.js` replays recorded Gazebo map poses from a verified inspection. The section includes actual camera evidence, Control Center imagery, measured model results and downloadable evaluation/run artifacts. The replay has no connection to a live robot.
 
 Motion follows `prefers-reduced-motion`, colour follows `prefers-color-scheme`, and nothing is tracked.
 

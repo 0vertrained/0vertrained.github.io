@@ -10,7 +10,7 @@ export function initScreens(root) {
     const start = list.getBoundingClientRect().left + parseFloat(getComputedStyle(list).scrollPaddingLeft || "0");
     const current = items.findIndex((item) => item.getBoundingClientRect().left >= start - 4);
     const target = items[Math.max(0, Math.min(items.length - 1, (current === -1 ? items.length - 1 : current) + direction))];
-    list.scrollTo({ left: target.offsetLeft - items[0].offsetLeft, behavior: "smooth" });
+    list.scrollTo({ left: target.offsetLeft - items[0].offsetLeft, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
   };
 
   const update = () => {

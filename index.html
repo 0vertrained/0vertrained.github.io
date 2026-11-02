@@ -72,7 +72,7 @@
         <ul>
           <li><a href="#caduceus"><span class="index__name" translate="no">Caduceus</span> <span class="index__what">An AI agent for prior authorization</span></a></li>
           <li><a href="#overtrained"><span class="index__name" translate="no">0VERTRAINED</span> <span class="index__what">A training app for athletes who lift and race</span></a></li>
-          <li><a href="#lattice"><span class="index__name" translate="no">Lattice</span> <span class="index__what">A control plane for a fleet of robots</span></a></li>
+          <li><a href="#lattice"><span class="index__name" translate="no">Lattice</span> <span class="index__what">Approved robot missions with camera evidence</span></a></li>
           <li><a href="#workload"><span class="index__name">AI Workload and Release Platform</span> <span class="index__what">Language models on shared capacity</span></a></li>
         </ul>
       </nav>
@@ -258,34 +258,111 @@
       </section>
     </article>
 
-    <article class="project project--wip" id="lattice" aria-labelledby="lattice-title">
+    <article class="project" id="lattice" aria-labelledby="lattice-title">
       <header class="project__head">
         <h2 class="project__title" id="lattice-title" translate="no">Lattice</h2>
-        <p class="project__kind">One intelligence, many bodies: a control plane for a fleet of robots</p>
+        <p class="project__kind">From a sentence to a signed robot command—and an image of what happened.</p>
       </header>
       <div class="project__body">
-        <div class="prose">
-          <p>Lattice runs many robots from one place. Missions wait in a queue and are assigned to bodies. Every command is signed and numbered, so a body can’t act on a stale one after its mission has been reassigned, and an interrupted mission goes back to the queue until a body can take it.</p>
-          <p>The core is Rust, split into domain, application and infrastructure crates so the compiler holds the architecture’s boundaries. The control center is React&nbsp;19 with a Three.js scene, and a Python AI gateway and a ROS&nbsp;2 gateway in C++ sit behind protobuf contracts, both still scaffolds.</p>
+        <div class="project__main">
+          <div class="prose">
+            <p>“Inspect the safety marker at the inspection bay.” Lattice turns that request into a typed proposal, waits for an operator to approve the exact command, then sends a rover through a simulated warehouse. When it arrives, a camera captures the scene and a trained detector looks for the marker. The mission ends with an image, a score and a trace back to the original request.</p>
+            <p>I built this to connect applied machine learning with the parts of robotics that have to keep working when the model is uncertain or a connection disappears. The Rust core owns approval and command signing. A separate Rust body agent verifies every command before the C++ gateway can pass it to ROS&nbsp;2 and Nav2. Python supplies the model’s proposal and perception result.</p>
+          </div>
+          <ul class="actions">
+            <li><a class="button button--primary" href="#lattice-run">Explore the recorded run</a></li>
+            <li><a class="button" href="https://github.com/0vertrained/Lattice">Read the code</a></li>
+            <li><a class="button" href="https://github.com/0vertrained/Lattice/blob/main/docs/INTELLIGENCE_DEMO.md">Run the demo</a></li>
+          </ul>
         </div>
         <dl class="facts">
-          <div><dt>Built with</dt><dd>Rust, React 19, Three.js, XState, TanStack Query, Python, C++, Protobuf, Postgres</dd></div>
-          <div><dt>Status</dt><dd>The first of nine milestones</dd></div>
+          <div><dt>Built with</dt><dd>Rust, React, TypeScript, C++20, ROS 2 Jazzy, Nav2, Gazebo, Python, scikit-learn, OpenCV</dd></div>
+          <div><dt>What runs</dt><dd>Local CPU inference, approved missions, simulated navigation and camera inspection</dd></div>
+          <div><dt>My focus</dt><dd>ML evaluation, robot integration, execution boundaries and observable failures</dd></div>
+          <div><dt>Scope</dt><dd>Single-operator simulation. No physical robot or general-purpose LLM.</dd></div>
         </dl>
       </div>
 
-      <figure class="fleet" data-fleet>
-        <div class="fleet__stage">
-          <svg class="fleet__map" viewBox="0 0 640 340" aria-hidden="true" focusable="false" data-fleet-map></svg>
-          <ol class="fleet__log" data-fleet-log aria-hidden="true"></ol>
+      <section class="product" id="lattice-run" aria-labelledby="lattice-title lattice-execution-title">
+        <h3 class="section-title" id="lattice-execution-title">One recorded inspection</h3>
+        <p class="prose">This replay uses map poses reported by the Gazebo rover during an actual inspection mission. Scrub through the run to follow its route. The image alongside it is the camera evidence returned by that mission.</p>
+        <div class="lattice-evidence" data-lattice-replay>
+          <figure class="walkthrough lattice-replay">
+            <svg viewBox="0 0 640 420" role="img" aria-label="Warehouse map showing the recorded rover path to the inspection bay">
+              <rect x="30" y="30" width="580" height="360" rx="5" class="lattice-map__floor"/>
+              <path d="M320 30V390M30 210H610" class="lattice-map__grid"/>
+              <rect x="415.7" y="169.5" width="40.6" height="81" class="lattice-map__shelf"/>
+              <text x="436" y="270" text-anchor="middle" class="lattice-map__label">Shelf</text>
+              <circle cx="320" cy="97.5" r="13" class="lattice-map__goal"/>
+              <text x="320" y="65" text-anchor="middle" class="lattice-map__label">Inspection bay</text>
+              <circle cx="523" cy="210" r="7" class="lattice-map__dock"/>
+              <text x="523" y="238" text-anchor="middle" class="lattice-map__label">Loading dock</text>
+              <text x="48" y="370" class="lattice-map__label">10 × 8 m · map frame</text>
+              <polyline points="" class="lattice-map__path" data-lattice-path/>
+              <g data-lattice-rover visibility="hidden"><circle r="10" class="lattice-map__rover"/><path d="M0 0L19 0" class="lattice-map__heading"/></g>
+            </svg>
+            <div class="lattice-replay__controls" hidden data-lattice-controls>
+              <button type="button" class="button button--quiet" data-lattice-play aria-pressed="false">Play recorded run</button>
+              <label for="lattice-time">Mission time <output id="lattice-clock" for="lattice-time">0.0 s</output></label>
+              <input id="lattice-time" type="range" min="0" max="1" value="0" step="1" aria-describedby="lattice-replay-state" data-lattice-time>
+            </div>
+            <figcaption id="lattice-replay-state" data-lattice-state>Recorded telemetry loads when JavaScript is available. The images and findings below remain available without it.</figcaption>
+          </figure>
+          <figure class="walkthrough lattice-camera">
+            <img src="assets/img/lattice/inspection.webp" width="320" height="240" loading="lazy" decoding="async" alt="Actual Gazebo camera image with a detected red octagonal safety marker outlined in green">
+            <figcaption><a href="assets/img/lattice/inspection.jpg" download>Download the original annotated JPEG</a> (hash in the recorded run). The detector’s displayed score is calibrated on synthetic marker crops, not physical cameras.</figcaption>
+          </figure>
         </div>
-        <figcaption>
-          <span>A simulation of what Lattice’s first milestone does with mock bodies: missions assigned and numbered, one interrupted and requeued, and a stale command refused.</span>
-          <button type="button" class="button button--quiet" data-fleet-toggle aria-pressed="false">Pause</button>
-        </figcaption>
-      </figure>
+        <p class="note"><a href="assets/data/lattice-run.json" download>Download this recorded run</a> · <a href="assets/data/lattice-evaluation.json" download>Download the model evaluation</a>. These are recorded artifacts; this page does not connect to or control a robot.</p>
+      </section>
 
-      <p class="status">The first milestone, a working slice on mock bodies, is in place. Seven service-level integration tests cover assignment, queueing, command order, expiry, who may report a result, stale commands after reassignment, and interrupted work going back to the queue.</p>
+      <section class="product" aria-labelledby="lattice-title lattice-product">
+        <h3 class="section-title" id="lattice-product">The product</h3>
+        <div class="screens" data-screens>
+          <ul class="screens__list" tabindex="0" aria-label="Lattice screens. Scroll sideways for more.">
+            <li><figure><img src="assets/img/lattice/review.webp" width="1440" height="1000" loading="lazy" decoding="async" alt="Lattice’s review screen, with the original request, grounded inspection command, model score and approval deadline."><figcaption>Before anything moves, the operator reviews the exact command. Editing the request requires a new proposal.</figcaption></figure></li>
+            <li><figure><img src="assets/img/lattice/control-center.webp" width="1440" height="1250" loading="lazy" decoding="async" alt="Lattice Control Center showing the rover’s map position and a completed inspection with camera evidence."><figcaption>After arrival, the mission shows the camera image, detected marker and model score beside the rover’s reported position.</figcaption></figure></li>
+          </ul>
+          <div class="screens__controls">
+            <button type="button" class="button button--icon" data-screens-prev aria-label="Previous screen"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7"/></svg></button>
+            <button type="button" class="button button--icon" data-screens-next aria-label="Next screen"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
+        <p class="note">Captured from the working local simulator. The replay and camera image above come from the same recorded inspection.</p>
+      </section>
+
+      <dl class="features" aria-label="How a Lattice mission runs">
+        <div><dt>Propose</dt><dd>A trained intent classifier chooses a skill. Explicit rules resolve one warehouse location and bound speed. Unclear requests become clarification or rejection.</dd></div>
+        <div><dt>Approve</dt><dd>The Rust core stores the proposal and its digest. Approval applies to that exact command. Altered or expired proposals fail, and approval retries return the same mission.</dd></div>
+        <div><dt>Navigate</dt><dd>The body checks the signature, target, sequence and deadline before passing the goal to Nav2. Local speed limits and connection watchdogs remain in control.</dd></div>
+        <div><dt>Inspect</dt><dd>A fresh image captured after arrival becomes a detection result. The trace keeps the model identity, capture time, command association and image hashes.</dd></div>
+      </dl>
+
+      <section class="evidence" aria-labelledby="lattice-title lattice-results-title">
+        <h3 class="section-title" id="lattice-results-title">How it’s checked</h3>
+        <table class="scorecard">
+          <thead><tr><th scope="col">What was measured</th><th scope="col">Result</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Clear requests resolved to the correct skill and destination on held-out language cases</th><td>9 of 12</td></tr>
+            <tr><th scope="row">Ambiguous, unsupported and adversarial requests that the planner declined to execute</th><td>24 of 24</td></tr>
+            <tr><th scope="row">Marker precision on 600 separate synthetic crops, at the 0.8 score threshold</th><td>100%</td></tr>
+            <tr><th scope="row">Marker recall on the same synthetic test set</th><td>98.3%</td></tr>
+            <tr><th scope="row">Live simulator inspections with a visible marker and with no marker in view</th><td>Both passed</td></tr>
+            <tr><th scope="row">Changed approvals, direct dispatch, repeated approvals and connection-loss stopping</th><td>Checks passed</td></tr>
+          </tbody>
+        </table>
+        <p class="note">Three clear requests also triggered clarification. These small language and synthetic-image test sets do not establish adversarial robustness or physical-camera accuracy. <a href="assets/data/lattice-evaluation.json" download>Read the complete evaluation.</a></p>
+      </section>
+
+      <section class="lesson" aria-labelledby="lattice-lesson">
+        <h3 class="section-title" id="lattice-lesson">The marker the model couldn’t see</h3>
+        <div class="prose">
+          <p>The synthetic tests passed, but the first live camera inspection failed. The mesh material rendered white in Gazebo, while the detector was trained to find red markers. It returned no detection, and Lattice kept the failed outcome and the image.</p>
+          <p>That image exposed the rendering problem. I fixed the asset without lowering the model’s threshold to hide the failure. The next run detected the marker; an inspection facing away from it still failed with its image preserved.</p>
+          <p>The same approach applies to the rest of the system: test the occupied destination, interrupt the connection, change the approval and retry it. A successful model call only becomes a successful mission when execution produces the required evidence.</p>
+        </div>
+        <p class="note">The current release uses disposable core state and a development key. Larger language evaluations, more camera conditions, persistent storage and physical hardware validation remain separate milestones.</p>
+      </section>
     </article>
 
     <article class="project project--wip" id="workload" aria-labelledby="workload-title">
