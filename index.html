@@ -261,27 +261,46 @@
     <article class="project" id="lattice" aria-labelledby="lattice-title">
       <header class="project__head">
         <h2 class="project__title" id="lattice-title" translate="no">Lattice</h2>
-        <p class="project__kind">One objective, shared memory and a body chosen for each part of the route.</p>
+        <p class="project__kind">Robot missions that keep their objective when the route or body changes.</p>
       </header>
       <div class="project__body">
         <div class="project__main">
           <div class="prose">
-            <p>A rover inspects a warehouse station and drives to a stair landing. The route planner identifies its missing stairs capability, chooses a staged Go1 quadruped and holds the remaining objective for a reviewed handoff. The Go1 verifies the rover’s original image, climbs three small steps and inspects the upper station. The objective and observation history stay with Lattice while the body changes.</p>
+            <p>A rover inspects a warehouse station, then finds its route blocked. Lattice holds the objective and prepares a west-aisle detour for review, keeping the completed inspection and its camera evidence. At the stair landing, a separately approved handoff lets a Go1 quadruped verify that evidence, climb three small steps and inspect the upper station. The route and body change; the objective and observation history stay with Lattice.</p>
             <p>I built this to connect applied machine learning with the parts of robotics that have to keep working when the model is uncertain or a connection disappears. The Rust core owns route planning, approval and command signing. Separate Rust body agents verify commands and retained evidence before dispatch to ROS&nbsp;2/Nav2 or the MuJoCo gateway. I integrated a published locomotion policy; Python also supplies language classification and marker detection.</p>
           </div>
           <ul class="actions">
-            <li><a class="button button--primary" href="lattice/#capability">Explore the guided demo</a></li>
+            <li><a class="button button--primary" href="lattice/#adaptive">Explore the guided demo</a></li>
             <li><a class="button" href="https://github.com/0vertrained/Lattice">Read the code</a></li>
-            <li><a class="button" href="https://github.com/0vertrained/Lattice/blob/main/docs/CAPABILITY_ROUTES.md">Run the demo</a></li>
+            <li><a class="button" href="https://github.com/0vertrained/Lattice/blob/main/docs/ADAPTIVE_DEMO.md">Run the demo</a></li>
           </ul>
         </div>
         <dl class="facts">
           <div><dt>Built with</dt><dd>Rust, React, TypeScript, C++20, ROS 2 Jazzy, Nav2, Gazebo, MuJoCo, Python, NumPy, scikit-learn, OpenCV, PostgreSQL, OIDC</dd></div>
-          <div><dt>What runs</dt><dd>Capability-based route plans, rover-to-Go1 continuation, shared observation memory and reviewed recovery</dd></div>
+          <div><dt>What runs</dt><dd>Lidar-backed route conditions, reviewed detours, rover-to-Go1 continuation and retained observation memory</dd></div>
           <div><dt>My focus</dt><dd>ML evaluation, robot integration, execution boundaries and observable failures</dd></div>
           <div><dt>Scope</dt><dd>A Gazebo rover and MuJoCo Go1 in separate physics worlds sharing a semantic map. Three 5&nbsp;cm steps; physical-hardware validation remains future work.</dd></div>
         </dl>
       </div>
+
+      <section class="product" aria-labelledby="lattice-adaptive-title">
+        <h3 class="section-title" id="lattice-adaptive-title">Keep the objective when the route changes</h3>
+        <div class="prose">
+          <p>The latest experiment inserts a collision-enabled obstacle into Gazebo after the rover is staged, outside its static occupancy map. Real simulated lidar returns block the direct route. The local controller stops, and the core holds the round while an operator reviews an alternate path. The completed bay inspection stays completed, with its original image still attached.</p>
+          <p>The new review binds the remaining route to the current condition revision. A stale review cannot silently clear a newer sensor report or restart motion. After approval and the old command’s expiry fence, the rover follows the west aisle to the same transfer point. The Go1 handoff still needs its own approval and evidence acknowledgement.</p>
+        </div>
+        <ul class="actions">
+          <li><a class="button button--primary" href="lattice/#adaptive">Explore the blocked-route continuation</a></li>
+          <li><a class="button" href="lattice/demo/adaptive-route.json" download>Download the adaptive run</a></li>
+          <li><a class="button" href="lattice/demo/adaptive-blockage-scan.json" download>Inspect the original lidar scan</a></li>
+        </ul>
+        <figure class="walkthrough">
+          <img src="assets/img/lattice/adaptive-route.png" width="1015" height="537" loading="lazy" decoding="async" alt="Lattice’s reviewed west-aisle detour in green, the blocked direct segment dashed in amber, and orange dots from the original lidar scan">
+          <figcaption>Inspection bay → west aisle → stair landing → upper station. This reviewed semantic route shows the original scan returns transformed by the recorded sensor pose. The guided demo verifies the scan’s SHA-256 before drawing the points. The lidar reports a blocked corridor; it does not identify the object as a box.</figcaption>
+        </figure>
+        <p class="note">The selected blocked-aisle run completed in 113.2&nbsp;s, including a 46.8-second hold for review and the command-expiry fence. Preparing the revised review took 35.0&nbsp;ms including the request and persistence. One completed inspection was preserved, with none repeated. Its 117.3-second recording includes a final standing interval.</p>
+        <p class="note">These are bounded simulation measurements. The earlier capability, handoff and restart-recovery experiments remain below, with their own recordings and camera evidence.</p>
+      </section>
 
       <section class="product" aria-labelledby="lattice-capability-title">
         <h3 class="section-title" id="lattice-capability-title">Choose the body for the route</h3>
@@ -371,7 +390,7 @@
             <track kind="captions" src="assets/video/lattice-showcase.vtt" srclang="en" label="English explanation" default>
             <a href="assets/video/lattice-showcase.mp4">Download the walkthrough video</a>.
           </video>
-          <figcaption>A captioned tour of the measured route, both camera outcomes and reviewed recovery. The 3D view reconstructs recorded poses; the images come from the Gazebo camera. <a href="lattice/">Try the interactive version.</a></figcaption>
+          <figcaption>A captioned tour of the measured route, both camera outcomes and reviewed recovery. The 3D view reconstructs recorded poses; the images come from the Gazebo camera. <a href="lattice/#single">Try the interactive version.</a></figcaption>
         </figure>
       </section>
 
@@ -399,6 +418,7 @@
         <div><dt>Navigate</dt><dd>The body checks the signature, target, sequence and deadline before passing the route to its local controller. Nav2 handles the rover; a pretrained policy drives the Go1’s joints in MuJoCo. Local limits and connection watchdogs remain in control.</dd></div>
         <div><dt>Inspect</dt><dd>A fresh image becomes a detection result with model identity and image hashes. A missing marker may continue only under the reviewed policy; a capture or navigation failure stops the round.</dd></div>
         <div><dt>Remember</dt><dd>Validated observations retain their source body, capture time, confidence scope and image hash. Later negative evidence does not erase a prior positive sighting.</dd></div>
+        <div><dt>Adapt</dt><dd>A measured blockage holds the current round. A fresh review preserves completed work and proposes only the remaining route, with current conditions and a new approval. Clearing a condition is explicit and does not resume motion.</dd></div>
         <div><dt>Continue</dt><dd>A frozen handoff binds the source, target, unfinished steps and retained evidence. The replacement body fetches and verifies that evidence, acknowledges its context, and continues without repeating completed steps.</dd></div>
       </dl>
 
@@ -419,14 +439,17 @@
             <tr><th scope="row">Source stop after handoff preparation / drift while held</th><td>1.453 s / 2.04 cm</td></tr>
             <tr><th scope="row">Remaining steps completed by Rover B / completed steps repeated</th><td>3 / 0</td></tr>
             <tr><th scope="row">Retained image verified by replacement body before ROS dispatch</th><td>Passed</td></tr>
-            <tr><th scope="row">Deterministic route cases covering capabilities, staging, blocked segments and refusal paths</th><td>20 of 20 fixed cases</td></tr>
+            <tr><th scope="row">Deterministic route cases covering capabilities, staging, live closures and refusal paths</th><td>30 of 30 fixed cases</td></tr>
             <tr><th scope="row">Capability route across rover and Go1: completed steps / recorded body poses</th><td>4 / 332</td></tr>
             <tr><th scope="row">Stair risers with measured Go1 foot contacts</th><td>3 × 5&nbsp;cm</td></tr>
             <tr><th scope="row">Rover drift after the capability transfer</th><td>0.8&nbsp;cm</td></tr>
+            <tr><th scope="row">Completed inspection preserved through the measured blocked-route replan / inspections repeated</th><td>1 / 0</td></tr>
+            <tr><th scope="row">Selected adaptive objective, including reviewed hold / original lidar samples retained</th><td>113.166&nbsp;s / 360</td></tr>
+            <tr><th scope="row">Nominal, central-barrier and offset-barrier simulator scenarios</th><td>All 3 completed; 2 reviewed detours</td></tr>
           </tbody>
         </table>
         <p class="note">Three clear requests also triggered clarification. These small language and synthetic-image test sets do not establish adversarial robustness or physical-camera accuracy. <a href="assets/data/lattice-evaluation.json" download>Read the complete evaluation.</a></p>
-        <p class="note">The <a href="https://github.com/0vertrained/Lattice/blob/main/evaluation/route-planner-2026-11-02.json">route planner evaluation</a> uses fixed synthetic graph inputs. It checks assignments and expected refusals; it does not evaluate locomotion, perception or physical travel.</p>
+        <p class="note">The <a href="https://github.com/0vertrained/Lattice/blob/main/evaluation/adaptive-planner-2026-11-02.json">route planner evaluation</a> uses fixed synthetic graph inputs. It checks assignments and expected refusals; it does not evaluate locomotion, perception or physical travel. The separate <a href="https://github.com/0vertrained/Lattice/blob/main/evaluation/adaptive-missions-2026-11-02.json">adaptive mission evaluation</a> records actual simulator outcomes and the earlier transform-timing integration failure.</p>
       </section>
 
       <section class="lesson" aria-labelledby="lattice-lesson">
