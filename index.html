@@ -261,32 +261,64 @@
     <article class="project" id="lattice" aria-labelledby="lattice-title">
       <header class="project__head">
         <h2 class="project__title" id="lattice-title" translate="no">Lattice</h2>
-        <p class="project__kind">One mission, shared memory and a reviewed handoff between two rovers.</p>
+        <p class="project__kind">One objective, shared memory and a body chosen for each part of the route.</p>
       </header>
       <div class="project__body">
         <div class="project__main">
           <div class="prose">
-            <p>One rover inspects a warehouse station. A second takes over the unfinished route, keeps the first rover’s camera evidence, checks the loading dock and returns to charge. Lattice holds the objective and observation history while the bodies change. The operator reviews the exact transfer, and the second rover verifies the retained image before it moves.</p>
-            <p>I built this to connect applied machine learning with the parts of robotics that have to keep working when the model is uncertain or a connection disappears. The Rust core owns approval and command signing. A separate Rust body agent verifies every command before the C++ gateway can pass it to ROS&nbsp;2 and Nav2. Python supplies the model’s proposal and perception result.</p>
+            <p>A rover inspects a warehouse station and drives to a stair landing. The route planner identifies its missing stairs capability, chooses a staged Go1 quadruped and holds the remaining objective for a reviewed handoff. The Go1 verifies the rover’s original image, climbs three small steps and inspects the upper station. The objective and observation history stay with Lattice while the body changes.</p>
+            <p>I built this to connect applied machine learning with the parts of robotics that have to keep working when the model is uncertain or a connection disappears. The Rust core owns route planning, approval and command signing. Separate Rust body agents verify commands and retained evidence before dispatch to ROS&nbsp;2/Nav2 or the MuJoCo gateway. I integrated a published locomotion policy; Python also supplies language classification and marker detection.</p>
           </div>
           <ul class="actions">
-            <li><a class="button button--primary" href="lattice/">Explore the guided demo</a></li>
+            <li><a class="button button--primary" href="lattice/#capability">Explore the guided demo</a></li>
             <li><a class="button" href="https://github.com/0vertrained/Lattice">Read the code</a></li>
-            <li><a class="button" href="https://github.com/0vertrained/Lattice/blob/main/docs/SHOWCASE.md">Run the demo</a></li>
+            <li><a class="button" href="https://github.com/0vertrained/Lattice/blob/main/docs/CAPABILITY_ROUTES.md">Run the demo</a></li>
           </ul>
         </div>
         <dl class="facts">
-          <div><dt>Built with</dt><dd>Rust, React, TypeScript, C++20, ROS 2 Jazzy, Nav2, Gazebo, Python, scikit-learn, OpenCV, PostgreSQL, OIDC</dd></div>
-          <div><dt>What runs</dt><dd>Reviewed rounds, shared observation memory, two-rover continuation and restart recovery</dd></div>
+          <div><dt>Built with</dt><dd>Rust, React, TypeScript, C++20, ROS 2 Jazzy, Nav2, Gazebo, MuJoCo, Python, NumPy, scikit-learn, OpenCV, PostgreSQL, OIDC</dd></div>
+          <div><dt>What runs</dt><dd>Capability-based route plans, rover-to-Go1 continuation, shared observation memory and reviewed recovery</dd></div>
           <div><dt>My focus</dt><dd>ML evaluation, robot integration, execution boundaries and observable failures</dd></div>
-          <div><dt>Scope</dt><dd>Two simulated rovers in one Gazebo world. User roles and scoped device credentials are tested separately. Different body types, physical hardware and general-purpose planning remain future work.</dd></div>
+          <div><dt>Scope</dt><dd>A Gazebo rover and MuJoCo Go1 in separate physics worlds sharing a semantic map. Three 5&nbsp;cm steps; physical-hardware validation remains future work.</dd></div>
         </dl>
       </div>
+
+      <section class="product" aria-labelledby="lattice-capability-title">
+        <h3 class="section-title" id="lattice-capability-title">Choose the body for the route</h3>
+        <div class="prose">
+          <p>An objective names a starting station and a destination. The deterministic route planner checks each segment against the available bodies: a rover can cover the ground route, but stairs require a different capability. A replacement must already be ready at an allowed transfer point. Missing localization, stale heartbeats and capability gaps remain visible in the review.</p>
+          <p>The operator reviews the body assigned to every step and the reason for each change. The approval binds the route to its map revision. At a transfer boundary, the round holds for a separate review of the receiving body and retained evidence. Planning a route never approves that transfer.</p>
+        </div>
+        <ul class="actions">
+          <li><a class="button button--primary" href="lattice/#capability">Explore the rover-to-Go1 route</a></li>
+          <li><a class="button" href="lattice/demo/capability-route.json" download>Download the capability run</a></li>
+          <li><a class="button" href="https://github.com/0vertrained/Lattice/blob/main/docs/ROUTE_PLANNER.md">Read the route planner design</a></li>
+        </ul>
+        <figure class="walkthrough">
+          <video controls playsinline preload="none" poster="lattice/demo/capability-quadruped.poster.png" width="960" height="540" aria-label="External-camera replay of the Go1's measured joint states as it climbs the three simulated steps in this mission">
+            <source src="lattice/demo/capability-quadruped.mp4" type="video/mp4">
+            <a href="lattice/demo/capability-quadruped.mp4">Download the Go1 replay.</a>
+          </video>
+          <figcaption>A 15.68-second external-camera replay rendered from the Go1’s measured joint states in this mission. It shows the quadruped portion of the 37.4-second objective; the complete recording spans 41.5 seconds. The Gazebo rover and MuJoCo Go1 run in separate physics worlds. <a href="lattice/demo/capability-quadruped.provenance.json" download>Read the replay provenance.</a></figcaption>
+        </figure>
+        <div class="lattice-evidence">
+          <figure class="walkthrough">
+            <img src="lattice/demo/capability-observation-1.jpg" width="320" height="240" loading="lazy" decoding="async" alt="Gazebo rover camera image of a red octagonal marker at the inspection bay, outlined by the detector in green">
+            <figcaption>The rover’s original bay image travels with the objective. The Go1 verifies this JPEG against its recorded hash before continuing. <a href="lattice/demo/capability-observation-1.jpg" download>Download the retained image.</a></figcaption>
+          </figure>
+          <figure class="walkthrough">
+            <img src="lattice/demo/capability-observation-2.jpg" width="320" height="240" loading="lazy" decoding="async" alt="MuJoCo Go1 camera image of the upper-station red octagonal marker, with a green detection box and a displayed model score of 0.99">
+            <figcaption>A fresh Go1 camera image at the upper station after the stair traversal. Both observations retain their body, capture time, detector version and image hash. <a href="lattice/demo/capability-observation-2.jpg" download>Download the upper-station image.</a></figcaption>
+          </figure>
+        </div>
+        <p class="note">The four-step objective completed in 37.4&nbsp;s. Its 41.5-second recording includes a final standing observation and 332 sampled body poses. The rover travelled 4.32&nbsp;m and the Go1 3.57&nbsp;m; foot contacts were recorded on all three 5&nbsp;cm risers.</p>
+        <p class="note">The bodies run in separate physics simulators, so this demonstrates shared orchestration and memory without testing collisions between them. Locomotion uses the pretrained <a href="https://github.com/0vertrained/Lattice/blob/main/simulation/quadruped/THIRD_PARTY.md">Walk These Ways Go1 policy</a>. The marker classifier is calibrated on synthetic images. This bounded simulation does not establish general stair climbing or physical-robot safety.</p>
+      </section>
 
       <section class="product" aria-labelledby="lattice-continuity-title">
         <h3 class="section-title" id="lattice-continuity-title">Change the body, keep the objective</h3>
         <div class="prose">
-          <p>The new four-step demonstration runs two independently localized rovers in the same warehouse. Rover A completes the bay inspection. When its next step is paused for transfer, the core withdraws its motion authorization and waits for the old signed command to expire. A reviewed continuation gives Rover B the remaining three steps and the original observation.</p>
+          <p>The earlier four-step demonstration runs two independently localized rovers in the same warehouse. Rover A completes the bay inspection. When its next step is paused for transfer, the core withdraws its motion authorization and waits for the old signed command to expire. A reviewed continuation gives Rover B the remaining three steps and the original observation.</p>
           <p>Shared memory answers where the supported marker was last seen, with its observing body, timestamp, detector version and original image. A later image with no detection stays visible as counter-evidence. These records describe a marker class at a station; they do not claim to track an individual object or reconstruct its world position.</p>
         </div>
         <ul class="actions">
@@ -357,13 +389,14 @@
             <button type="button" class="button button--icon" data-screens-next aria-label="Next screen"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></button>
           </div>
         </div>
-        <p class="note">The two-rover screen replays the new measured handoff. The earlier review, inspection and recovery screens remain here for comparison. Both guided scenarios retain their original camera evidence.</p>
+        <p class="note">The two-rover screen replays the measured handoff in one Gazebo world. The review, inspection and recovery screens remain here for comparison with the capability route above. Every guided scenario retains its original camera evidence.</p>
       </section>
 
       <dl class="features" aria-label="How a Lattice mission runs">
-        <div><dt>Propose</dt><dd>A trained intent classifier chooses a skill. Explicit rules resolve one warehouse location and bound speed. Unclear requests become clarification or rejection.</dd></div>
+        <div><dt>Propose</dt><dd>For language requests, a trained intent classifier chooses a skill. Explicit rules resolve one warehouse location and bound speed. Unclear requests become clarification or rejection.</dd></div>
+        <div><dt>Plan routes</dt><dd>A deterministic graph search matches route segments to body capabilities and staged transfer points. It explains assignments and rejected candidates before an operator approves the exact plan.</dd></div>
         <div><dt>Approve</dt><dd>The core binds the full plan and its failure policy to a digest. PostgreSQL commits approval, commands and audit records together. Altered or expired reviews fail; retries do not duplicate dispatch.</dd></div>
-        <div><dt>Navigate</dt><dd>The body checks the signature, target, sequence and deadline before passing the goal to Nav2. Local speed limits and connection watchdogs remain in control.</dd></div>
+        <div><dt>Navigate</dt><dd>The body checks the signature, target, sequence and deadline before passing the route to its local controller. Nav2 handles the rover; a pretrained policy drives the Go1’s joints in MuJoCo. Local limits and connection watchdogs remain in control.</dd></div>
         <div><dt>Inspect</dt><dd>A fresh image becomes a detection result with model identity and image hashes. A missing marker may continue only under the reviewed policy; a capture or navigation failure stops the round.</dd></div>
         <div><dt>Remember</dt><dd>Validated observations retain their source body, capture time, confidence scope and image hash. Later negative evidence does not erase a prior positive sighting.</dd></div>
         <div><dt>Continue</dt><dd>A frozen handoff binds the source, target, unfinished steps and retained evidence. The replacement body fetches and verifies that evidence, acknowledges its context, and continues without repeating completed steps.</dd></div>
@@ -386,9 +419,14 @@
             <tr><th scope="row">Source stop after handoff preparation / drift while held</th><td>1.453 s / 2.04 cm</td></tr>
             <tr><th scope="row">Remaining steps completed by Rover B / completed steps repeated</th><td>3 / 0</td></tr>
             <tr><th scope="row">Retained image verified by replacement body before ROS dispatch</th><td>Passed</td></tr>
+            <tr><th scope="row">Deterministic route cases covering capabilities, staging, blocked segments and refusal paths</th><td>20 of 20 fixed cases</td></tr>
+            <tr><th scope="row">Capability route across rover and Go1: completed steps / recorded body poses</th><td>4 / 332</td></tr>
+            <tr><th scope="row">Stair risers with measured Go1 foot contacts</th><td>3 × 5&nbsp;cm</td></tr>
+            <tr><th scope="row">Rover drift after the capability transfer</th><td>0.8&nbsp;cm</td></tr>
           </tbody>
         </table>
         <p class="note">Three clear requests also triggered clarification. These small language and synthetic-image test sets do not establish adversarial robustness or physical-camera accuracy. <a href="assets/data/lattice-evaluation.json" download>Read the complete evaluation.</a></p>
+        <p class="note">The <a href="https://github.com/0vertrained/Lattice/blob/main/evaluation/route-planner-2026-11-02.json">route planner evaluation</a> uses fixed synthetic graph inputs. It checks assignments and expected refusals; it does not evaluate locomotion, perception or physical travel.</p>
       </section>
 
       <section class="lesson" aria-labelledby="lattice-lesson">
