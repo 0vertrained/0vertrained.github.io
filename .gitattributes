@@ -1,0 +1,3 @@
+# Generated Vite bundles contain embedded GLSL strings whose whitespace is preserved.
+lattice/** linguist-generated=true
+lattice/assets/*.js -whitespace
