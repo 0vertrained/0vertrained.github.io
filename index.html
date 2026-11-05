@@ -426,7 +426,7 @@
         <div><dt>Navigate</dt><dd>The body checks the signature, target, sequence and deadline before passing the route to its local controller. Nav2 handles the rover; a pretrained policy drives the Go1’s joints in MuJoCo. Local limits and connection watchdogs remain in control.</dd></div>
         <div><dt>Inspect</dt><dd>A fresh image becomes a detection result with model identity and image hashes. A missing marker may continue only under the reviewed policy; a capture or navigation failure stops the round.</dd></div>
         <div><dt>Remember</dt><dd>Validated observations retain their source body, capture time, confidence scope and image hash. Later negative evidence does not erase a prior positive sighting.</dd></div>
-        <div><dt>Adapt</dt><dd>A measured blockage holds the current round. A fresh review preserves completed work and proposes only the remaining route, with current conditions and a new approval. Clearing a condition is explicit and does not resume motion.</dd></div>
+        <div><dt>Adapt</dt><dd>A measured blockage holds the current round. A fresh review preserves completed work and proposes only the remaining route, with current conditions and a new approval. Clearing a condition is explicit and does not resume motion. A blockage reported late is still accepted while its command is active, and if the core declines the report, the body marks the traversal failed rather than carrying on.</dd></div>
         <div><dt>Continue</dt><dd>A frozen handoff binds the source, target, unfinished steps and retained evidence. The replacement body fetches and verifies that evidence, acknowledges its context, and continues without repeating completed steps.</dd></div>
       </dl>
 
@@ -454,6 +454,9 @@
             <tr><th scope="row">Completed inspection preserved through the measured blocked-route replan / inspections repeated</th><td>1 / 0</td></tr>
             <tr><th scope="row">Selected adaptive objective, including reviewed hold / original lidar samples retained</th><td>113.166&nbsp;s / 360</td></tr>
             <tr><th scope="row">Nominal, central-barrier and offset-barrier simulator scenarios</th><td>All 3 completed; 2 reviewed detours</td></tr>
+            <tr><th scope="row">Accessibility of the tour, axe-core against WCAG 2.1 AA: every chapter of all four stories, light and dark, phone and desktop</th><td>0 violations</td></tr>
+            <tr><th scope="row">Dependency advisories, yanked crates, licenses and sources, <span translate="no">cargo audit</span> and <span translate="no">cargo deny</span> on every push</th><td>Passing, 2 exceptions with written reasons</td></tr>
+            <tr><th scope="row">Hosted deploy: core ready, unauthenticated API refused, sign-in bound to the identity provider</th><td>Checks passed</td></tr>
           </tbody>
         </table>
         <p class="note">Three clear requests also triggered clarification. These small language and synthetic-image test sets do not establish adversarial robustness or physical-camera accuracy. <a href="assets/data/lattice-evaluation.json" download>Read the complete evaluation.</a></p>
