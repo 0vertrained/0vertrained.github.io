@@ -12,7 +12,9 @@ JavaScript; the scripts add the parts that move.
   is a native range input, so it works by keyboard and screen reader. Where WebGL 2 is missing, the name is drawn
   in CSS with a shadow cast the same way.
 - **What leaves the building.** `assets/js/leaves.js` animates the real output of Caduceus's de-identifier.
-- **Lattice evidence.** `assets/js/lattice.js` replays 271 measured Gazebo map poses from a complete inspection round, including an anomaly and reviewed restart recovery. The section includes a captioned video, actual camera evidence, Control Center imagery and downloadable evaluation/run artifacts. The replay has no connection to a live robot.
+- **One round, including the interruption.** `assets/js/lattice.js` replays the 271 measured Gazebo map poses
+  of one recorded inspection round (`assets/data/lattice-round.json`), including the core being stopped and the
+  reviewed recovery. It reads a checked-in file and never contacts a robot.
 
 Motion follows `prefers-reduced-motion`, colour follows `prefers-color-scheme`, and nothing is tracked.
 
@@ -33,15 +35,19 @@ Set in Archivo and Source Serif 4, both under the SIL Open Font License (`assets
 `lattice/` is a generated static build from `0vertrained/Lattice`: four recorded stories
 (blocked aisle, rover to quadruped, two-rover handoff, core restart), each told in chapters
 drawn from its recording, with light and dark themes and an optional 3D replay. It requires
-JavaScript; the portfolio case study and video remain available without it. The tour makes no
-robot API calls. `theme.js` and `favicon.svg` sit beside its `index.html` because the tour's
+JavaScript and makes no robot API calls; the case study on the main page works without it.
+`theme.js` and `favicon.svg` sit beside its `index.html` because the tour's
 Content-Security-Policy allows only same-origin scripts, so the theme can't be set inline.
 Rebuild it from the Lattice checkout with:
 
 ```bash
-node scripts/export-portfolio-demo.mjs /path/to/this/portfolio
+LATTICE_HOSTED_ORIGIN=https://lattice-robotics.netlify.app node scripts/export-portfolio-demo.mjs /path/to/this/portfolio
 ```
 
-The main portfolio retains its existing HTML/CSS and design. The same tour is hosted on its
-own at https://lattice-robotics.netlify.app, where it also fronts the authenticated operator
-Control Center, with the core on Google Cloud Run.
+The operator console isn't part of this copy. `LATTICE_HOSTED_ORIGIN` makes `lattice/operator.html`
+point to the hosted console, which sits behind a sign-in at https://lattice-robotics.netlify.app,
+with the core on Google Cloud Run.
+
+`assets/video/lattice-tour-opening.mp4` is a recording of the tour's opening from this copy, and
+the `console-*.webp` screens come from the console with sample data; their route plans are the
+planner's real output for the warehouse map.
