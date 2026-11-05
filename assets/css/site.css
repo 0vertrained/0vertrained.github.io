@@ -1137,12 +1137,19 @@ main {
 
 /* Contact and colophon */
 
+/* Experience and contact close the page under the same large heading. */
+.experience,
 .contact {
   container-type: inline-size;
   max-width: var(--wide);
   margin: 0 auto clamp(7rem, 14vw, 11rem);
 }
 
+.experience {
+  margin-bottom: clamp(4.5rem, 9vw, 7rem);
+}
+
+.experience__title,
 .contact__title {
   margin: 0 0 1.25rem;
   font: 820 clamp(2rem, 7.2cqi, 4.75rem)/0.98 var(--sans);
@@ -1150,6 +1157,7 @@ main {
   letter-spacing: -0.02em;
 }
 
+.experience p,
 .contact p {
   max-width: var(--measure);
   margin: 0 0 1.75rem;
