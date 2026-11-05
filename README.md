@@ -28,17 +28,20 @@ python3 -m http.server 8000
 
 Set in Archivo and Source Serif 4, both under the SIL Open Font License (`assets/fonts/`).
 
-## Lattice guided demo
+## Lattice guided tour
 
-`lattice/` is a generated static build from `0vertrained/Lattice`, with a five-chapter
-walkthrough and optional 3D replay. It requires JavaScript; the portfolio case study
-and video remain available without it. The demo makes no robot API calls. Rebuild it
-from the Lattice checkout with:
+`lattice/` is a generated static build from `0vertrained/Lattice`: four recorded stories
+(blocked aisle, rover to quadruped, two-rover handoff, core restart), each told in chapters
+drawn from its recording, with light and dark themes and an optional 3D replay. It requires
+JavaScript; the portfolio case study and video remain available without it. The tour makes no
+robot API calls. `theme.js` and `favicon.svg` sit beside its `index.html` because the tour's
+Content-Security-Policy allows only same-origin scripts, so the theme can't be set inline.
+Rebuild it from the Lattice checkout with:
 
 ```bash
 node scripts/export-portfolio-demo.mjs /path/to/this/portfolio
 ```
 
-The main portfolio retains its existing HTML/CSS and design. The Lattice project
-also includes `netlify.toml` for independent hosting; authenticated Cloud Run
-services still require provisioning.
+The main portfolio retains its existing HTML/CSS and design. The same tour is hosted on its
+own at https://lattice-robotics.netlify.app, where it also fronts the authenticated operator
+Control Center, with the core on Google Cloud Run.

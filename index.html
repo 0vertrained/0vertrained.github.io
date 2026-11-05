@@ -270,7 +270,8 @@
             <p>I built this to connect applied machine learning with the parts of robotics that have to keep working when the model is uncertain or a connection disappears. The Rust core owns route planning, approval and command signing. Separate Rust body agents verify commands and retained evidence before dispatch to ROS&nbsp;2/Nav2 or the MuJoCo gateway. I integrated a published locomotion policy; Python also supplies language classification and marker detection.</p>
           </div>
           <ul class="actions">
-            <li><a class="button button--primary" href="lattice/#adaptive">Explore the guided demo</a></li>
+            <li><a class="button button--primary" href="lattice/#adaptive">Explore the guided tour</a></li>
+            <li><a class="button" href="https://lattice-robotics.netlify.app/">Visit the hosted site</a></li>
             <li><a class="button" href="https://github.com/0vertrained/Lattice">Read the code</a></li>
             <li><a class="button" href="https://github.com/0vertrained/Lattice/blob/main/docs/ADAPTIVE_DEMO.md">Run the demo</a></li>
           </ul>
@@ -278,6 +279,7 @@
         <dl class="facts">
           <div><dt>Built with</dt><dd>Rust, React, TypeScript, C++20, ROS 2 Jazzy, Nav2, Gazebo, MuJoCo, Python, NumPy, scikit-learn, OpenCV, PostgreSQL, OIDC</dd></div>
           <div><dt>What runs</dt><dd>Lidar-backed route conditions, reviewed detours, rover-to-Go1 continuation and retained observation memory</dd></div>
+          <div><dt>Runs on</dt><dd>Netlify for the tour and Control Center; Google Cloud Run, Cloud SQL and a managed Keycloak for the core, which scales to zero between demos</dd></div>
           <div><dt>My focus</dt><dd>ML evaluation, robot integration, execution boundaries and observable failures</dd></div>
           <div><dt>Scope</dt><dd>A Gazebo rover and MuJoCo Go1 in separate physics worlds sharing a semantic map. Three 5&nbsp;cm steps; physical-hardware validation remains future work.</dd></div>
         </dl>
@@ -465,7 +467,7 @@
           <p>That image exposed the rendering problem. I fixed the asset without lowering the model’s threshold to hide the failure. The next run detected the marker; an inspection facing away from it still failed with its image preserved.</p>
           <p>The same approach applies to the rest of the system: test the occupied destination, interrupt the connection, change the approval and retry it. A successful model call only becomes a successful mission when execution produces the required evidence.</p>
         </div>
-        <p class="note">The recorded run uses a local development identity. Hosted user roles and device credentials are tested separately with Keycloak. Netlify/Cloud Run deployment configuration is prepared; the authenticated cloud service is not yet connected. Larger evaluations, more camera conditions and physical hardware validation remain future work.</p>
+        <p class="note">The recorded run uses a local development identity; hosted user roles and device credentials are tested separately against a real Keycloak. Putting Lattice online is one resumable Cloud Shell script: it provisions the database, image registry, secrets and deployment identities, deploys the core to Cloud Run through GitHub’s federated identity, and checks that the service is ready, refuses unauthenticated calls and trusts only the configured sign-in provider before it reports success. The simulators stay on a Linux host, since Cloud Run doesn’t run Gazebo or MuJoCo. Larger evaluations, more camera conditions and physical hardware validation remain future work.</p>
       </section>
     </article>
 
