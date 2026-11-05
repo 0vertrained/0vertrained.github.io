@@ -1071,6 +1071,70 @@ main {
 
 /* Lattice */
 
+/* The three recorded runs: a column each on a wide screen, with their links lined up along the foot. */
+.runs {
+  display: grid;
+  gap: 2.5rem 3rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@container (min-width: 60rem) {
+  .runs {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.runs li {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule-strong);
+}
+
+.runs h4 {
+  margin: 0 0 0.5rem;
+  font: 750 1.0625rem/1.3 var(--sans);
+  font-stretch: 112%;
+}
+
+.runs p {
+  margin: 0 0 1rem;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+}
+
+.runs .runs__measured {
+  color: var(--ink-soft);
+  font: 500 0.9375rem/1.45 var(--sans);
+  font-variant-numeric: tabular-nums;
+}
+
+.runs a {
+  margin-top: auto;
+  font: 650 1rem/1.3 var(--sans);
+}
+
+/* The Go1's replay, with its caption beside it on a wide screen. */
+.walkthrough--aside {
+  display: grid;
+  gap: 0 2.5rem;
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+@container (min-width: 45rem) {
+  .walkthrough--aside {
+    grid-template-columns: minmax(0, 1.75fr) minmax(13rem, 1fr);
+    align-items: end;
+  }
+
+  .walkthrough--aside figcaption {
+    margin-top: 0;
+  }
+}
+
 .fleet {
   margin: clamp(3.5rem, 7vw, 5.5rem) 0 0;
 }

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Rami, full-stack and AI engineer</title>
-  <meta name="description" content="Rami builds AI products end to end: a prior-authorization agent that keeps patient data inside the clinic, a training app for athletes, and the infrastructure under them.">
+  <meta name="description" content="Rami builds AI products end to end: a prior-authorization agent that keeps patient data inside the clinic, a training app for athletes, robot missions that keep their objective across bodies, and the infrastructure under them.">
   <meta name="theme-color" content="#edefea" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0d131a" media="(prefers-color-scheme: dark)">
   <meta name="color-scheme" content="light dark">
@@ -72,7 +72,7 @@
         <ul>
           <li><a href="#caduceus"><span class="index__name" translate="no">Caduceus</span> <span class="index__what">An AI agent for prior authorization</span></a></li>
           <li><a href="#overtrained"><span class="index__name" translate="no">0VERTRAINED</span> <span class="index__what">A training app for athletes who lift and race</span></a></li>
-          <li><a href="#lattice"><span class="index__name" translate="no">Lattice</span> <span class="index__what">Robot missions that retain memory across bodies</span></a></li>
+          <li><a href="#lattice"><span class="index__name" translate="no">Lattice</span> <span class="index__what">Robot missions that keep their objective across bodies</span></a></li>
           <li><a href="#workload"><span class="index__name">AI Workload and Release Platform</span> <span class="index__what">Language models on shared capacity</span></a></li>
         </ul>
       </nav>
@@ -261,98 +261,64 @@
     <article class="project" id="lattice" aria-labelledby="lattice-title">
       <header class="project__head">
         <h2 class="project__title" id="lattice-title" translate="no">Lattice</h2>
-        <p class="project__kind">Robot missions that keep their objective when the route or body changes.</p>
+        <p class="project__kind">Robot missions that keep their objective when the route or body changes</p>
       </header>
+
       <div class="project__body">
         <div class="project__main">
           <div class="prose">
-            <p>A rover inspects a warehouse station, then finds its route blocked. Lattice holds the objective and prepares a west-aisle detour for review, keeping the completed inspection and its camera evidence. At the stair landing, a separately approved handoff lets a Go1 quadruped verify that evidence, climb three small steps and inspect the upper station. The route and body change; the objective and observation history stay with Lattice.</p>
-            <p>I built this to connect applied machine learning with the parts of robotics that have to keep working when the model is uncertain or a connection disappears. The Rust core owns route planning, approval and command signing. Separate Rust body agents verify commands and retained evidence before dispatch to ROS&nbsp;2/Nav2 or the MuJoCo gateway. I integrated a published locomotion policy; Python also supplies language classification and marker detection.</p>
+            <p>A rover inspects a warehouse station, then finds its route blocked. Lattice holds the objective and prepares a west-aisle detour for review, keeping the completed inspection and its camera evidence. At the stair landing, a separately approved handoff lets a Go1 quadruped verify that evidence, climb three small steps and inspect the upper station. The route and the body change; the objective and its history stay with Lattice.</p>
+            <p>I built it to connect applied machine learning with the parts of robotics that have to keep working when a model is unsure or a connection drops. A Rust core plans routes, takes approvals and signs commands. Rust agents on each body verify those commands, and the evidence they carry, before handing them to ROS&nbsp;2 and Nav2 or to the MuJoCo gateway. Python supplies the language classifier and the marker detector, and the Go1 walks on a published locomotion policy.</p>
           </div>
           <ul class="actions">
             <li><a class="button button--primary" href="lattice/#adaptive">Explore the guided tour</a></li>
-            <li><a class="button" href="https://lattice-robotics.netlify.app/">Visit the hosted site</a></li>
+            <li><a class="button" href="#lattice-recording">Watch the tour’s opening</a></li>
             <li><a class="button" href="https://github.com/0vertrained/Lattice">Read the code</a></li>
-            <li><a class="button" href="https://github.com/0vertrained/Lattice/blob/main/docs/ADAPTIVE_DEMO.md">Run the demo</a></li>
           </ul>
         </div>
         <dl class="facts">
           <div><dt>Built with</dt><dd>Rust, React, TypeScript, C++20, ROS 2 Jazzy, Nav2, Gazebo, MuJoCo, Python, NumPy, scikit-learn, OpenCV, PostgreSQL, OIDC</dd></div>
-          <div><dt>What runs</dt><dd>Lidar-backed route conditions, reviewed detours, rover-to-Go1 continuation and retained observation memory</dd></div>
-          <div><dt>Runs on</dt><dd>Netlify for the tour and Control Center; Google Cloud Run, Cloud SQL and a managed Keycloak for the core, which scales to zero between demos</dd></div>
+          <div><dt>Scope</dt><dd>A Gazebo rover and a MuJoCo Go1 in separate physics worlds that share one map. Physical hardware is future work.</dd></div>
+          <div><dt>Runs on</dt><dd>Netlify for the tour and the operator console; Google Cloud Run, Cloud SQL and Keycloak for the core, which scales to zero between demos</dd></div>
           <div><dt>My focus</dt><dd>ML evaluation, robot integration, execution boundaries and observable failures</dd></div>
-          <div><dt>Scope</dt><dd>A Gazebo rover and MuJoCo Go1 in separate physics worlds sharing a semantic map. Three 5&nbsp;cm steps; physical-hardware validation remains future work.</dd></div>
         </dl>
       </div>
 
-      <section class="product" aria-labelledby="lattice-adaptive-title">
-        <h3 class="section-title" id="lattice-adaptive-title">Keep the objective when the route changes</h3>
-        <div class="prose">
-          <p>The latest experiment inserts a collision-enabled obstacle into Gazebo after the rover is staged, outside its static occupancy map. Real simulated lidar returns block the direct route. The local controller stops, and the core holds the round while an operator reviews an alternate path. The completed bay inspection stays completed, with its original image still attached.</p>
-          <p>The new review binds the remaining route to the current condition revision. A stale review cannot silently clear a newer sensor report or restart motion. After approval and the old command’s expiry fence, the rover follows the west aisle to the same transfer point. The Go1 handoff still needs its own approval and evidence acknowledgement.</p>
-        </div>
-        <ul class="actions">
-          <li><a class="button button--primary" href="lattice/#adaptive">Explore the blocked-route continuation</a></li>
-          <li><a class="button" href="lattice/demo/adaptive-route.json" download>Download the adaptive run</a></li>
-          <li><a class="button" href="lattice/demo/adaptive-blockage-scan.json" download>Inspect the original lidar scan</a></li>
+      <section class="product" aria-labelledby="lattice-title lattice-runs-title">
+        <h3 class="section-title" id="lattice-runs-title">Three recorded runs</h3>
+        <ul class="runs">
+          <li>
+            <h4>A blocked aisle</h4>
+            <p>An obstacle that isn’t on the rover’s map blocks the direct route, and real simulated lidar returns report it. The core holds the round and proposes a west-aisle detour that keeps the finished inspection and its image. A stale review can’t clear a newer sensor report or restart motion.</p>
+            <p class="runs__measured">Detour prepared in 35&nbsp;ms. Held 46.8&nbsp;s for approval and the old command’s expiry. No inspection repeated.</p>
+            <a href="lattice/#adaptive">Explore the blocked aisle</a>
+          </li>
+          <li>
+            <h4>Stairs need a different body</h4>
+            <p>The planner matches each segment of the route to a body that can travel it. The rover covers the ground floor, and a Go1 already waiting at the stair landing takes the steps. The transfer needs its own approval, and the Go1 checks the rover’s image against its recorded hash before it moves.</p>
+            <p class="runs__measured">Four steps in 37.4&nbsp;s. Rover 4.32&nbsp;m, Go1 3.57&nbsp;m, with foot contacts on all three 5&nbsp;cm risers.</p>
+            <a href="lattice/#capability">Explore the rover-to-Go1 route</a>
+          </li>
+          <li>
+            <h4>A second rover finishes</h4>
+            <p>Rover&nbsp;A inspects the bay. Before Rover&nbsp;B takes over, the core withdraws A’s permission to move and waits for its last signed command to expire. B then gets the three remaining steps and A’s original image, and none of A’s work is done twice.</p>
+            <p class="runs__measured">A stopped 1.45&nbsp;s after the handoff was prepared and drifted 2.0&nbsp;cm. B finished 3 steps; 0 repeated.</p>
+            <a href="lattice/#handoff">Explore the two-rover handoff</a>
+          </li>
         </ul>
-        <figure class="walkthrough">
-          <img src="assets/img/lattice/adaptive-route.png" width="1015" height="537" loading="lazy" decoding="async" alt="Lattice’s reviewed west-aisle detour in green, the blocked direct segment dashed in amber, and orange dots from the original lidar scan">
-          <figcaption>Inspection bay → west aisle → stair landing → upper station. This reviewed semantic route shows the original scan returns transformed by the recorded sensor pose. The guided demo verifies the scan’s SHA-256 before drawing the points. The lidar reports a blocked corridor; it does not identify the object as a box.</figcaption>
-        </figure>
-        <p class="note">The selected blocked-aisle run completed in 113.2&nbsp;s, including a 46.8-second hold for review and the command-expiry fence. Preparing the revised review took 35.0&nbsp;ms including the request and persistence. One completed inspection was preserved, with none repeated. Its 117.3-second recording includes a final standing interval.</p>
-        <p class="note">These are bounded simulation measurements. The earlier capability, handoff and restart-recovery experiments remain below, with their own recordings and camera evidence.</p>
-      </section>
-
-      <section class="product" aria-labelledby="lattice-capability-title">
-        <h3 class="section-title" id="lattice-capability-title">Choose the body for the route</h3>
-        <div class="prose">
-          <p>An objective names a starting station and a destination. The deterministic route planner checks each segment against the available bodies: a rover can cover the ground route, but stairs require a different capability. A replacement must already be ready at an allowed transfer point. Missing localization, stale heartbeats and capability gaps remain visible in the review.</p>
-          <p>The operator reviews the body assigned to every step and the reason for each change. The approval binds the route to its map revision. At a transfer boundary, the round holds for a separate review of the receiving body and retained evidence. Planning a route never approves that transfer.</p>
-        </div>
-        <ul class="actions">
-          <li><a class="button button--primary" href="lattice/#capability">Explore the rover-to-Go1 route</a></li>
-          <li><a class="button" href="lattice/demo/capability-route.json" download>Download the capability run</a></li>
-          <li><a class="button" href="https://github.com/0vertrained/Lattice/blob/main/docs/ROUTE_PLANNER.md">Read the route planner design</a></li>
-        </ul>
-        <figure class="walkthrough">
-          <video controls playsinline preload="none" poster="lattice/demo/capability-quadruped.poster.png" width="960" height="540" aria-label="External-camera replay of the Go1's measured joint states as it climbs the three simulated steps in this mission">
+        <figure class="walkthrough walkthrough--aside">
+          <video controls playsinline preload="none" poster="lattice/demo/capability-quadruped.poster.png" width="960" height="540" aria-label="External-camera replay of the Go1’s measured joint states as it climbs the three simulated steps">
             <source src="lattice/demo/capability-quadruped.mp4" type="video/mp4">
             <a href="lattice/demo/capability-quadruped.mp4">Download the Go1 replay.</a>
           </video>
-          <figcaption>A 15.68-second external-camera replay rendered from the Go1’s measured joint states in this mission. It shows the quadruped portion of the 37.4-second objective; the complete recording spans 41.5 seconds. The Gazebo rover and MuJoCo Go1 run in separate physics worlds. <a href="lattice/demo/capability-quadruped.provenance.json" download>Read the replay provenance.</a></figcaption>
+          <figcaption>The Go1 on the three 5&nbsp;cm steps: a 15.7-second external-camera replay rendered from its measured joint states in the stairs run. It walks on the pretrained <a href="https://github.com/0vertrained/Lattice/blob/main/simulation/quadruped/THIRD_PARTY.md">Walk These Ways policy</a>, in its own physics world. <a href="lattice/demo/capability-quadruped.provenance.json" download>Read the replay’s provenance.</a></figcaption>
         </figure>
-        <div class="lattice-evidence">
-          <figure class="walkthrough">
-            <img src="lattice/demo/capability-observation-1.jpg" width="320" height="240" loading="lazy" decoding="async" alt="Gazebo rover camera image of a red octagonal marker at the inspection bay, outlined by the detector in green">
-            <figcaption>The rover’s original bay image travels with the objective. The Go1 verifies this JPEG against its recorded hash before continuing. <a href="lattice/demo/capability-observation-1.jpg" download>Download the retained image.</a></figcaption>
-          </figure>
-          <figure class="walkthrough">
-            <img src="lattice/demo/capability-observation-2.jpg" width="320" height="240" loading="lazy" decoding="async" alt="MuJoCo Go1 camera image of the upper-station red octagonal marker, with a green detection box and a displayed model score of 0.99">
-            <figcaption>A fresh Go1 camera image at the upper station after the stair traversal. Both observations retain their body, capture time, detector version and image hash. <a href="lattice/demo/capability-observation-2.jpg" download>Download the upper-station image.</a></figcaption>
-          </figure>
-        </div>
-        <p class="note">The four-step objective completed in 37.4&nbsp;s. Its 41.5-second recording includes a final standing observation and 332 sampled body poses. The rover travelled 4.32&nbsp;m and the Go1 3.57&nbsp;m; foot contacts were recorded on all three 5&nbsp;cm risers.</p>
-        <p class="note">The bodies run in separate physics simulators, so this demonstrates shared orchestration and memory without testing collisions between them. Locomotion uses the pretrained <a href="https://github.com/0vertrained/Lattice/blob/main/simulation/quadruped/THIRD_PARTY.md">Walk These Ways Go1 policy</a>. The marker classifier is calibrated on synthetic images. This bounded simulation does not establish general stair climbing or physical-robot safety.</p>
-      </section>
-
-      <section class="product" aria-labelledby="lattice-continuity-title">
-        <h3 class="section-title" id="lattice-continuity-title">Change the body, keep the objective</h3>
-        <div class="prose">
-          <p>The earlier four-step demonstration runs two independently localized rovers in the same warehouse. Rover A completes the bay inspection. When its next step is paused for transfer, the core withdraws its motion authorization and waits for the old signed command to expire. A reviewed continuation gives Rover B the remaining three steps and the original observation.</p>
-          <p>Shared memory answers where the supported marker was last seen, with its observing body, timestamp, detector version and original image. A later image with no detection stays visible as counter-evidence. These records describe a marker class at a station; they do not claim to track an individual object or reconstruct its world position.</p>
-        </div>
-        <ul class="actions">
-          <li><a class="button button--primary" href="lattice/#handoff">Explore the two-rover continuation</a></li>
-          <li><a class="button" href="lattice/demo/handoff.json" download>Download the two-rover run</a></li>
-          <li><a class="button" href="https://github.com/0vertrained/Lattice/blob/main/docs/HANDOFF.md">Read the handoff protocol</a></li>
-        </ul>
-        <p class="note">The demo replays measured simulator poses and retained camera images. It proves continuity between two instances of the same rover type. The earlier restart-recovery experiment remains available below.</p>
+        <p class="note">Each run is one recording, and these are bounded simulation measurements, not a claim about stair climbing in general or physical robots. Download the recordings: <a href="lattice/demo/adaptive-route.json" download>blocked aisle</a> with its <a href="lattice/demo/adaptive-blockage-scan.json" download>original lidar scan</a>, <a href="lattice/demo/capability-route.json" download>rover to Go1</a> and <a href="lattice/demo/handoff.json" download>two rovers</a>.</p>
       </section>
 
       <section class="product" id="lattice-run" aria-labelledby="lattice-title lattice-execution-title">
         <h3 class="section-title" id="lattice-execution-title">One round, including the interruption</h3>
-        <p class="prose">This 74.5-second round contains 271 measured map poses across 14.21 m of travel. Scrub from the inspection bay to the loading dock and back to charge. The guided demo adds the complete event timeline, both camera outcomes, recovery measurements and an interactive architecture explanation.</p>
+        <p class="prose">A fourth run: one rover inspects two stations and drives back to charge, and the core is stopped partway through. Scrub through the 74.5 seconds it recorded, 271 measured map poses over 14.21&nbsp;m, from the bay inspection to the dock, the stop, the reviewed recovery and the return.</p>
         <div class="lattice-evidence" data-lattice-replay>
           <figure class="walkthrough lattice-replay">
             <svg viewBox="0 0 640 420" role="img" aria-label="Warehouse map showing the recorded rover path between two inspection stations and the charging station">
@@ -374,60 +340,50 @@
               <label for="lattice-time">Mission time <output id="lattice-clock" for="lattice-time">0.0 s</output></label>
               <input id="lattice-time" type="range" min="0" max="1" value="0" step="1" aria-describedby="lattice-replay-state" data-lattice-time>
             </div>
-            <figcaption id="lattice-replay-state" data-lattice-state>Recorded telemetry loads when JavaScript is available. The images and findings below remain available without it.</figcaption>
+            <figcaption id="lattice-replay-state" data-lattice-state>Recorded telemetry loads when JavaScript is available. The camera image and the downloads below work without it.</figcaption>
           </figure>
           <figure class="walkthrough lattice-camera">
             <img src="assets/img/lattice/round-1.jpg" width="320" height="240" loading="lazy" decoding="async" alt="Actual Gazebo camera image with a detected red octagonal safety marker outlined in green">
-            <figcaption><a href="assets/img/lattice/round-1.jpg" download>Download the original annotated JPEG</a> (hash in the recorded run). The detector’s displayed score is calibrated on synthetic marker crops, not physical cameras.</figcaption>
+            <figcaption>The bay inspection’s camera image, with the detector’s box. Its score is calibrated on synthetic marker crops, not physical cameras. <a href="assets/img/lattice/round-1.jpg" download>Download the original JPEG</a>; its hash is in the recording.</figcaption>
           </figure>
         </div>
-        <p class="note"><a href="assets/data/lattice-round.json" download>Download this recorded round</a> · <a href="assets/data/lattice-evaluation.json" download>Download the model evaluation</a>. These are recorded artifacts; this page does not connect to or control a robot.</p>
-      </section>
-
-      <section class="product" aria-labelledby="lattice-video-title">
-        <h3 class="section-title" id="lattice-video-title">A 90-second walkthrough</h3>
-        <figure class="walkthrough">
-          <video controls playsinline preload="none" poster="assets/img/lattice/showcase-poster.webp" width="1280" height="960" aria-label="Captioned walkthrough of Lattice's recorded inspection round and restart recovery">
-            <source src="assets/video/lattice-showcase.mp4" type="video/mp4">
-            <track kind="captions" src="assets/video/lattice-showcase.vtt" srclang="en" label="English explanation" default>
-            <a href="assets/video/lattice-showcase.mp4">Download the walkthrough video</a>.
-          </video>
-          <figcaption>A captioned tour of the measured route, both camera outcomes and reviewed recovery. The 3D view reconstructs recorded poses; the images come from the Gazebo camera. <a href="lattice/#single">Try the interactive version.</a></figcaption>
-        </figure>
+        <p class="note"><a href="assets/data/lattice-round.json" download>Download this round</a>. It’s a recording: nothing on this page connects to or controls a robot.</p>
       </section>
 
       <section class="product" aria-labelledby="lattice-title lattice-product">
         <h3 class="section-title" id="lattice-product">The product</h3>
-        <div class="prose">
-          <p>The guided tour was redrawn in November. It tells four recorded stories, and every chapter is drawn from its own recording rather than illustrated: the warehouse plans are measured from the logged poses, the blocked aisle is the original lidar scan placed by the recorded sensor pose, the two-rover handoff is a logic-analyser trace of both rovers’ motion, and restart recovery is a relay ladder stepped through the moments the run recorded. It has light and dark themes, works on a phone, and the same tour is the public face of the hosted site, where the operator’s Control Center sits behind a sign-in.</p>
-        </div>
+        <figure class="walkthrough" id="lattice-recording">
+          <video controls playsinline preload="none" poster="assets/img/lattice/tour-opening-poster.webp" width="1280" height="800" aria-label="Recording of the Lattice tour’s opening on the blocked aisle">
+            <source src="assets/video/lattice-tour-opening.mp4" type="video/mp4">
+            <a href="assets/video/lattice-tour-opening.mp4">Download the recording</a>.
+          </video>
+          <figcaption>The tour’s opening, recorded in a browser from the copy on this site. It draws the warehouse plan, marks the stretch of aisle the lidar found blocked, traces the west-aisle detour the planner found, then replays the rover’s recorded path at five times speed. 22 seconds, no sound.</figcaption>
+        </figure>
         <div class="screens" data-screens>
           <ul class="screens__list" tabindex="0" aria-label="Lattice screens. Scroll sideways for more.">
-            <li><figure><img src="assets/img/lattice/tour-opening.webp" width="1440" height="900" loading="lazy" decoding="async" alt="The tour’s opening: a warehouse plan measured from the recording, with the reviewed west-aisle detour in yellow, the blocked direct segment hatched in red, and four measurements beneath it."><figcaption>The tour opens on the blocked aisle: a plan measured from the recording, the reviewed detour in yellow and the blocked segment hatched in red. Blockage reported at 1.9&nbsp;s, detour proposed in 35&nbsp;ms, held 46.8&nbsp;s for approval, no inspection repeated.</figcaption></figure></li>
-            <li><figure><img src="assets/img/lattice/tour-handoff-proof.webp" width="1440" height="600" loading="lazy" decoding="async" alt="A two-channel timing trace for Rover A and Rover B over 2 minutes 20 seconds, with a hatched band marking the 13.5-second hold for handoff and the approval at 75.2 seconds."><figcaption>The two-rover handoff as a logic-analyser trace. Each channel is high while that rover’s recorded poses show it moving; the hatched band is the time A’s work was held for review.</figcaption></figure></li>
-            <li><figure><img src="assets/img/lattice/tour-camera-evidence.webp" width="1440" height="1190" loading="lazy" decoding="async" alt="Two evidence plates side by side: the bay image with a red octagonal marker detected at 99.1%, and the loading-dock image with no marker, each with its source, capture time, model and image hash."><figcaption>Camera evidence as plates: the marker found at the bay and the marker missing at the dock, each with its model, capture time and image hash. A failed inspection is a result worth keeping.</figcaption></figure></li>
-            <li><figure><img src="assets/img/lattice/tour-restart-ladder.webp" width="1440" height="880" loading="lazy" decoding="async" alt="Restart recovery drawn as a relay ladder in the dark theme: three rungs, motion lease, hold and review, with the running state at 33.2 seconds selected."><figcaption>Restart recovery as a relay ladder, in the dark theme. Three interlocks, stepped through the moments the run recorded: running, fence, hold, review, resume.</figcaption></figure></li>
-            <li><figure><img src="assets/img/lattice/shared-memory-handoff.png" width="1328" height="1348" loading="lazy" decoding="async" alt="Lattice’s completed two-rover replay: Rover A remains at the inspection bay while Rover B finishes the loading-dock route and returns to charge."><figcaption>The measured continuation keeps A’s completed inspection and original evidence while B finishes the remaining route. Both body paths share the same map.</figcaption></figure></li>
-            <li><figure><img src="assets/img/lattice/review.webp" width="1440" height="1000" loading="lazy" decoding="async" alt="Lattice’s review screen, with the original request, grounded inspection command, model score and approval deadline."><figcaption>Before anything moves, the operator reviews the exact command. Editing the request requires a new proposal.</figcaption></figure></li>
-            <li><figure><img src="assets/img/lattice/control-center.webp" width="1440" height="1250" loading="lazy" decoding="async" alt="Lattice Control Center showing the rover’s map position and a completed inspection with camera evidence."><figcaption>After arrival, the mission shows the camera image, detected marker and model score beside the rover’s reported position.</figcaption></figure></li>
+            <li><figure><img src="assets/img/lattice/tour-handoff-proof.webp" width="1440" height="900" loading="lazy" decoding="async" alt="A two-channel timing trace for Rover A and Rover B over 2 minutes 20 seconds. A hatched band marks Rover A’s work held for handoff from 13.5 seconds until the approval at 75.2 seconds, with the readouts and the transfer record below."><figcaption>The two-rover handoff as a logic-analyser trace. Each channel is high while that rover’s recorded poses show it moving; the hatched band is the time A’s work was held for review.</figcaption></figure></li>
+            <li><figure><img src="assets/img/lattice/tour-camera-evidence.webp" width="1440" height="900" loading="lazy" decoding="async" alt="Two evidence plates side by side: the bay image with a red octagonal marker detected at 99.1%, and the loading-dock image with no marker, each with its source, capture time, detector score and model."><figcaption>Camera evidence as plates: the marker found at the bay and missing at the dock, each with its source, capture time, score and model. A failed inspection is a result worth keeping.</figcaption></figure></li>
+            <li><figure><img src="assets/img/lattice/tour-restart-ladder.webp" width="1440" height="900" loading="lazy" decoding="async" alt="Restart recovery drawn as a relay ladder in the dark theme: three rungs, motion lease, hold and review, with the running state at 33.2 seconds selected."><figcaption>Restart recovery as a relay ladder, in the dark theme: three interlocks, stepped through the moments the run recorded.</figcaption></figure></li>
+            <li><figure><img src="assets/img/lattice/console-fleet.webp" width="1440" height="900" loading="lazy" decoding="async" alt="The operator console’s Fleet section: plates for a warehouse rover and a stair quadruped online and a spare rover offline, each with a heartbeat trace, battery gauge, pose and capabilities, above a 3D view of the warehouse."><figcaption>The operator console opens on the fleet: each body’s heartbeat, battery and last reported pose, under lamps for the core, the database and the bodies.</figcaption></figure></li>
+            <li><figure><img src="assets/img/lattice/console-route-search.webp" width="1440" height="900" loading="lazy" decoding="async" alt="The capability route planner: a warehouse map with the selected route in yellow from the inspection bay to the stair transfer and up the stairs, and the west-aisle route the planner reached but ranked lower drawn in grey."><figcaption>The route planner draws its own search: the route it chose, the one it ranked lower, and where the quadruped takes over for the stairs.</figcaption></figure></li>
+            <li><figure><img src="assets/img/lattice/console-replan.webp" width="1440" height="900" loading="lazy" decoding="async" alt="The review of the remaining route after a blockage: one completed step kept, four remaining steps, one retained observation, and a map with the reported blocked segment hatched in red and the west-aisle detour in yellow."><figcaption>After a blockage, the review keeps the finished step and its image, leaves out the reported segment, and needs a fresh approval.</figcaption></figure></li>
+            <li><figure><img src="assets/img/lattice/console-ledger.webp" width="1440" height="900" loading="lazy" decoding="async" alt="The audit ledger in the dark theme: records newest first, each with its short hash and the hash it follows, the event, its object and who acted, joined by a chain line down the margin and marked Chain verified."><figcaption>The audit log as a ledger, in the dark theme. Each record carries the hash of the one before it, and the core rechecks every link it returns.</figcaption></figure></li>
           </ul>
           <div class="screens__controls">
             <button type="button" class="button button--icon" data-screens-prev aria-label="Previous screen"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7"/></svg></button>
             <button type="button" class="button button--icon" data-screens-next aria-label="Next screen"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></button>
           </div>
         </div>
-        <p class="note">The first four screens are chapters of the tour. The two-rover screen replays the measured handoff in one Gazebo world, and the review and Control Center screens are the operator’s interface. Every guided scenario retains its original camera evidence.</p>
+        <p class="note">The first three screens are chapters of the tour. The console screens use sample data, except the route plans, which are the planner’s own output for the warehouse map. On the <a href="https://lattice-robotics.netlify.app/">hosted site</a>, the console sits behind a sign-in.</p>
       </section>
 
       <dl class="features" aria-label="How a Lattice mission runs">
-        <div><dt>Propose</dt><dd>For language requests, a trained intent classifier chooses a skill. Explicit rules resolve one warehouse location and bound speed. Unclear requests become clarification or rejection.</dd></div>
-        <div><dt>Plan routes</dt><dd>A deterministic graph search matches route segments to body capabilities and staged transfer points. It explains assignments and rejected candidates before an operator approves the exact plan.</dd></div>
-        <div><dt>Approve</dt><dd>The core binds the full plan and its failure policy to a digest. PostgreSQL commits approval, commands and audit records together. Altered or expired reviews fail; retries do not duplicate dispatch.</dd></div>
-        <div><dt>Navigate</dt><dd>The body checks the signature, target, sequence and deadline before passing the route to its local controller. Nav2 handles the rover; a pretrained policy drives the Go1’s joints in MuJoCo. Local limits and connection watchdogs remain in control.</dd></div>
-        <div><dt>Inspect</dt><dd>A fresh image becomes a detection result with model identity and image hashes. A missing marker may continue only under the reviewed policy; a capture or navigation failure stops the round.</dd></div>
-        <div><dt>Remember</dt><dd>Validated observations retain their source body, capture time, confidence scope and image hash. Later negative evidence does not erase a prior positive sighting.</dd></div>
-        <div><dt>Adapt</dt><dd>A measured blockage holds the current round. A fresh review preserves completed work and proposes only the remaining route, with current conditions and a new approval. Clearing a condition is explicit and does not resume motion. A blockage reported late is still accepted while its command is active, and if the core declines the report, the body marks the traversal failed rather than carrying on.</dd></div>
-        <div><dt>Continue</dt><dd>A frozen handoff binds the source, target, unfinished steps and retained evidence. The replacement body fetches and verifies that evidence, acknowledges its context, and continues without repeating completed steps.</dd></div>
+        <div><dt>Propose</dt><dd>A trained intent classifier picks the skill for a language request, and explicit rules resolve one warehouse location and bound the speed. An unclear request becomes a question or a refusal.</dd></div>
+        <div><dt>Plan</dt><dd>A deterministic graph search matches each route segment to a body that can travel it, through staged transfer points, and records the routes it ranked below its choice.</dd></div>
+        <div><dt>Approve</dt><dd>The core binds the plan and its failure policy to a digest, and Postgres commits the approval, the commands and a hash-chained audit record together. An altered or expired review fails, and a retry never dispatches twice.</dd></div>
+        <div><dt>Navigate</dt><dd>The body checks each command’s signature, target, sequence and deadline before Nav2 or the Go1’s policy moves it. Local limits and connection watchdogs stay in charge, and a blockage report the core declines still fails the traversal.</dd></div>
+        <div><dt>Inspect</dt><dd>A fresh image becomes a detection with the model’s identity and the image’s hash. A missing marker continues only under the reviewed policy; a camera or navigation failure stops the round.</dd></div>
+        <div><dt>Remember</dt><dd>Observations keep their body, capture time, confidence scope and image hash, and a later image without the marker never erases an earlier sighting.</dd></div>
       </dl>
 
       <section class="evidence" aria-labelledby="lattice-title lattice-results-title">
@@ -435,42 +391,28 @@
         <table class="scorecard">
           <thead><tr><th scope="col">What was measured</th><th scope="col">Result</th></tr></thead>
           <tbody>
-            <tr><th scope="row">Clear requests resolved to the correct skill and destination on held-out language cases</th><td>9 of 12</td></tr>
-            <tr><th scope="row">Ambiguous, unsupported and adversarial requests that the planner declined to execute</th><td>24 of 24</td></tr>
-            <tr><th scope="row">Marker precision on 600 separate synthetic crops, at the 0.8 score threshold</th><td>100%</td></tr>
-            <tr><th scope="row">Marker recall on the same synthetic test set</th><td>98.3%</td></tr>
-            <tr><th scope="row">Live simulator inspections with a visible marker and with no marker in view</th><td>Both passed</td></tr>
-            <tr><th scope="row">Observed stop after core interruption / drift measured afterward</th><td>0.34 s / 1.76 cm</td></tr>
-            <tr><th scope="row">Images retained across restart / completed round after fresh approval</th><td>2 / passed</td></tr>
-            <tr><th scope="row">User roles, robot identity binding/revocation, immutable rounds and old-revision fencing</th><td>Checks passed</td></tr>
-            <tr><th scope="row">Four-step round completed across two real simulated rovers</th><td>141.039 s / 996 recorded poses</td></tr>
-            <tr><th scope="row">Source stop after handoff preparation / drift while held</th><td>1.453 s / 2.04 cm</td></tr>
-            <tr><th scope="row">Remaining steps completed by Rover B / completed steps repeated</th><td>3 / 0</td></tr>
-            <tr><th scope="row">Retained image verified by replacement body before ROS dispatch</th><td>Passed</td></tr>
-            <tr><th scope="row">Deterministic route cases covering capabilities, staging, live closures and refusal paths</th><td>30 of 30 fixed cases</td></tr>
-            <tr><th scope="row">Capability route across rover and Go1: completed steps / recorded body poses</th><td>4 / 332</td></tr>
-            <tr><th scope="row">Stair risers with measured Go1 foot contacts</th><td>3 × 5&nbsp;cm</td></tr>
-            <tr><th scope="row">Rover drift after the capability transfer</th><td>0.8&nbsp;cm</td></tr>
-            <tr><th scope="row">Completed inspection preserved through the measured blocked-route replan / inspections repeated</th><td>1 / 0</td></tr>
-            <tr><th scope="row">Selected adaptive objective, including reviewed hold / original lidar samples retained</th><td>113.166&nbsp;s / 360</td></tr>
-            <tr><th scope="row">Nominal, central-barrier and offset-barrier simulator scenarios</th><td>All 3 completed; 2 reviewed detours</td></tr>
-            <tr><th scope="row">Accessibility of the tour, axe-core against WCAG 2.1 AA: every chapter of all four stories, light and dark, phone and desktop</th><td>0 violations</td></tr>
-            <tr><th scope="row">Dependency advisories, yanked crates, licenses and sources, <span translate="no">cargo audit</span> and <span translate="no">cargo deny</span> on every push</th><td>Passing, 2 exceptions with written reasons</td></tr>
-            <tr><th scope="row">Hosted deploy: core ready, unauthenticated API refused, sign-in bound to the identity provider</th><td>Checks passed</td></tr>
+            <tr><th scope="row">Clear language requests resolved to the right skill and place, on held-out cases</th><td>9 of 12</td></tr>
+            <tr><th scope="row">Ambiguous, unsupported and adversarial requests refused or sent back for clarification</th><td>24 of 24</td></tr>
+            <tr><th scope="row">Marker detector on 600 synthetic test crops, precision and recall at a 0.8 score</th><td>100%, 98.3%</td></tr>
+            <tr><th scope="row">Route-planner cases covering capabilities, staging, closures and refusals</th><td>30 of 30</td></tr>
+            <tr><th scope="row">Simulator scenarios completed: nominal, then a central and an offset barrier that each needed a reviewed detour</th><td>3 of 3</td></tr>
+            <tr><th scope="row">Finished inspections repeated after a detour</th><td>0</td></tr>
+            <tr><th scope="row">Stair risers where the Go1’s feet made measured contact</th><td>3 of 3</td></tr>
+            <tr><th scope="row">Remaining steps the second rover finished after the handoff, with none repeated</th><td>3 of 3</td></tr>
+            <tr><th scope="row">Stop after the core was interrupted mid-drive, and drift afterward</th><td>0.34&nbsp;s, 1.76&nbsp;cm</td></tr>
+            <tr><th scope="row">Accessibility of the tour and the console, axe-core against WCAG 2.1 AA, light and dark, phone and desktop</th><td>0 violations</td></tr>
           </tbody>
         </table>
-        <p class="note">Three clear requests also triggered clarification. These small language and synthetic-image test sets do not establish adversarial robustness or physical-camera accuracy. <a href="assets/data/lattice-evaluation.json" download>Read the complete evaluation.</a></p>
-        <p class="note">The <a href="https://github.com/0vertrained/Lattice/blob/main/evaluation/adaptive-planner-2026-11-02.json">route planner evaluation</a> uses fixed synthetic graph inputs. It checks assignments and expected refusals; it does not evaluate locomotion, perception or physical travel. The separate <a href="https://github.com/0vertrained/Lattice/blob/main/evaluation/adaptive-missions-2026-11-02.json">adaptive mission evaluation</a> records actual simulator outcomes and the earlier transform-timing integration failure.</p>
+        <p class="note">The three clear requests it missed were refused or sent back for clarification, never turned into a wrong command. These small language and synthetic-image sets don’t establish adversarial robustness or accuracy on a physical camera, and the planner cases are fixed synthetic graphs. Read the full evaluations: <a href="assets/data/lattice-evaluation.json" download>language and markers</a>, the <a href="https://github.com/0vertrained/Lattice/blob/main/evaluation/adaptive-planner-2026-11-02.json">route planner</a>, and the <a href="https://github.com/0vertrained/Lattice/blob/main/evaluation/adaptive-missions-2026-11-02.json">adaptive missions</a>, which also records an earlier integration failure.</p>
       </section>
 
       <section class="lesson" aria-labelledby="lattice-lesson">
         <h3 class="section-title" id="lattice-lesson">The marker the model couldn’t see</h3>
         <div class="prose">
-          <p>The synthetic tests passed, but the first live camera inspection failed. The mesh material rendered white in Gazebo, while the detector was trained to find red markers. It returned no detection, and Lattice kept the failed outcome and the image.</p>
-          <p>That image exposed the rendering problem. I fixed the asset without lowering the model’s threshold to hide the failure. The next run detected the marker; an inspection facing away from it still failed with its image preserved.</p>
-          <p>The same approach applies to the rest of the system: test the occupied destination, interrupt the connection, change the approval and retry it. A successful model call only becomes a successful mission when execution produces the required evidence.</p>
+          <p>The synthetic tests passed, but the first live camera inspection failed. The marker’s material rendered white in Gazebo, and the detector was trained to find red markers. It returned no detection, and Lattice kept the failed outcome and the image.</p>
+          <p>That image exposed the rendering problem. I fixed the asset rather than lowering the model’s threshold to hide the failure. The next run found the marker, and an inspection facing away from it still failed, with its image kept.</p>
+          <p>The rest of Lattice is tested the same way: occupy the destination, cut the connection, change the approval and retry it. A model call that succeeds only becomes a mission that succeeds when the robot brings back the evidence.</p>
         </div>
-        <p class="note">The recorded run uses a local development identity; hosted user roles and device credentials are tested separately against a real Keycloak. Putting Lattice online is one resumable Cloud Shell script: it provisions the database, image registry, secrets and deployment identities, deploys the core to Cloud Run through GitHub’s federated identity, and checks that the service is ready, refuses unauthenticated calls and trusts only the configured sign-in provider before it reports success. The simulators stay on a Linux host, since Cloud Run doesn’t run Gazebo or MuJoCo. Larger evaluations, more camera conditions and physical hardware validation remain future work.</p>
       </section>
     </article>
 
