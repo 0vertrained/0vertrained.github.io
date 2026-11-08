@@ -1,0 +1,74 @@
+{
+ "Santa Fe Baldy": {
+  "lat": 35.83218,
+  "lon": -105.75801,
+  "elevation": 3850,
+  "azimuth": 45.29,
+  "altitude": 4.18,
+  "distance_km": 22.9
+ },
+ "Lake Peak": {
+  "lat": 35.79625,
+  "lon": -105.77134,
+  "elevation": 3783,
+  "azimuth": 51.18,
+  "altitude": 4.78,
+  "distance_km": 19.3
+ },
+ "Penitente Peak": {
+  "lat": 35.79968,
+  "lon": -105.75662,
+  "elevation": 3618,
+  "azimuth": 52.68,
+  "altitude": 4.02,
+  "distance_km": 20.6
+ },
+ "Tesuque Peak": {
+  "lat": 35.78486,
+  "lon": -105.78208,
+  "elevation": 3671,
+  "azimuth": 52.39,
+  "altitude": 4.85,
+  "distance_km": 17.8
+ },
+ "Deception Peak": {
+  "lat": 35.78514,
+  "lon": -105.78199,
+  "elevation": 3674,
+  "azimuth": 52.33,
+  "altitude": 4.85,
+  "distance_km": 17.8
+ },
+ "Thompson Peak": {
+  "lat": 35.74829,
+  "lon": -105.75829,
+  "elevation": 3291,
+  "azimuth": 67.29,
+  "altitude": 3.67,
+  "distance_km": 17.6
+ },
+ "Picacho Peak": {
+  "lat": 35.66986,
+  "lon": -105.87662,
+  "elevation": 2732,
+  "azimuth": 108.95,
+  "altitude": 5.74,
+  "distance_km": 5.9
+ },
+ "Atalaya Mountain": {
+  "lat": 35.67292,
+  "lon": -105.86912,
+  "elevation": 2766,
+  "azimuth": 104.11,
+  "altitude": 5.54,
+  "distance_km": 6.4
+ },
+ "Glorieta Baldy": {
+  "lat": 35.63986,
+  "lon": -105.77755,
+  "elevation": 2717,
+  "azimuth": 109.83,
+  "altitude": 2.08,
+  "distance_km": 15.4
+ }
+}
