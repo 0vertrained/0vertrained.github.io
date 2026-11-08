@@ -164,7 +164,7 @@ p {
   height: min(100svh, 64rem);
   min-height: 36rem;
   overflow: hidden;
-  background: #3d4876;
+  background: #c8c6bf;
   color: var(--hero-ink);
 }
 
@@ -173,6 +173,11 @@ p {
   --hero-soft: rgb(238 241 236 / 0.78);
   --hero-halo: rgb(10 14 24 / 0.45);
   --hero-halo-near: rgb(10 14 24 / 0.55);
+}
+
+/* Without WebGL the plaster is a plain colour, so at night it darkens with the text it carries. */
+.hero--dark:not(.hero--relief) {
+  background: #2a2f3b;
 }
 
 .hero--sky-dark {

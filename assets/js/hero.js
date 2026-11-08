@@ -190,8 +190,11 @@ export function initHero(root) {
       root.dataset.wall = wall.toFixed(3);
       root.dataset.sky = sky.toFixed(3);
     } else {
+      // The flat version is one colour, so the text over the wall and over the sky turn together.
       if (flat) paintFlat(flat, light);
-      root.classList.toggle("hero--dark", groundBrightness(light) < 0.5);
+      const dark = groundBrightness(light) < 0.5;
+      root.classList.toggle("hero--dark", dark);
+      root.classList.toggle("hero--sky-dark", dark);
     }
     caption.textContent = describe(date, light, live || still, times);
     range.value = String(Math.round(minutes));
