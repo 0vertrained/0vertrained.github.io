@@ -1,5 +1,7 @@
 import { SANTA_FE, groundBrightness, lightAt, localMidnight, sunPosition, sunTimes } from "./sky.js";
-import { createRelief } from "./relief.js";
+import { createScene, frameFor, surfaceLuminance } from "./scene.js";
+import { BANDS, SUMMITS } from "./skyline.js";
+import { LAND_FRAME, createLandLibrary } from "./land.js";
 
 const COMPASS = [
   "north", "north-northeast", "northeast", "east-northeast", "east", "east-southeast", "southeast", "south-southeast",
@@ -21,14 +23,44 @@ function dayLength(midnight) {
   return Math.round((next - midnight) / 60000);
 }
 
+// The Jemez Mountains stand about a degree above the western horizon.
+const WEST_RIDGE = 0.9;
+const RAD = Math.PI / 180;
+const ridgeAt = (az) => Math.max(BANDS.crest(az), BANDS.foothills(az), BANDS.near(az));
+/** A named summit within a few degrees of an azimuth, for "rising over Lake Peak". */
+function summitNear(az) {
+  let best = null;
+  for (const s of SUMMITS) {
+    const d = Math.abs(s.azimuth - az);
+    if (d < 2.6 && (!best || d < best.d)) best = { name: s.name, d };
+  }
+  return best?.name ?? null;
+}
+
 function describe(date, light, live, times) {
   const when = live ? `Santa Fe right now, ${formatTime(date)}` : `Santa Fe at ${formatTime(date)}`;
   const { sun, moon } = light;
+  const west = Math.cos((sun.azimuth - 260) * RAD) > 0;
   if (sun.elevation > -0.27) {
     const height = Math.max(0, Math.round(sun.elevation));
+    if (west && sun.elevation < WEST_RIDGE) return `${when}: the sun is behind the Jemez Mountains, and its last light is on the peaks.`;
+    if (!west) {
+      const ridge = ridgeAt(sun.azimuth);
+      if (sun.elevation < ridge) return `${when}: the sun is up but still behind the mountains.`;
+      const over = summitNear(sun.azimuth);
+      if (sun.elevation < ridge + 3) return `${when}: the sun is rising over ${over ?? "the Sangre de Cristo Mountains"}.`;
+    }
     return `${when}: lit by the sun, ${height}° above the horizon in the ${compass(sun.azimuth)}.`;
   }
   const afterSunset = times.sunset && date > times.sunset;
+  if (light.key === "moon" && moon.elevation < ridgeAt(moon.azimuth) + 4) {
+    const over = summitNear(moon.azimuth);
+    const lit = Math.round(moon.illumination * 100);
+    return `${when}: the moon, ${lit}% full, is rising over ${over ?? "the Sangre de Cristo Mountains"}.`;
+  }
+  if (sun.elevation > -4.5 && afterSunset) {
+    return `${when}: the sun set at ${formatTime(times.sunset)}. The pink band over the range is the Belt of Venus.`;
+  }
   if (sun.elevation > -6) {
     if (afterSunset) return `${when}: the sun set at ${formatTime(times.sunset)}, and the sky is still light.`;
     if (times.sunrise) return `${when}: the sky is getting light. The sun rises at ${formatTime(times.sunrise)}.`;
@@ -41,7 +73,8 @@ function describe(date, light, live, times) {
     const lit = Math.round(moon.illumination * 100);
     return `${when}: lit by the moon, ${lit}% full and ${Math.round(moon.elevation)}° up in the ${compass(moon.azimuth)}.`;
   }
-  return `${when}: the sun and the moon are both down, and only the sky lights it.`;
+  if (moon.elevation > 0) return `${when}: the sun is down and the moon is a sliver, so the stars and the sky light it.`;
+  return `${when}: the sun and the moon are both down, and only the stars and the sky light it.`;
 }
 
 /** The long, soft shadow the flat version of the name casts when WebGL isn't there. */
@@ -70,7 +103,18 @@ export function initHero(root) {
   const riseLabel = root.querySelector("[data-sunrise]");
   const setLabel = root.querySelector("[data-sunset]");
 
-  let midnight = localMidnight(new Date());
+  // Query parameters for making stills and plates of the view (see tools/sky). Anything malformed is ignored.
+  // ?at=<ISO instant> pins the scene to a moment.
+  const query = new URLSearchParams(location.search);
+  const pinnedAt = query.get("at");
+  const pinned = pinnedAt && !Number.isNaN(Date.parse(pinnedAt)) ? new Date(pinnedAt) : null;
+  // ?still shows a pinned moment as a visitor would see it then: "right now", nothing to go back to.
+  const still = query.has("still");
+  // ?plate=<view azimuth>,<field of view>,<altitude at the top edge> renders the view alone, as a reference image.
+  const plateArg = query.get("plate")?.split(",").map(Number);
+  const plate = plateArg?.length === 3 && plateArg.every(Number.isFinite) ? plateArg : null;
+  if (plate) root.classList.add("hero--plate");
+  let midnight = localMidnight(pinned || new Date());
   let day = dayLength(midnight);
   let times = sunTimes(midnight);
   let minutes = 0;
@@ -79,6 +123,14 @@ export function initHero(root) {
   let relief = null;
   let visible = true;
   let pendingDraw = false;
+
+  // The photographs of the land, one per light condition. Phones get the smaller set. They wait behind the
+  // drawn land until the opening move of the light is over, then fade in once the pair for the moment is here.
+  const landBase = root.dataset.landBase ?? "land/";
+  const landSize = Math.min(window.devicePixelRatio || 1, 1.5) * innerWidth <= 1100 ? "-1600" : "";
+  const land = plate ? null : createLandLibrary((name) => `${landBase}${name}${landSize}.webp`, () => schedule());
+  let landHold = false;
+  let landShownAt = 0;
 
   const minutesNow = () => (Date.now() - midnight.getTime()) / 60000;
   const at = (m) => new Date(midnight.getTime() + m * 60000);
@@ -111,19 +163,53 @@ export function initHero(root) {
     root.style.setProperty("--horizon", `${toY(0) * 100}%`);
   }
 
+  /** The photographs for a moment, and how far they have faded in; null while the drawn land should show. */
+  function landFor(light) {
+    if (!land || landHold) return null;
+    const morning = light.sun.azimuth < 180;
+    land.warm(light.sun.elevation, morning);
+    const pair = land.loaded(light.sun.elevation, morning);
+    if (!pair) return null;
+    if (!landShownAt) landShownAt = performance.now();
+    const t = pinned || reducedMotion.matches ? 1 : Math.min(1, (performance.now() - landShownAt) / 1100);
+    if (t < 1) schedule();
+    root.dataset.land = t < 1 ? "fading" : "ready";
+    return { ...pair, on: easeInOut(t), frame: LAND_FRAME };
+  }
+
   function render() {
     pendingDraw = false;
     const date = at(minutes);
     const light = lightAt(date);
-    if (relief) relief.draw(light);
-    else if (flat) paintFlat(flat, light);
-    root.classList.toggle("hero--dark", groundBrightness(light) < 0.5);
-    caption.textContent = describe(date, light, live, times);
+    const lit = relief ? relief.draw(date, starFree(), landFor(light)) : null;
+    if (lit) {
+      // Text over the wall and over the sky each take the colour that reads best there.
+      const { wall, sky } = surfaceLuminance(lit);
+      root.classList.toggle("hero--dark", wall < 0.19);
+      root.classList.toggle("hero--sky-dark", sky < 0.19);
+      root.dataset.wall = wall.toFixed(3);
+      root.dataset.sky = sky.toFixed(3);
+    } else {
+      if (flat) paintFlat(flat, light);
+      root.classList.toggle("hero--dark", groundBrightness(light) < 0.5);
+    }
+    caption.textContent = describe(date, light, live || still, times);
     range.value = String(Math.round(minutes));
     range.setAttribute("aria-valuetext", formatTime(date));
     marker.style.left = `${(minutes / day) * 100}%`;
     marker.style.top = `${toY(light.sun.elevation) * 100}%`;
     marker.dataset.below = String(light.sun.elevation < 0);
+  }
+
+  // Boxes round the links over the sky, in canvas pixels, where no star should sit behind the text.
+  function starFree() {
+    const box = canvas.getBoundingClientRect();
+    if (!box.width) return [];
+    const k = canvas.width / box.width;
+    return [...root.querySelectorAll(".hero__nav a")].map((a) => {
+      const r = a.getBoundingClientRect();
+      return { x0: (r.left - box.left - 8) * k, x1: (r.right - box.left + 8) * k, y0: (r.top - box.top - 8) * k, y1: (r.bottom - box.top + 8) * k };
+    });
   }
 
   function schedule() {
@@ -136,7 +222,7 @@ export function initHero(root) {
     minutes = Math.max(0, Math.min(day - 1, m));
     live = follow;
     // While the light is on its way back to now, there is nothing to go back to.
-    nowButton.hidden = live || Boolean(tween?.follow);
+    nowButton.hidden = still || live || Boolean(tween?.follow);
     schedule();
   }
 
@@ -145,10 +231,11 @@ export function initHero(root) {
     tween = null;
   }
 
-  function animateTo(target, duration, { follow }) {
+  function animateTo(target, duration, { follow, done }) {
     stopTween();
     if (reducedMotion.matches || duration <= 0) {
       setMinutes(target, { follow });
+      done?.();
       return;
     }
     const from = minutes;
@@ -158,7 +245,10 @@ export function initHero(root) {
       const t = Math.min(1, (now - started) / duration);
       setMinutes(from + (target - from) * easeInOut(t), { follow: t === 1 && follow });
       if (t < 1) tween.frame = requestAnimationFrame(step);
-      else tween = null;
+      else {
+        tween = null;
+        done?.();
+      }
     };
     tween.frame = requestAnimationFrame(step);
   }
@@ -212,35 +302,38 @@ export function initHero(root) {
 
   range.max = String(day - 1);
   drawPath();
-  const shared = hashMinutes();
+  const shared = pinned ? (pinned - midnight) / 60000 : hashMinutes();
   if (shared !== null) {
     minutes = shared;
     live = false;
   } else minutes = minutesNow();
-  nowButton.hidden = live;
+  nowButton.hidden = still || live;
   render();
 
   // The relief: bake once fonts are ready, fade it in over the flat version, then let the light arrive.
   const bake = () => {
     const box = canvas.getBoundingClientRect();
     let scale = Math.min(window.devicePixelRatio || 1, 1.5);
-    const budget = 2.3e6;
+    const budget = plate ? 9e6 : 2.3e6;
     if (box.width * box.height * scale * scale > budget) scale = Math.sqrt(budget / (box.width * box.height));
     canvas.width = Math.max(1, Math.round(box.width * scale));
     canvas.height = Math.max(1, Math.round(box.height * scale));
-    const narrow = box.width < 640;
+    const frame = plate ? { plate: true, viewAz: plate[0], fov: plate[1], topAltitude: plate[2] } : frameFor(box.width);
     relief.bake({
       text: "RAMI",
       family: '"Archivo Relief", "Archivo", sans-serif',
-      widthShare: narrow ? 0.86 : 0.74,
-      heightShare: narrow ? 0.3 : 0.4,
-      centreY: narrow ? 0.4 : 0.43,
+      ...frame,
+      pixelRatio: scale,
     });
   };
 
   const start = async () => {
-    relief = createRelief(canvas);
+    relief = createScene(canvas);
     if (!relief) return;
+    if (land) {
+      const settle = lightAt(at(shared === null ? minutesNow() : minutes)).sun;
+      land.pair(settle.elevation, settle.azimuth < 180);
+    }
     try {
       await document.fonts.load('900 100px "Archivo Relief"');
     } catch {
@@ -276,8 +369,15 @@ export function initHero(root) {
       if (rise !== null && set !== null && target > rise && target < set) from = rise - 20;
       else if (set !== null && target >= set) from = set - 75;
       minutes = from;
+      landHold = true;
       render();
-      animateTo(target, 3200, { follow: true });
+      animateTo(target, 3200, {
+        follow: true,
+        done: () => {
+          landHold = false;
+          schedule();
+        },
+      });
     }
   };
   // Give the page its first paint before the CPU-heavy bake.
