@@ -5,12 +5,17 @@ Rami's portfolio: one page, served by GitHub Pages at https://0vertrained.github
 The page is plain HTML, CSS and JavaScript modules, with no framework and no build step. It works without
 JavaScript; the scripts add the parts that move.
 
-- **The name in relief.** `assets/js/sky.js` works out where the sun and moon stand over Santa Fe at any minute
+- **The view east.** `assets/js/sky.js` works out where the sun and moon stand over Santa Fe at any minute
   (NOAA's solar equations, and the Astronomical Almanac's short series for the moon), and the light they give.
-  `assets/js/relief.js` bakes the letters into a plaster height field on the CPU, then lights it on the GPU with
-  WebGL 2, tracing each pixel's shadow across the relief. `assets/js/hero.js` ties it to the hour control, which
-  is a native range input, so it works by keyboard and screen reader. Where WebGL 2 is missing, the name is drawn
-  in CSS with a shadow cast the same way.
+  `assets/js/scene.js` draws the view from a rooftop on the Plaza toward the Sangre de Cristo Mountains in
+  WebGL 2: the sky from the sun's height, the sun, the moon with its phase, the stars that are up (Hipparcos to
+  magnitude 5), and the name baked into a plaster height field on the CPU and lit on the GPU, each pixel's
+  shadow traced across the relief. The skyline is traced from USGS elevation data (`assets/js/skyline-data.js`),
+  and the land below it is fifteen photographs of the view, one per light of the day, blended by the sun's
+  height (`assets/js/land.js`, `assets/img/land/`). `assets/js/hero.js` ties it to the hour control, which is a
+  native range input, so it works by keyboard and screen reader. Where WebGL 2 is missing, the name is drawn
+  in CSS with a shadow cast the same way. `tools/sky/` holds the tools that made the skyline and the
+  photographs, and says how to make another set.
 - **What leaves the building.** `assets/js/leaves.js` animates the real output of Caduceus's de-identifier.
 - **One round, including the interruption.** `assets/js/lattice.js` replays the 271 measured Gazebo map poses
   of one recorded inspection round (`assets/data/lattice-round.json`), including the core being stopped and the
@@ -28,7 +33,10 @@ python3 -m http.server 8000
 
 ## Credits
 
-Set in Archivo and Source Serif 4, both under the SIL Open Font License (`assets/fonts/`).
+Set in Archivo and Source Serif 4, both under the SIL Open Font License (`assets/fonts/`). Star positions
+are from the Hipparcos catalogue by way of d3-celestial, BSD-3-Clause (`assets/js/LICENSE-d3-celestial.txt`).
+The skyline comes from the USGS 3D Elevation Program, which is public domain. The land photographs were
+generated with Higgsfield from this page's own renders.
 
 ## Lattice guided tour
 
