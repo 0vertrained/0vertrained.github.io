@@ -183,7 +183,8 @@ export function lightAt(date) {
     return [-Math.cos(el) * Math.sin(azimuth * RAD), Math.cos(el) * Math.cos(azimuth * RAD), Math.sin(el)];
   };
   const sunUp = smoothstep(-1.2, 2.2, sun.elevation);
-  const moonUp = smoothstep(-0.8, 3, moon.elevation) * (1 - smoothstep(-8, -2, sun.elevation));
+  // A thin crescent lights nothing, so it never becomes the key light.
+  const moonUp = smoothstep(-0.8, 3, moon.elevation) * (1 - smoothstep(-8, -2, sun.elevation)) * smoothstep(0.03, 0.12, moon.illumination);
   const sunColor = ramp(SUN, sun.elevation).map((v) => v * sunUp * 1.05);
   const moonColor = [0.66, 0.74, 0.98].map((v) => v * moonUp * (0.05 + 0.15 * moon.illumination));
   const useSun = sunUp >= 0.02 || moonUp < 0.02;
