@@ -1,0 +1,78 @@
+/* Print styles for the résumé. One column, standard headings, no tables or graphics: the layout a
+   parser reads in the same order a person does. */
+
+/* Static instances of the site's fonts (tools/resume/fonts): Chromium embeds a variable font as a
+   Type 3 glyph font, which some résumé parsers cannot read; these embed as ordinary TrueType. */
+@font-face { font-family: "Archivo"; src: url("fonts/Archivo-Medium.ttf"); font-weight: 500; }
+@font-face { font-family: "Archivo"; src: url("fonts/Archivo-SemiBold.ttf"); font-weight: 600; }
+@font-face { font-family: "Archivo"; src: url("fonts/Archivo-Bold.ttf"); font-weight: 700; }
+@font-face { font-family: "Archivo Wide"; src: url("fonts/ArchivoWide-Bold.ttf"); font-weight: 700; }
+@font-face { font-family: "Archivo Wide"; src: url("fonts/ArchivoWide-ExtraBold.ttf"); font-weight: 800; }
+@font-face { font-family: "Source Serif 4"; src: url("fonts/SourceSerif4-Regular.ttf"); font-weight: 400; }
+
+@page { size: Letter; margin: 0.55in 0.7in 0.5in; }
+
+:root {
+  --ink: #17212b;
+  --soft: #4a5560;
+  --rule: rgb(23 33 43 / 0.2);
+  --accent: #0a6b67;
+}
+
+html { font-size: 9.9pt; }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: "Source Serif 4", Georgia, serif;
+  line-height: 1.38;
+  font-variant-ligatures: none;
+}
+
+a { color: inherit; text-decoration: none; }
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1.5px solid var(--ink);
+}
+
+h1 { margin: 0; font: 800 23pt/1 "Archivo Wide", "Archivo", sans-serif; letter-spacing: -0.015em; }
+
+.headline { margin: 0.3rem 0 0; font: 600 11pt/1.3 "Archivo", sans-serif; color: var(--soft); }
+
+.where { margin: 0; text-align: right; font: 500 9.4pt/1.5 "Archivo", sans-serif; color: var(--soft); }
+.where a { color: var(--accent); }
+
+h2 {
+  margin: 0.95rem 0 0.35rem;
+  font: 700 9pt/1.2 "Archivo Wide", "Archivo", sans-serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--soft);
+}
+
+.summary { margin: 0; font-size: 10.2pt; }
+
+.job { margin-top: 0.45rem; }
+.job:first-of-type { margin-top: 0; }
+
+.line { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+.line strong { font: 700 10.8pt/1.3 "Archivo", sans-serif; }
+.line span, .line a { font: 500 9.4pt/1.3 "Archivo", sans-serif; color: var(--soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.line a { color: var(--accent); }
+
+.title { margin: 0.1rem 0 0.2rem; font: 500 10pt/1.3 "Archivo", sans-serif; }
+.title .dates { color: var(--soft); }
+
+.stack { color: var(--soft); }
+
+ul { margin: 0.15rem 0 0; padding-left: 1.05rem; }
+li { margin: 0 0 0.12rem; }
+
+.skills { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 0.15rem 0.9rem; }
+.skills dt { font: 600 9.6pt/1.45 "Archivo", sans-serif; }
+.skills dd { margin: 0; }

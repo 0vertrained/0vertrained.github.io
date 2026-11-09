@@ -1,0 +1,82 @@
+{
+  "name": "Rami Martinez",
+  "headline": "Software Engineer",
+  "location": "Santa Fe, New Mexico",
+  "email": "ram.martinez007@gmail.com",
+  "links": [
+    { "label": "linkedin.com/in/rami-m-2931099b", "url": "https://www.linkedin.com/in/rami-m-2931099b" },
+    { "label": "github.com/0vertrained", "url": "https://github.com/0vertrained" },
+    { "label": "0vertrained.github.io", "url": "https://0vertrained.github.io" }
+  ],
+  "summary": "Software engineer combining enterprise API development with healthcare informatics experience. Builds applications and AI workflows with Java, Python and TypeScript, and turns operational requirements into tested software with clear documentation.",
+  "experience": [
+    {
+      "company": "JPMorgan Chase",
+      "location": "Plano, Texas",
+      "roles": [
+        {
+          "title": "Software Engineer II",
+          "dates": "Jan 2024 – Oct 2026",
+          "bullets": [
+            "Helped launch a customer-facing banking application that reduced the average account-opening time from more than an hour to about 15 minutes.",
+            "Built internal services and interfaces that streamlined developer onboarding; partnered with product management on feature planning and roadmap decisions.",
+            "Served as interim lead for eight engineers: code review, mentoring, sprint ceremonies."
+          ]
+        },
+        {
+          "title": "Software Engineer I",
+          "dates": "Oct 2022 – Jan 2024",
+          "bullets": [
+            "Built Java Spring Boot microservices and integrated enterprise APIs; led the design, testing and deployment of a React/TypeScript interface with Redux."
+          ]
+        }
+      ]
+    },
+    {
+      "company": "Presbyterian Healthcare Services",
+      "location": "Albuquerque, New Mexico",
+      "roles": [
+        {
+          "title": "Business Informatics III",
+          "dates": "Oct 2016 – Jul 2021",
+          "bullets": [
+            "Gathered referral-workflow requirements and coordinated enhancements with Epic analysts; trained 600+ staff across 100+ departments on Epic workflows.",
+            "Contributed to user acceptance testing for Epic upgrades, documenting defects and supporting issue resolution."
+          ]
+        }
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Caduceus",
+      "link": { "label": "caduceusdemo.netlify.app", "url": "https://caduceusdemo.netlify.app" },
+      "bullets": [
+        "Prior-authorization agent for a simulated health system (Python/FastAPI, React/TypeScript): document intake, FHIR evidence review against payer policy, human-approved submissions, role-checked MCP tools, a hash-chained audit log; 200+ tests, an accessibility-checked end-to-end walk, keyless Cloud Run deployment."
+      ]
+    },
+    {
+      "name": "Lattice",
+      "link": { "label": "lattice-robotics.netlify.app", "url": "https://lattice-robotics.netlify.app" },
+      "bullets": [
+        "Robot-fleet control plane (Rust, React, ROS 2, MuJoCo) that keeps a mission's objective when the route or body changes: signed commands, reviewed detours and handoffs, recorded evidence, measured in simulation."
+      ]
+    },
+    {
+      "name": "0VERTRAINED",
+      "link": { "label": "0vertrained.com", "url": "https://0vertrained.com" },
+      "bullets": [
+        "Training ledger for hybrid athletes (React, Netlify Functions, Supabase/PostgreSQL), sole developer: per-metric wearable arbitration, a daily readiness verdict, and a server-routed LLM coach with timeouts, fallbacks and usage logging."
+      ]
+    }
+  ],
+  "skills": [
+    { "label": "Engineering", "items": "Java, Spring Boot, Python, FastAPI, JavaScript, TypeScript, React, Rust" },
+    { "label": "Data and integration", "items": "PostgreSQL, SQL, REST APIs, FHIR, MCP, Supabase, Docker" },
+    { "label": "Quality and delivery", "items": "Git, CI/CD, pytest, JUnit, Jest, Vitest, Playwright, Cloud Run, Netlify" },
+    { "label": "AI development", "items": "LLM APIs, model routing, evaluation harnesses, agent tooling" }
+  ],
+  "education": [
+    { "school": "App Academy", "dates": "Jun 2022", "detail": "Full Stack Software Engineering Program, 1,000 hours" }
+  ]
+}
