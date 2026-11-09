@@ -464,17 +464,9 @@ main {
 
 .intro {
   display: grid;
-  gap: 3rem;
+  gap: clamp(3rem, 6vw, 4.5rem);
   max-width: var(--wide);
   margin: clamp(4.5rem, 11vw, 9rem) auto clamp(6rem, 14vw, 12rem);
-}
-
-@media (min-width: 64rem) {
-  .intro {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    align-items: end;
-    column-gap: 5rem;
-  }
 }
 
 .intro__lede {
@@ -488,40 +480,103 @@ main {
   scroll-margin-top: 2rem;
 }
 
+/* The work, as cards: the product first, then the name, what it is, and one thing that was measured. */
 .index ul {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
   margin: 0;
   padding: 0;
   list-style: none;
-  border-top: 1px solid var(--rule-strong);
+}
+
+@media (min-width: 40rem) {
+  .index ul {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 .index li {
-  border-bottom: 1px solid var(--rule);
+  display: flex;
 }
 
-.index a {
-  display: grid;
-  gap: 0.15rem;
-  padding: 0.85rem 0;
+.index li a {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   color: inherit;
   text-decoration: none;
 }
 
+.index img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top;
+  margin-bottom: 1.1rem;
+  border-radius: 0.5rem;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  outline: 1px solid var(--rule);
+  outline-offset: -1px;
+  transition: transform 220ms ease;
+}
+
+.index li a:hover img,
+.index li a:focus-visible img {
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .index img {
+    transition: none;
+  }
+
+  .index li a:hover img,
+  .index li a:focus-visible img {
+    transform: none;
+  }
+}
+
 .index__name {
-  font: 750 1.0625rem/1.3 var(--sans);
+  font: 750 1.1875rem/1.25 var(--sans);
   font-stretch: 112%;
 }
 
 .index__what {
+  margin-top: 0.3rem;
   color: var(--ink-soft);
-  font-size: 1rem;
-  line-height: 1.4;
+  font-size: 1.0625rem;
+  line-height: 1.45;
 }
 
-.index a:hover .index__name {
+.index__proof {
+  margin-top: auto;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--rule);
+  color: var(--ink-soft);
+  font: 500 0.9375rem/1.45 var(--sans);
+  font-variant-numeric: tabular-nums;
+}
+
+.index__what + .index__proof {
+  margin-top: 1.1rem;
+}
+
+.index li a:hover .index__name,
+.index li a:focus-visible .index__name {
   text-decoration: underline;
   text-decoration-thickness: 2px;
   text-underline-offset: 0.2em;
+}
+
+.index__also {
+  max-width: var(--measure);
+  margin: 1.75rem 0 0;
+  color: var(--ink-soft);
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
 /* Each case study opens on its product, before a word of explanation. */
