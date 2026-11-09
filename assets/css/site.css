@@ -1239,19 +1239,13 @@ main {
   font: 500 1.0625rem/1.45 var(--sans);
 }
 
-.roles ul {
-  margin: 0;
-  padding-left: 1.1rem;
-  list-style: disc;
-}
-
-.roles ul li {
-  margin: 0 0 0.5rem;
+.roles > li > p:not(.roles__when, .roles__title) {
+  margin: 0 0 0.85rem;
   font-size: 1.0625rem;
   line-height: 1.55;
 }
 
-.roles ul li:last-child {
+.roles > li > p:last-child {
   margin-bottom: 0;
 }
 

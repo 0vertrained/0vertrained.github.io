@@ -68,7 +68,7 @@
 
   <main id="main">
     <section class="intro" aria-label="About">
-      <p class="intro__lede">I build AI products end to end, from how a model is called to the screen a person uses. The parts I care about most are the ones that are easy to skip: keeping private data where it belongs, measuring on cases I never tuned on, and designing for people who would rather not learn new software.</p>
+      <p class="intro__lede">I build AI products end to end, from how a model is called to the screen a person uses. Before I was an engineer I spent five years inside a hospital system getting software adopted by people who had no wish to learn it, and that is still who I design for. So the parts I care about most are the ones that are easy to skip: keeping private data where it belongs, measuring on cases I never tuned on, and making the tool fit the work instead of adding to it.</p>
       <nav class="index" id="work" aria-label="Work on this page">
         <ul>
           <li><a href="#caduceus"><span class="index__name" translate="no">Caduceus</span> <span class="index__what">An AI agent for prior authorization</span></a></li>
@@ -268,7 +268,7 @@
       <div class="project__body">
         <div class="project__main">
           <div class="prose">
-            <p>A rover inspects a warehouse station, then finds its route blocked. Lattice holds the objective and prepares a west-aisle detour for review, keeping the completed inspection and its camera evidence. At the stair landing, a separately approved handoff lets a Go1 quadruped verify that evidence, climb three small steps and inspect the upper station. The route and the body change; the objective and its history stay with Lattice.</p>
+            <p>Telling a robot what to do is the easy part; keeping the goal when the plan breaks is the hard one. A rover inspects a warehouse station, then finds its route blocked. Lattice holds the objective and prepares a west-aisle detour for review, keeping the completed inspection and its camera evidence. At the stair landing, a separately approved handoff lets a Go1 quadruped verify that evidence, climb three small steps and inspect the upper station. The route and the body change; the objective and its history stay with Lattice.</p>
             <p>I built it to connect applied machine learning with the parts of robotics that have to keep working when a model is unsure or a connection drops. A Rust core plans routes, takes approvals and signs commands; a Rust agent on each body verifies those commands, and the evidence they carry, before handing them to ROS&nbsp;2 and Nav2 or to the MuJoCo gateway. Python supplies the language classifier and the marker detector, and the Go1 walks on a published locomotion policy.</p>
           </div>
           <ul class="actions">
@@ -281,7 +281,7 @@
           <div><dt>Built with</dt><dd>Rust, React, TypeScript, C++20, ROS 2 Jazzy, Nav2, Gazebo, MuJoCo, Python, NumPy, scikit-learn, OpenCV, PostgreSQL, OIDC</dd></div>
           <div><dt>Scope</dt><dd>A Gazebo rover and a MuJoCo Go1 in separate physics worlds that share one map. Physical hardware is future work.</dd></div>
           <div><dt>Runs on</dt><dd>Netlify for the tour and the operator console; Google Cloud Run, Cloud SQL and Keycloak for the core, which scales to zero between demos</dd></div>
-          <div><dt>My focus</dt><dd>ML evaluation, robot integration, execution boundaries and observable failures</dd></div>
+          <div><dt>My focus</dt><dd>Evaluating the models, integrating the robots, drawing the line between a model’s suggestion and a robot’s action, and making every failure visible</dd></div>
         </dl>
       </div>
 
@@ -380,7 +380,7 @@
 
       <dl class="features" aria-label="How a Lattice mission runs">
         <div><dt>Propose</dt><dd>A trained intent classifier picks the skill for a language request and explicit rules resolve the place and bound the speed; an unclear request becomes a question or a refusal.</dd></div>
-        <div><dt>Approve</dt><dd>The core binds the plan and its failure policy to a digest, and Postgres commits the approval, the commands and a hash-chained audit record together; an altered or expired review fails, and a retry never dispatches twice.</dd></div>
+        <div><dt>Approve</dt><dd>The core seals the plan and its failure policy into a digest, and Postgres commits the approval, the commands and the audit record in one transaction, so an altered or expired review fails and a retry never sends a command twice.</dd></div>
         <div><dt>Navigate</dt><dd>The body checks each command’s signature, target, sequence and deadline before Nav2 or the Go1’s policy moves it, and local limits and connection watchdogs stay in charge.</dd></div>
         <div><dt>Remember</dt><dd>Each observation keeps its body, capture time, confidence scope and image hash, and a later image without the marker never erases an earlier sighting.</dd></div>
       </dl>
@@ -430,20 +430,16 @@
 
     <section class="experience" id="experience" aria-labelledby="experience-title">
       <h2 class="experience__title" id="experience-title">Experience</h2>
-      <p>Four years as a software engineer at JPMorgan Chase, after five in healthcare informatics at a hospital system. Since leaving the bank I’ve been building the projects on this page.</p>
+      <p>Nine years of shipping software and getting it used: five inside a hospital system, then four at a bank. Since leaving JPMorgan Chase this year I’ve been building the projects on this page.</p>
       <ol class="roles" aria-label="Roles, most recent first">
         <li>
           <div class="roles__head">
             <h3>JPMorgan Chase</h3>
             <p class="roles__when">Plano, Texas · Oct 2022 – 2026</p>
           </div>
-          <p class="roles__title">Software Engineer II, from Jan 2024; Software Engineer I before that</p>
-          <ul>
-            <li>Helped launch a customer-facing banking application that cut the average account-opening time from more than an hour to about fifteen minutes.</li>
-            <li>Built the internal services and interfaces that shortened developer onboarding, and worked with product management on feature planning and roadmap decisions.</li>
-            <li>Served as interim lead for eight engineers: code review, mentoring, sprint ceremonies.</li>
-            <li>Built Java Spring Boot microservices against enterprise APIs, and led the design, testing and deployment of a React and TypeScript interface.</li>
-          </ul>
+          <p class="roles__title">Software Engineer I, then Software Engineer II from January 2024</p>
+          <p>I started on the services: Java and Spring Boot microservices wired to the bank’s enterprise APIs, and the design, testing and release of the React and TypeScript interface in front of them. As an Engineer II I helped launch a customer-facing banking application that brought the average time to open an account down from more than an hour to about fifteen minutes. After that I built the internal services and screens that new developers onboard through, and worked with product management on what to build next and in what order.</p>
+          <p>For a stretch I was interim lead for a team of eight: the code review, the mentoring and the sprint ceremonies, while the team kept shipping.</p>
         </li>
         <li>
           <div class="roles__head">
@@ -451,10 +447,8 @@
             <p class="roles__when">Albuquerque, New Mexico · Oct 2016 – Jul 2021</p>
           </div>
           <p class="roles__title">Business Informatics III</p>
-          <ul>
-            <li>Gathered requirements for referral workflows and coordinated the Epic enhancements with the analysts who built them; trained more than 600 staff across 100 departments on the result.</li>
-            <li>Ran user acceptance testing for Epic upgrades: documented defects, saw them to resolution. The referral and authorization work behind Caduceus started here.</li>
-          </ul>
+          <p>Five years on the hospital side of the screen. I gathered the requirements for referral workflows, worked with the Epic analysts until the enhancements did what the clinics needed, and then trained more than 600 staff across 100 departments to use them, which is where I learned that software only counts once the person at the desk reaches for it. I ran user acceptance testing on Epic upgrades, documenting defects and seeing them through to resolution.</p>
+          <p>Referrals are where prior authorization begins. Caduceus is the tool I would have wanted beside that desk.</p>
         </li>
         <li>
           <div class="roles__head">
@@ -462,6 +456,7 @@
             <p class="roles__when">2022</p>
           </div>
           <p class="roles__title">Full-stack software engineering program, 1,000 hours</p>
+          <p>The bridge from the informatics side to the engineering side.</p>
         </li>
       </ol>
       <ul class="actions">
