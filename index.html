@@ -85,6 +85,13 @@
         <p class="project__kind">A prior-authorization agent that keeps patient data inside the clinic</p>
       </header>
 
+      <figure class="walkthrough project__lead" id="caduceus-walkthrough">
+        <video controls preload="none" playsinline width="1280" height="800" poster="assets/img/caduceus/walkthrough.webp">
+          <source src="assets/media/caduceus-walkthrough.mp4" type="video/mp4">
+        </video>
+        <figcaption>The 2½-minute walkthrough, from a faxed referral to the insurer’s answer, with captions on screen and no sound.</figcaption>
+      </figure>
+
       <div class="project__body">
         <div class="project__main">
           <div class="prose">
@@ -134,12 +141,6 @@
 
       <section class="product" aria-labelledby="caduceus-title caduceus-product">
         <h3 class="section-title" id="caduceus-product">The product</h3>
-        <figure class="walkthrough" id="caduceus-walkthrough">
-          <video controls preload="none" playsinline width="1280" height="800" poster="assets/img/caduceus/walkthrough.webp">
-            <source src="assets/media/caduceus-walkthrough.mp4" type="video/mp4">
-          </video>
-          <figcaption>The 2½-minute walkthrough, from a faxed referral to the insurer’s answer, with captions on screen and no sound.</figcaption>
-        </figure>
         <div class="screens" data-screens>
           <ul class="screens__list" tabindex="0" aria-label="Caduceus screens. Scroll sideways for more.">
             <li><figure><img src="assets/img/caduceus/queue.webp" width="1280" height="800" loading="lazy" decoding="async" alt="The queue, with three faxed referrals at the top, read inside the clinic’s systems."><figcaption>The queue: faxes are read inside the network, then the day’s cases, in plain words.</figcaption></figure></li>
@@ -193,6 +194,17 @@
         <p class="project__kind">A training app for athletes who lift and race, designed and built alone</p>
       </header>
 
+      <div class="project__lead">
+        <ul class="phones" tabindex="0" aria-label="0VERTRAINED screens">
+          <li><figure><img src="assets/img/overtrained/today.webp" width="540" height="1169" loading="lazy" decoding="async" alt="The Today screen on a Monday: Upper A, push and triceps, a Start session button, and protein, steps and calories so far."><figcaption>Today: the day’s session, one tap from starting.</figcaption></figure></li>
+          <li><figure><img src="assets/img/overtrained/recovery.webp" width="540" height="1169" loading="lazy" decoding="async" alt="Recovery: the check-in taps above the verdict, Fresh at 97 and rising, and Green light, load the bar."><figcaption>Recovery asks how you feel before it shows the number.</figcaption></figure></li>
+          <li><figure><img src="assets/img/overtrained/session.webp" width="540" height="1169" loading="lazy" decoding="async" alt="A session on barbell bench press: last time 240 pounds for four sets of six, and today’s target, 245, since every set reached six reps without a technique flag."><figcaption>Every set last time hit its reps cleanly, so today’s target goes up the smallest step.</figcaption></figure></li>
+          <li><figure><img src="assets/img/overtrained/sunday-edition.webp" width="540" height="1169" loading="lazy" decoding="async" alt="The Sunday Edition: the week’s mornings with their recovery states, sleep debt, the load ledger and a volume digest."><figcaption>The Sunday Edition reviews the week, each morning scored as it was that day.</figcaption></figure></li>
+          <li><figure><img src="assets/img/overtrained/fuel.webp" width="540" height="1169" loading="lazy" decoding="async" alt="Fuel: protein first, with 78 grams and 1,530 calories left today, and the next meal that closes the gap."><figcaption>Fuel shows what’s still needed today and the next meal that closes it.</figcaption></figure></li>
+        </ul>
+        <p class="note">Captured from the app’s demo build, with seeded, made-up data.</p>
+      </div>
+
       <div class="project__body">
         <div class="project__main">
           <div class="prose">
@@ -211,18 +223,6 @@
           <div><dt>Status</dt><dd>In beta, on version 19.6</dd></div>
         </dl>
       </div>
-
-      <section class="product" aria-labelledby="overtrained-title overtrained-product">
-        <h3 class="section-title" id="overtrained-product">The product</h3>
-        <ul class="phones" tabindex="0" aria-label="0VERTRAINED screens">
-          <li><figure><img src="assets/img/overtrained/today.webp" width="540" height="1169" loading="lazy" decoding="async" alt="The Today screen on a Monday: Upper A, push and triceps, a Start session button, and protein, steps and calories so far."><figcaption>Today: the day’s session, one tap from starting.</figcaption></figure></li>
-          <li><figure><img src="assets/img/overtrained/recovery.webp" width="540" height="1169" loading="lazy" decoding="async" alt="Recovery: the check-in taps above the verdict, Fresh at 97 and rising, and Green light, load the bar."><figcaption>Recovery asks how you feel before it shows the number.</figcaption></figure></li>
-          <li><figure><img src="assets/img/overtrained/session.webp" width="540" height="1169" loading="lazy" decoding="async" alt="A session on barbell bench press: last time 240 pounds for four sets of six, and today’s target, 245, since every set reached six reps without a technique flag."><figcaption>Every set last time hit its reps cleanly, so today’s target goes up the smallest step.</figcaption></figure></li>
-          <li><figure><img src="assets/img/overtrained/sunday-edition.webp" width="540" height="1169" loading="lazy" decoding="async" alt="The Sunday Edition: the week’s mornings with their recovery states, sleep debt, the load ledger and a volume digest."><figcaption>The Sunday Edition reviews the week, each morning scored as it was that day.</figcaption></figure></li>
-          <li><figure><img src="assets/img/overtrained/fuel.webp" width="540" height="1169" loading="lazy" decoding="async" alt="Fuel: protein first, with 78 grams and 1,530 calories left today, and the next meal that closes the gap."><figcaption>Fuel shows what’s still needed today and the next meal that closes it.</figcaption></figure></li>
-        </ul>
-        <p class="note">Captured from the app’s demo build, with seeded, made-up data.</p>
-      </section>
 
       <dl class="features">
         <div><dt>Recovery</dt><dd>Six named states, from Fresh to Deload advised, worked out from a week of HRV against the athlete’s own four-week baseline, never from a single morning. Oura is the main series and Whoop the fallback, and the two are never mixed.</dd></div>
@@ -264,6 +264,14 @@
         <h2 class="project__title" id="lattice-title" translate="no">Lattice</h2>
         <p class="project__kind">Robot missions that keep their objective when the route or body changes</p>
       </header>
+
+      <figure class="walkthrough project__lead" id="lattice-recording">
+        <video controls playsinline preload="none" poster="assets/img/lattice/tour-opening-poster.webp" width="1280" height="800" aria-label="Recording of the Lattice tour’s opening on the blocked aisle">
+          <source src="assets/video/lattice-tour-opening.mp4" type="video/mp4">
+          <a href="assets/video/lattice-tour-opening.mp4">Download the recording</a>.
+        </video>
+        <figcaption>The tour’s opening, recorded from the copy on this site: the warehouse plan, the stretch of aisle the lidar found blocked, the detour the planner found, and the rover’s recorded path at five times speed. 22 seconds, no sound.</figcaption>
+      </figure>
 
       <div class="project__body">
         <div class="project__main">
@@ -353,13 +361,6 @@
 
       <section class="product" aria-labelledby="lattice-title lattice-product">
         <h3 class="section-title" id="lattice-product">The product</h3>
-        <figure class="walkthrough" id="lattice-recording">
-          <video controls playsinline preload="none" poster="assets/img/lattice/tour-opening-poster.webp" width="1280" height="800" aria-label="Recording of the Lattice tour’s opening on the blocked aisle">
-            <source src="assets/video/lattice-tour-opening.mp4" type="video/mp4">
-            <a href="assets/video/lattice-tour-opening.mp4">Download the recording</a>.
-          </video>
-          <figcaption>The tour’s opening, recorded from the copy on this site: the warehouse plan, the stretch of aisle the lidar found blocked, the detour the planner found, and the rover’s recorded path at five times speed. 22 seconds, no sound.</figcaption>
-        </figure>
         <div class="screens" data-screens>
           <ul class="screens__list" tabindex="0" aria-label="Lattice screens. Scroll sideways for more.">
             <li><figure><img src="assets/img/lattice/tour-handoff-proof.webp" width="1440" height="900" loading="lazy" decoding="async" alt="A two-channel timing trace for Rover A and Rover B over 2 minutes 20 seconds. A hatched band marks Rover A’s work held for handoff from 13.5 seconds until the approval at 75.2 seconds, with the readouts and the transfer record below."><figcaption>The two-rover handoff as a logic-analyser trace; the hatched band is the time A’s work was held for review.</figcaption></figure></li>

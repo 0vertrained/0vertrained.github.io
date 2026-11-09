@@ -524,6 +524,11 @@ main {
   text-underline-offset: 0.2em;
 }
 
+/* Each case study opens on its product, before a word of explanation. */
+.project > .project__lead {
+  margin: 0 0 clamp(2.5rem, 5vw, 3.5rem);
+}
+
 .project {
   container-type: inline-size;
   max-width: var(--wide);
