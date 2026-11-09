@@ -5,6 +5,7 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const { chromium } = require('playwright');
+const { PDFDocument } = require('pdf-lib');
 
 const here = __dirname;
 const data = JSON.parse(fs.readFileSync(path.join(here, 'resume.json'), 'utf8'));
@@ -39,8 +40,7 @@ function render(r) {
   const skills = `<dl class="skills">${r.skills.map((s) => `<dt>${esc(s.label)}</dt><dd>${esc(s.items)}</dd>`).join('')}</dl>`;
 
   const education = r.education.map((e) => `<div class="job">
-  <div class="line"><strong>${esc(e.school)}</strong><span>${esc(e.dates)}</span></div>
-  <p class="title">${esc(e.detail)}</p>
+  <div class="line"><div><strong>${esc(e.school)}</strong> <span class="detail">· ${esc(e.detail)}</span></div><span>${esc(e.dates)}</span></div>
 </div>`).join('\n');
 
   return `<!doctype html>
@@ -80,12 +80,27 @@ ${education}
   const htmlOut = process.argv.includes('--html') ? process.argv[process.argv.indexOf('--html') + 1] : path.join(os.tmpdir(), 'resume.html');
   fs.writeFileSync(htmlOut, html);
   const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined, args: ['--no-sandbox'] });
-  const page = await browser.newPage();
+  // Lay the page out at the printed text width so the height check below matches the PDF.
+  const page = await browser.newPage({ viewport: { width: Math.round((8.5 - 0.5 * 2) * 96), height: 1056 } });
+  await page.emulateMedia({ media: 'print' });
   await page.goto('file://' + htmlOut);
   await page.evaluate(() => document.fonts.ready);
   const out = path.resolve(here, '../../assets/Rami-Martinez-resume.pdf');
-  await page.pdf({ path: out, format: 'Letter', printBackground: true, preferCSSPageSize: true });
-  const pages = await page.evaluate(() => Math.ceil(document.documentElement.scrollHeight / (11 * 96 - 1.05 * 96)));
-  console.log('wrote', out, '~pages', pages);
+  const bytes = await page.pdf({ format: 'Letter', printBackground: true, preferCSSPageSize: true });
+  const height = await page.evaluate(() => document.body.getBoundingClientRect().height);
   await browser.close();
+
+  // Document metadata, which Chromium does not write from the page, and the page count.
+  const pdf = await PDFDocument.load(bytes);
+  pdf.setTitle(`${data.name} - ${data.headline} - Resume`);
+  pdf.setAuthor(data.name);
+  pdf.setSubject(`Resume of ${data.name}, ${data.headline}`);
+  pdf.setKeywords(data.skills.flatMap((s) => s.items.split(/,\s*/)));
+  pdf.setProducer('tools/resume/build.cjs');
+  pdf.setCreator('tools/resume/build.cjs');
+  fs.writeFileSync(out, await pdf.save());
+  const pages = pdf.getPageCount();
+  const room = Math.round((11 - 0.45 - 0.4) * 96 - height);
+  console.log(`wrote ${out}: ${pages} page${pages === 1 ? '' : 's'}, ${room >= 0 ? room + 'px to spare' : -room + 'px over'}`);
+  if (pages !== 1) process.exitCode = 1;
 })();
