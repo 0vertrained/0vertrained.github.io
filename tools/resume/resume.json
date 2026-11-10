@@ -28,7 +28,7 @@
           "dates": "Jan 2024 – Oct 2026",
           "bullets": [
             "Helped launch a customer-facing account-opening application that cut the average time to open an account from more than an hour to about 15 minutes.",
-            "Owned three of its services until handoff: a Kafka-to-SSE adapter streaming application status and eligibility to the browser, an aggregator that bundles internal-system data into one response, and their proxy.",
+            "Owned three of its services until handoff: a proxy, a Kafka-to-SSE adapter streaming application status and eligibility to the browser, and an aggregator that bundles internal-system data into one response.",
             "Served six months as interim lead for eight engineers (code review, mentoring, sprint ceremonies, roadmap planning with product) and shipped the MVP of a deceased-notification tool: a customer or beneficiary reports a death online in a few steps and an agent collects the documents and handles closures or transfers.",
             "Built a drag-and-drop generator for the internal UI component library: engineers compose a page and download a starter project, so new developers learn the component syntax and coding standards from generated code."
           ]
