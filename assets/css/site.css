@@ -571,14 +571,6 @@ main {
   text-underline-offset: 0.2em;
 }
 
-.index__also {
-  max-width: var(--measure);
-  margin: 1.75rem 0 0;
-  color: var(--ink-soft);
-  font-size: 1rem;
-  line-height: 1.5;
-}
-
 /* Each case study opens on its product, before a word of explanation. */
 .project > .project__lead {
   margin: 0 0 clamp(2.5rem, 5vw, 3.5rem);
@@ -601,11 +593,6 @@ main {
   font: 820 min(8.5rem, 10.6cqi)/0.9 var(--sans);
   font-stretch: 125%;
   letter-spacing: -0.022em;
-}
-
-.project--wip .project__title {
-  font-size: clamp(2rem, 7.2cqi, 4.75rem);
-  line-height: 0.98;
 }
 
 .project__kind {
