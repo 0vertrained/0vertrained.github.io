@@ -1,0 +1,80 @@
+{
+  "file": "Rami-Martinez-Forward-Deployed-Engineer",
+  "headline": "Forward Deployed Engineer",
+  "summary": "Engineer who has worked on both sides of a deployment: five years inside a hospital system turning clinics' needs into Epic changes and training 600+ staff to use them, then four at JPMorgan Chase building customer-facing software. Builds AI applications for regulated work end to end, from workflow to audit trail.",
+  "experience": {
+    "Software Engineer II": {
+      "order": [
+        "launch",
+        "lead",
+        "generator",
+        "services"
+      ]
+    },
+    "Business Informatics III": {
+      "text": {
+        "cycle": "Worked with specialty and radiology clinics to cut referral cycle time from order to scheduled appointment, gathering their requirements and coordinating Epic Referrals and Cadence enhancements with analysts."
+      }
+    }
+  },
+  "projects": [
+    {
+      "name": "Caduceus",
+      "stack": "Python, FastAPI, React, FHIR, SMART on FHIR, OIDC, Cloud Run",
+      "link": {
+        "label": "caduceusdemo.netlify.app",
+        "url": "https://caduceusdemo.netlify.app"
+      },
+      "bullets": [
+        "Prior-authorization agent built as a deployment for a simulated health system: reads the referral, checks the record against insurer policy, asks the clinician only for what's missing and drafts the request a specialist approves.",
+        "Fits the customer's systems: launches from the EHR (SMART on FHIR), signs in through the clinic's identity provider and keeps patient data inside the clinic; of 181 planted identifiers, none reached the outside model."
+      ]
+    },
+    {
+      "name": "Lattice",
+      "stack": "Rust, React, TypeScript, ROS 2, Gazebo, MuJoCo",
+      "link": {
+        "label": "lattice-robotics.netlify.app",
+        "url": "https://lattice-robotics.netlify.app"
+      },
+      "bullets": [
+        "Robot-fleet control plane that keeps a mission's objective when the route or the body changes: a Rust core plans, holds detours and handoffs for operator approval and signs commands; an agent on each robot verifies them.",
+        "A guided public tour replays three recorded runs: no completed inspection repeated after a detour or handoff."
+      ]
+    },
+    {
+      "name": "0VERTRAINED",
+      "stack": "React, Netlify Functions, Supabase (PostgreSQL)",
+      "link": {
+        "label": "0vertrained.com",
+        "url": "https://0vertrained.com"
+      },
+      "bullets": [
+        "Training app for athletes who lift and race, taken alone from idea to beta: per-metric arbitration between Oura and Whoop, a daily readiness verdict and a server-routed LLM coach.",
+        "In beta on version 19.6; 2,030 automated tests, row-level security on every table, encrypted wearable tokens."
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "label": "AI",
+      "items": "LLM APIs, model routing, evaluation harnesses, Model Context Protocol (MCP), de-identification"
+    },
+    {
+      "label": "Integration",
+      "items": "HL7 FHIR, SMART on FHIR, OAuth 2.0/OIDC, REST, Kafka, Server-Sent Events, PostgreSQL"
+    },
+    {
+      "label": "Languages",
+      "items": "Python, FastAPI, TypeScript, React, Java, Spring Boot, Rust"
+    },
+    {
+      "label": "Delivery",
+      "items": "Git, GitHub Actions, Docker, Google Cloud Run, Netlify, Playwright, pytest, Scrum"
+    },
+    {
+      "label": "Healthcare",
+      "items": "Epic Referrals, Cadence, MyChart (trained, not certified); referral and prior-authorization workflows"
+    }
+  ]
+}
