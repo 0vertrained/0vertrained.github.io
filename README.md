@@ -23,9 +23,10 @@ JavaScript; the scripts add the parts that move.
 
 Motion follows `prefers-reduced-motion`, colour follows `prefers-color-scheme`, and nothing is tracked.
 
-The résumé the page links to is built, not uploaded: `tools/resume/resume.json` holds the content,
-`build.cjs` prints the PDF and `docx.py` writes the Word copy, and `check.py` reads both back the way a
-résumé parser would and fails if a line is lost.
+The résumé the page links to is built, not uploaded. `tools/resume/resume.json` holds the content, and each
+file in `tools/resume/variants/` lays a version for one kind of role over it: its own headline and summary,
+the same facts in a different order. `python3 tools/resume/build.py` prints each as a PDF, writes its Word
+copy, and reads both back the way a résumé parser would, failing if a line is lost or a page is overrun.
 
 ## Run it
 
