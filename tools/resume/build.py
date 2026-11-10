@@ -36,10 +36,7 @@ def main(argv: list[str]) -> int:
             printed, pages, room = pdf.build(resume, browser)
             written = word.build(resume)
             problems = check.check(resume, printed, written)
-            if pages == 1:
-                fit = f'{room} px to spare'
-            else:
-                fit = f'{pages} pages'
+            fit = f'{room} px to spare' if pages == 1 else f'{pages} pages, {-room} px over'
             words = sum(len(line.split()) for line in check.lines(resume))
             print(f'{name}: {printed.name} and {written.name}, {words} words, {fit}')
             for problem in problems:

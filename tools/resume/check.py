@@ -22,7 +22,9 @@ WORD_TEXT = '{http://schemas.openxmlformats.org/wordprocessingml/2006/main}t'
 
 
 def squash(text: str) -> str:
-    return re.sub(r'\s+', ' ', text).strip().lower()
+    """Text as one line. A line that wraps after a hyphen comes back from a PDF as "customer- facing"; a reader
+    of the page sees "customer-facing", so the break is closed here."""
+    return re.sub(r'-\s+', '-', re.sub(r'\s+', ' ', text)).strip().lower()
 
 
 def missing(resume: dict, text: str) -> list[str]:
