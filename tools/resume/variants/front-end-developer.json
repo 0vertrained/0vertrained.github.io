@@ -1,0 +1,94 @@
+{
+  "file": "Rami-Martinez-Front-End-Developer",
+  "headline": "Front End Developer",
+  "summary": "Front end developer: four years at JPMorgan Chase, leading a React and TypeScript interface, helping launch a customer-facing account-opening application and building a drag-and-drop page builder for the bank's UI component library. Designs and builds accessible products alone, checked against WCAG 2.2 AA end to end.",
+  "experience": {
+    "Software Engineer II": {
+      "order": [
+        "generator",
+        "launch",
+        "services",
+        "lead"
+      ],
+      "text": {
+        "services": "Owned three of its services until handoff, among them the Kafka-to-SSE adapter that streams application status and eligibility to the browser in real time and an aggregator that gives the interface all it needs in one response.",
+        "lead": "Served six months as interim lead for eight engineers (code review, mentoring, sprint ceremonies, roadmap planning with product) and shipped the MVP of a deceased-notification tool for customers and beneficiaries."
+      }
+    },
+    "Software Engineer I": {
+      "text": {
+        "interface": "Led the design, testing and release of a React/TypeScript interface with Redux; built Java Spring Boot microservices and integrated enterprise APIs."
+      }
+    }
+  },
+  "projects": [
+    {
+      "name": "0VERTRAINED",
+      "stack": "React, Vite, PWA, Web Push, Netlify Functions, Supabase",
+      "link": {
+        "label": "0vertrained.com",
+        "url": "https://0vertrained.com"
+      },
+      "bullets": [
+        "React PWA for athletes who lift and race, designed and built alone: its own design system, broadsheet layouts on wide screens, a workout session runner, web push and lazy-loaded tab bundles.",
+        "In beta on version 19.6 with 2,030 automated tests; a seeded demo mode drives the same screens with fixed data."
+      ]
+    },
+    {
+      "name": "Caduceus",
+      "stack": "React, TypeScript, Vite, Playwright, axe-core",
+      "link": {
+        "label": "caduceusdemo.netlify.app",
+        "url": "https://caduceusdemo.netlify.app"
+      },
+      "bullets": [
+        "Review interface for a prior-authorization agent, designed for office staff who are not technical: plain language, a text-size control, and every screen checked against WCAG 2.2 AA with axe-core, down to 320 px wide.",
+        "Shows its work: a \"What was sent to the model\" view puts the de-identified text in front of the reviewer."
+      ]
+    },
+    {
+      "name": "Portfolio",
+      "stack": "HTML, CSS, JavaScript, WebGL 2, no framework",
+      "link": {
+        "label": "0vertrained.github.io",
+        "url": "https://0vertrained.github.io"
+      },
+      "bullets": [
+        "A WebGL 2 view of the Santa Fe sky computed from the real positions of the sun, moon and stars, with a CSS fallback, reduced-motion and color-scheme support, and no build step."
+      ]
+    },
+    {
+      "name": "Lattice",
+      "stack": "React, TypeScript, Rust",
+      "link": {
+        "label": "lattice-robotics.netlify.app",
+        "url": "https://lattice-robotics.netlify.app"
+      },
+      "bullets": [
+        "Operator interface and guided public tour for a robot-fleet control plane: mission state, approvals for detours and handoffs, and replays of recorded runs."
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "label": "Front end",
+      "items": "React, TypeScript, JavaScript, Redux, HTML, CSS, Vite, WebGL 2, PWAs, accessibility (WCAG 2.2 AA)"
+    },
+    {
+      "label": "Testing",
+      "items": "Playwright, axe-core, Vitest, Jest, pytest, JUnit"
+    },
+    {
+      "label": "Back end",
+      "items": "Java, Spring Boot, Python, FastAPI, PostgreSQL, REST, Kafka, Server-Sent Events, OAuth 2.0/OIDC"
+    },
+    {
+      "label": "Delivery",
+      "items": "Git, GitHub Actions, Docker, Netlify, Google Cloud Run, Scrum"
+    },
+    {
+      "label": "AI",
+      "items": "LLM APIs, model routing and fallbacks, evaluation harnesses"
+    }
+  ]
+}
