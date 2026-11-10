@@ -1,0 +1,53 @@
+{
+  "file": "Rami-Martinez-Full-Stack-Developer",
+  "headline": "Full Stack Developer",
+  "summary": "Full stack developer: four years at JPMorgan Chase across the stack of customer-facing banking software, from Java and Spring Boot services and Kafka events to React and TypeScript interfaces, after five years in hospital informatics. Builds and ships complete products alone, from schema to screen.",
+  "experience": {
+    "Software Engineer II": {
+      "order": [
+        "launch",
+        "services",
+        "generator",
+        "lead"
+      ]
+    }
+  },
+  "projects": [
+    {
+      "name": "0VERTRAINED",
+      "stack": "React, Vite, Netlify Functions, Supabase (PostgreSQL), Web Push",
+      "link": {
+        "label": "0vertrained.com",
+        "url": "https://0vertrained.com"
+      },
+      "bullets": [
+        "Training app for athletes who lift and race, built alone end to end: a React PWA on serverless functions and PostgreSQL, with per-metric arbitration between Oura and Whoop, a daily readiness verdict and an LLM coach.",
+        "In beta on version 19.6; 2,030 automated tests, row-level security on every table, encrypted wearable tokens."
+      ]
+    },
+    {
+      "name": "Caduceus",
+      "stack": "Python, FastAPI, React, TypeScript, PostgreSQL, FHIR, Cloud Run",
+      "link": {
+        "label": "caduceusdemo.netlify.app",
+        "url": "https://caduceusdemo.netlify.app"
+      },
+      "bullets": [
+        "Prior-authorization agent for a simulated health system: a FastAPI service and a React review interface that read the faxed referral, check the record against the insurer's policy text and draft the request for specialist approval.",
+        "Keeps patient data inside the clinic: a local model de-identifies text before it reaches the drafting model; 181 identifiers planted across the test suite, none reached the outside model. 200+ tests, hash-chained audit log."
+      ]
+    },
+    {
+      "name": "Lattice",
+      "stack": "Rust, React, TypeScript, ROS 2, Gazebo, MuJoCo, PostgreSQL",
+      "link": {
+        "label": "lattice-robotics.netlify.app",
+        "url": "https://lattice-robotics.netlify.app"
+      },
+      "bullets": [
+        "Robot-fleet control plane that keeps a mission's objective when the route or the body changes: a Rust core plans, holds detours and handoffs for approval and signs commands, and an agent on each robot verifies them.",
+        "Three recorded simulation runs with no completed inspection repeated; evaluations published with the code."
+      ]
+    }
+  ]
+}
