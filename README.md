@@ -64,3 +64,33 @@ with the core on Google Cloud Run.
 `assets/video/lattice-tour-opening.mp4` is a recording of the tour's opening from this copy, and
 the `console-*.webp` screens come from the console with sample data; their route plans are the
 planner's real output for the warehouse map.
+
+## Ensemble recorded runs
+
+`ensemble/index.html` is one self-contained page built from `0vertrained/Ensemble` (commit `e2a44a4`):
+the app itself, with five recorded runs written into it and no server behind it. It makes no requests, and
+each run can be played back and scrubbed step by step. `ensemble/#run-recorded-1` to `#run-recorded-5` open
+the runs directly, in the order below.
+
+The logs are in `ensemble/runs/`, as GitHub runners recorded them on 10 and 11 November 2026 (they are kept
+on that repository's `live-runs` branch):
+
+| File | Run | Recorded as |
+| --- | --- | --- |
+| `rename-glm-5.3.jsonl` | Add a rename command, glm-5.3, the sample project | `20261111-072720-benchmark2/rename` |
+| `km-paces-0vertrained-gemma4.jsonl` | Paces per kilometre, gemma4:31b, a copy of 0VERTRAINED | `20261110-201819-project2` |
+| `priorities-after-gemma4.jsonl` | Add priorities, gemma4:31b, after the harness began checking what was read | `20261110-123856-sample2` |
+| `priorities-before-gemma4.jsonl` | The same request two hours earlier, which asked for help | `20261110-105024-sample1` |
+| `undo-glm-5.3.jsonl` | Add an undo command, glm-5.3, the sample project | `20261111-072720-benchmark2/undo` |
+
+Rebuild it from the Ensemble checkout, after `npm install` and `npm run build`, giving the runs in that
+order:
+
+```bash
+node scripts/build-static.mjs "glm-5.3 on the sample project=/path/to/this/portfolio/ensemble/runs/rename-glm-5.3.jsonl" ... --out /path/to/this/portfolio/ensemble/index.html
+```
+
+The recording at the head of the case study (`assets/video/ensemble-run.mp4`) is that page playing the
+first run at its own pace. The desktop stills in `assets/img/ensemble/` are the same page at chosen steps;
+the two phone stills are the app's scripted demo, which needs no model. The page was checked with axe-core
+against WCAG 2.2 AA on 40 screens: ten moments of the runs, in both colourings, at desktop and phone width.
