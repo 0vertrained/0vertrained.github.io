@@ -22,7 +22,7 @@
       },
       "bullets": [
         "Training app for athletes who lift and race, built alone end to end: a React PWA on serverless functions and PostgreSQL, with per-metric arbitration between Oura and Whoop, a daily readiness verdict and an LLM coach.",
-        "In beta on version 19.6; 2,030 automated tests, row-level security on every table, encrypted wearable tokens."
+        "In beta; 2,030 automated tests, row-level security on every table, encrypted wearable tokens."
       ]
     },
     {

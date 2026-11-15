@@ -51,7 +51,7 @@
       },
       "bullets": [
         "Training app for athletes who lift and race, taken alone from idea to beta: per-metric arbitration between Oura and Whoop, a daily readiness verdict and a server-routed LLM coach.",
-        "In beta on version 19.6; 2,030 automated tests, row-level security on every table, encrypted wearable tokens."
+        "In beta; 2,030 automated tests, row-level security on every table, encrypted wearable tokens."
       ]
     }
   ],

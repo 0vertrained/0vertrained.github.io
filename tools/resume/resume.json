@@ -92,7 +92,7 @@
       },
       "bullets": [
         "Training ledger for athletes who lift and race, built alone: per-metric arbitration between Oura and Whoop, a daily readiness verdict from a week of HRV against a four-week baseline, and a server-routed LLM coach.",
-        "In beta on version 19.6; 2,030 automated tests, row-level security on every table, encrypted wearable tokens."
+        "In beta; 2,030 automated tests, row-level security on every table, encrypted wearable tokens."
       ]
     }
   ],
