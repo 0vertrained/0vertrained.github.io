@@ -489,9 +489,17 @@ main {
   list-style: none;
 }
 
+/* Four pieces of work: two by two on a tablet, one row once each card is wide enough to read. */
 @media (min-width: 40rem) {
   .index ul {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 68rem) {
+  .index ul {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1.5rem, 2.4vw, 2rem);
   }
 }
 
@@ -1150,9 +1158,51 @@ main {
   line-height: 1.55;
 }
 
+/* Ensemble */
+
+/* The team's room on a phone: two screens, with what each is for beside them on a wide screen. */
+.pocket {
+  display: grid;
+  gap: 2.5rem 4rem;
+  margin-top: clamp(3rem, 6vw, 4.5rem);
+}
+
+.pocket__phones {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 15rem));
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pocket__phones img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 1.25rem;
+  background: #050805;
+  box-shadow: var(--shadow);
+  outline: 1px solid var(--rule);
+  outline-offset: -1px;
+}
+
+.pocket .pocket__notes {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: var(--measure);
+  margin: 0;
+}
+
+@container (min-width: 56rem) {
+  .pocket {
+    grid-template-columns: auto minmax(0, 26rem);
+    align-items: center;
+  }
+}
+
 /* Lattice */
 
-/* The three recorded runs: a column each on a wide screen, with their links lined up along the foot. */
+/* Recorded runs: a column each on a wide screen, with their links lined up along the foot. */
 .runs {
   display: grid;
   gap: 2.5rem 3rem;

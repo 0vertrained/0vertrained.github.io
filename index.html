@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Rami, full-stack and AI engineer</title>
-  <meta name="description" content="Rami builds AI products end to end: a prior-authorization agent that keeps patient data inside the clinic, a training app for athletes, robot missions that keep their objective across bodies, and the infrastructure under them.">
+  <meta name="description" content="Rami builds AI products end to end: a prior-authorization agent that keeps patient data inside the clinic, a team of AI agents held to a process written in code, a training app for athletes, and robot missions that keep their objective across bodies.">
   <meta name="theme-color" content="#edefea" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0d131a" media="(prefers-color-scheme: dark)">
   <meta name="color-scheme" content="light dark">
@@ -77,6 +77,12 @@
             <span class="index__name" translate="no">Caduceus</span>
             <span class="index__what">An AI agent for prior authorization that keeps patient data inside the clinic</span>
             <span class="index__proof">181 identifiers planted in test records; none reached the outside model</span>
+          </a></li>
+          <li><a href="#ensemble">
+            <img src="assets/img/ensemble/run.webp" width="1280" height="800" loading="lazy" decoding="async" alt="">
+            <span class="index__name" translate="no">Ensemble</span>
+            <span class="index__what">A team of AI agents that builds a tested change, under a process written in code</span>
+            <span class="index__proof">7 of 7 tasks solved against hidden checks with one model, 4 of 7 with another</span>
           </a></li>
           <li><a href="#overtrained">
             <img src="assets/img/overtrained/today.webp" width="540" height="1169" loading="lazy" decoding="async" alt="">
@@ -199,6 +205,134 @@
         <div class="prose">
           <p>On cases built to known answers, the rules engine was right every time. That was the easy test. So I generated 36 cases it had never seen, with the mess real charts have: diagnoses entered in error, therapy still under way, codes outside the expected lists, arthritis in the other knee. Agreement fell to 88.5%, with 4 unsafe errors, where it called a criterion met when it wasn’t.</p>
           <p>I published that number, fixed the engine where it was wrong, and left the last two for a clinical reviewer, because changing approved criteria isn’t the software’s call.</p>
+        </div>
+      </section>
+    </article>
+
+    <article class="project" id="ensemble" aria-labelledby="ensemble-title">
+      <header class="project__head">
+        <h2 class="project__title" id="ensemble-title" translate="no">Ensemble</h2>
+        <p class="project__kind">A software team of AI agents, held to a process that is written in code</p>
+      </header>
+
+      <figure class="walkthrough project__lead" id="ensemble-recording">
+        <video controls playsinline preload="none" poster="assets/img/ensemble/run.webp" width="1280" height="800" aria-label="Recording of the Ensemble app playing back one run, from the request to the release note">
+          <source src="assets/video/ensemble-run.mp4" type="video/mp4">
+          <a href="assets/video/ensemble-run.mp4">Download the recording</a>.
+        </video>
+        <figcaption>One real run, played back by the app from its own log: a request to add a rename command, from the requirements to the release note. The tests fail once on the way. 30 seconds, no sound.</figcaption>
+      </figure>
+
+      <div class="project__body">
+        <div class="project__main">
+          <div class="prose">
+            <p>Ensemble takes a request for a change to a codebase and hands it to a team of agents: a product owner, an architect, a designer, a tech lead, two developers, a reviewer, a QA engineer, a security reviewer and a release engineer, each a model with one job. What comes back is a tested, reviewed change and the text of a draft pull request. The agents don’t decide how the work goes. The process is a pipeline written in code, and they fill in its stages: every handoff is a typed document checked before anything builds on it, no change lands until it has passed review, the tests are run by the harness and never reported by a model, and nothing is written until a person approves the plan.</p>
+            <p>I wrote the orchestrator myself and used no agent framework, because the questions I care about are decided there: what an agent may do, who checks whose work, what happens when a model is confidently wrong, and what a run may spend. A run is an append-only log, and every screen is worked out from the events so far. That is why a finished run plays back like a recording, and why a run that was stopped, or was going when the app closed, picks up where its log ends. It’s in progress: the pipeline, the app and the evaluations are built, and opening the pull request on GitHub by itself comes next.</p>
+          </div>
+          <ul class="actions">
+            <li><a class="button button--primary" href="ensemble/">Replay five recorded runs</a></li>
+            <li><a class="button" href="#ensemble-recording">Watch one run</a></li>
+          </ul>
+        </div>
+        <dl class="facts">
+          <div><dt>Built with</dt><dd>TypeScript, Node, React, Vite and Vitest, with no agent framework</dd></div>
+          <div><dt>Models</dt><dd>Whatever Ollama serves, in the cloud or on the machine; measured here with <span translate="no">glm-5.3</span> and <span translate="no">gemma4:31b</span></dd></div>
+          <div><dt>Isolation</dt><dd>bubblewrap on Linux and the system sandbox on macOS, each put to the test on the machine before it is trusted</dd></div>
+          <div><dt>Runs on</dt><dd>One computer, or a small private server only its owner’s devices can reach</dd></div>
+          <div><dt>Status</dt><dd>In progress, with the repository private for now</dd></div>
+        </dl>
+      </div>
+
+      <section class="product" aria-labelledby="ensemble-title ensemble-runs-title">
+        <h3 class="section-title" id="ensemble-runs-title">Three of the recorded runs</h3>
+        <ul class="runs">
+          <li>
+            <h4>The tests were wrong</h4>
+            <p>A request to add a rename command to a small sample project, with <span translate="no">glm-5.3</span>. QA writes its tests from the acceptance criteria and never sees the code. Four of the 25 tests failed. The tech lead, who is shown the tests, the code and the output together, found the tests at fault: they matched an error message with a pattern that could not match. QA rewrote them, and all 25 passed.</p>
+            <p class="runs__measured">21 model calls, 304,806 tokens. Scored afterwards by 3 checks the team never saw; all passed.</p>
+            <a href="ensemble/#run-recorded-1">Replay the rename run</a>
+          </li>
+          <li>
+            <h4>The code was wrong</h4>
+            <p>The same team on a copy of <span translate="no">0VERTRAINED</span>, my own app, with <span translate="no">gemma4:31b</span>: let callers ask for running paces per kilometre. The harness ran the app’s own test suite, and one new test failed. This time the tech lead sent it to the developer: a function took the text “483” for a number, which the requirements ruled out. The fix was reviewed, and all 172 test files passed.</p>
+            <p class="runs__measured">18 model calls, 110,014 tokens. Nothing was pushed to the app’s repository.</p>
+            <a href="ensemble/#run-recorded-2">Replay the run on <span translate="no">0VERTRAINED</span></a>
+          </li>
+          <li>
+            <h4>It asked for help</h4>
+            <p>The first run on a project that already had code, with <span translate="no">gemma4:31b</span>. The tests failed three times, the rounds of fixes ran out, and the run stopped and said so. Every loop in the pipeline has a limit, and running out of one goes to a person instead of round again.</p>
+            <p class="runs__measured">23 model calls, 80,426 tokens. Why it failed is the lesson below.</p>
+            <a href="ensemble/#run-recorded-4">Replay the run that asked for help</a>
+          </li>
+        </ul>
+        <p class="note">Each is a log from a GitHub runner, played back by the same app with no server behind it. Download the logs: <a href="ensemble/runs/rename-glm-5.3.jsonl" download>the rename run</a>, <a href="ensemble/runs/km-paces-0vertrained-gemma4.jsonl" download>the run on <span translate="no">0VERTRAINED</span></a>, <a href="ensemble/runs/priorities-before-gemma4.jsonl" download>the run that asked for help</a>, <a href="ensemble/runs/priorities-after-gemma4.jsonl" download>the same request two hours later</a> and <a href="ensemble/runs/undo-glm-5.3.jsonl" download>a run where nothing went wrong</a>.</p>
+      </section>
+
+      <section class="product" aria-labelledby="ensemble-title ensemble-product">
+        <h3 class="section-title" id="ensemble-product">The product</h3>
+        <div class="screens" data-screens>
+          <ul class="screens__list" tabindex="0" aria-label="Ensemble screens. Scroll sideways for more.">
+            <li><figure><img src="assets/img/ensemble/plan-waits.webp" width="1280" height="800" loading="lazy" decoding="async" alt="The app while a plan waits: the headline reads 1 needs you, the tech lead’s robot waves, and the plan’s two tasks are listed with the file each may change."><figcaption>Nothing is written until a person approves the plan. The tech lead waves, and the headline says someone needs you.</figcaption></figure></li>
+            <li><figure><img src="assets/img/ensemble/test-verdict.webp" width="1280" height="800" loading="lazy" decoding="async" alt="The tests section after a failed test run: under the heading The tech lead on failed test run 1, two failures are each marked The test is wrong, with the reason written out."><figcaption>After a failed test run, the tech lead judges each failure. Here the test is wrong, and it says why.</figcaption></figure></li>
+            <li><figure><img src="assets/img/ensemble/harness-did.webp" width="1280" height="800" loading="lazy" decoding="async" alt="The list headed What the harness did: two replies sent back because they relied on files their authors had not read, then the five files the harness read for them."><figcaption>What the harness did itself is kept apart from what the agents wrote: here, two replies sent back for describing files their authors had not read.</figcaption></figure></li>
+            <li><figure><img src="assets/img/ensemble/asked-for-help.webp" width="1280" height="800" loading="lazy" decoding="async" alt="A run that ended early: the headline reads Escalated, and a banner says the team stopped and asked for help because tests were still failing after 2 fix rounds."><figcaption>A run that could not finish says so first, with the reason.</figcaption></figure></li>
+            <li><figure><img src="assets/img/ensemble/daylight.webp" width="1280" height="800" loading="lazy" decoding="async" alt="A finished run in the dark-on-light colouring: Run done, 17 of 90 model calls and 191,183 of 2,000,000 tokens used, and each part of the run marked done."><figcaption>The same display, dark on light. One ink in either: things differ by being lit, half lit, unlit or inverted.</figcaption></figure></li>
+            <li><figure><img src="assets/img/ensemble/runs.webp" width="1280" height="800" loading="lazy" decoding="async" alt="The list of recorded runs: four marked done and one marked Asked for help, each with its model, model calls and tokens."><figcaption>Every run is kept as its log, so any of them can be opened and played back.</figcaption></figure></li>
+          </ul>
+          <div class="screens__controls">
+            <button type="button" class="button button--icon" data-screens-prev aria-label="Previous screen"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7"/></svg></button>
+            <button type="button" class="button button--icon" data-screens-next aria-label="Next screen"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
+        <div class="pocket">
+          <ul class="pocket__phones" aria-label="Ensemble on a phone">
+            <li><img src="assets/img/ensemble/monitor.webp" width="786" height="1704" loading="lazy" decoding="async" alt="The phone monitor while a plan waits: 1 needs you, the ten seats of the team with the tech lead waving, and two keys, Approve and Send back."></li>
+            <li><img src="assets/img/ensemble/overclock.webp" width="786" height="1704" loading="lazy" decoding="async" alt="Overclock on the phone: the team’s room with the lights out, a wire running from one developer to the model, that developer’s own log lines, and three keys, Pause, Boost and Nudge."></li>
+          </ul>
+          <dl class="features pocket__notes">
+            <div><dt>The monitor</dt><dd>The team’s room by itself on one fixed screen, made for a phone left on a stand. One line says whether anyone needs you, and while a plan waits the two keys answer it.</dd></div>
+            <div><dt>Overclock</dt><dd>The controls of a person running the team: hold one agent before its next call, move it to a heavier model, or leave it a note it reads from then on. Every command is written to the run’s log and shows in the replay.</dd></div>
+          </dl>
+        </div>
+        <p class="note">The desktop screens are from the recorded runs. The two phone screens are from the app’s scripted demo, which needs no model.</p>
+      </section>
+
+      <dl class="features" aria-label="How a run is held to its process">
+        <div><dt>Typed handoffs</dt><dd>Agents exchange documents, not chat. Each is checked against a schema and the rules of its stage, and a rejected one goes back to its author with the exact errors, a limited number of times.</dd></div>
+        <div><dt>Plans checked in code</dt><dd>A dependency cycle, an acceptance criterion no task covers, or two parallel tasks that own the same file rejects the plan before a person is asked about it.</dd></div>
+        <div><dt>Independent tests</dt><dd>QA writes tests from the acceptance criteria with the implementation kept out of its context. When they fail, the tech lead, who sees both sides, decides whether the code or the test is wrong.</dd></div>
+        <div><dt>Least privilege</dt><dd>Each role’s capabilities are checked in code. A developer writes only the files its task owns, QA only under the test folder, and nobody touches CI workflows or files that usually hold credentials. No agent can run a command.</dd></div>
+        <div><dt>Shut in</dt><dd>The two commands a run executes, installing the project and running tests a model wrote, run in a sandbox: no network for tests, no view of the home folder or the saved key, and a cap on processes.</dd></div>
+        <div><dt>Bounded</dt><dd>Every loop has a limit and every run a ceiling on model calls and tokens, checked before each call. A day has a ceiling too, in dollars and in tokens.</dd></div>
+      </dl>
+
+      <section class="evidence" aria-labelledby="ensemble-title ensemble-checked">
+        <h3 class="section-title" id="ensemble-checked">How it’s checked</h3>
+        <table class="scorecard">
+          <thead>
+            <tr><th scope="col">What was measured</th><th scope="col">Result</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Benchmark tasks solved with <span translate="no">glm-5.3</span>, each scored by checks the team never sees</th><td>7 of 7, on 27 of 27 checks</td></tr>
+            <tr><th scope="row">The same benchmark with <span translate="no">gemma4:31b</span></th><td>4 of 7, on 18 of 27 checks</td></tr>
+            <tr><th scope="row">Runs the team called a success that then failed a hidden check, across both</th><td>0 of 11</td></tr>
+            <tr><th scope="row">Planted defects the reviewer caught and named, in two measurements</th><td>30 of 30</td></tr>
+            <tr><th scope="row">Correct changes the reviewer wrongly sent back, in the same two</th><td>0 of 9, then 3 of 9</td></tr>
+            <tr><th scope="row">Scripted runs cut off after each of their events, then continued from the log, that ended as the uncut run did</th><td>165 of 165</td></tr>
+            <tr><th scope="row">Attempts to read, write or reach out from inside the macOS sandbox that went the way they should</th><td>35 of 35</td></tr>
+            <tr><th scope="row">Requests that found the right wiki page, searching by words and by meaning, against words alone</th><td>7 of 8, against 5 of 8</td></tr>
+            <tr><th scope="row">Accessibility of the replay, axe-core against WCAG 2.2 AA, both colourings, phone and desktop</th><td>0 violations on 40 screens</td></tr>
+            <tr><th scope="row">Automated tests</th><td>410</td></tr>
+          </tbody>
+        </table>
+        <p class="note">The benchmark is small: seven tasks, six of them on one project of about a hundred lines. It can tell a model that fails from one that copes, not rank two that both cope. The three changes wrongly sent back were one case, three times: its criterion left a limit of zero open, and it has been tightened since and not measured again. Beside the pipeline there is an aide to talk an idea through, a wiki it keeps and the team is handed pages from, and skills it writes down for itself; those have been tried with scripted replies and recorded embeddings, not yet with a live model.</p>
+      </section>
+
+      <section class="lesson" aria-labelledby="ensemble-lesson">
+        <h3 class="section-title" id="ensemble-lesson">The tools nobody used</h3>
+        <div class="prose">
+          <p>The first time I pointed the team at a project that already had code, I had just given the agents tools to look at it: list the files, read one, search. The model used none of them. The architect described two functions the code didn’t have, the developers built on that, the tests failed three times, and the run asked for help. Its log holds 23 model calls and not one look at the code.</p>
+          <p>Asking more firmly in the prompt would have been a hope. So the harness checks instead: a design that names existing files its author hasn’t read is sent back with those files attached, and QA is shown the existing tests before its own are accepted. Less than two hours later the same request went to the same model. The harness sent back two replies, five files were read, and all 16 tests passed. Both runs are in the replay: <a href="ensemble/#run-recorded-4">the one that asked for help</a> and <a href="ensemble/#run-recorded-3">the one after the change</a>.</p>
         </div>
       </section>
     </article>
