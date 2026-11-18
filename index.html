@@ -37,14 +37,15 @@
 <body>
   <a class="skip" href="#main">Skip to the work</a>
 
-  <header class="hero" data-hero data-land-base="assets/img/land/">
+  <header class="hero" id="top" data-hero data-land-base="assets/img/land/">
     <canvas class="hero__relief" data-relief aria-hidden="true"></canvas>
     <p class="hero__flat" data-relief-flat aria-hidden="true">RAMI</p>
 
     <nav class="hero__nav" aria-label="Elsewhere">
       <a href="#work">Work</a>
       <a href="#experience">Experience</a>
-      <a href="https://github.com/0vertrained">GitHub</a>
+      <a href="assets/Rami-Martinez-resume.pdf" type="application/pdf">Résumé</a>
+      <a class="hero__nav-wide" href="https://github.com/0vertrained">GitHub</a>
       <a href="https://www.linkedin.com/in/rami-m-2931099b">LinkedIn</a>
     </nav>
 
@@ -76,9 +77,29 @@
     </div>
   </header>
 
+  <nav class="sitebar" data-sitebar aria-label="On this page">
+    <ul class="sitebar__links">
+      <li><a class="sitebar__home" href="#top">Rami</a></li>
+      <li><a href="#caduceus" translate="no">Caduceus</a></li>
+      <li><a href="#ensemble" translate="no">Ensemble</a></li>
+      <li><a href="#overtrained" translate="no">0VERTRAINED</a></li>
+      <li><a href="#lattice" translate="no">Lattice</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="sitebar__resume" href="assets/Rami-Martinez-resume.pdf" type="application/pdf">Résumé</a>
+  </nav>
+
   <main id="main">
     <section class="intro" aria-label="About">
       <p class="intro__lede">I build AI products end to end, from how a model is called to the screen a person uses. Before I was an engineer I spent five years inside a hospital system getting software adopted by people who had no wish to learn it, and that is still who I design for. So the parts I care about most are the ones that are easy to skip: keeping private data where it belongs, measuring on cases I never tuned on, and making the tool fit the work instead of adding to it.</p>
+      <dl class="facts glance">
+        <div><dt>Based in</dt><dd>Santa Fe, New Mexico</dd></div>
+        <div><dt>Background</dt><dd>Nine years: five inside a hospital system, then four as a software engineer at JPMorgan Chase</dd></div>
+        <div><dt>Looking for</dt><dd>Full-stack, front-end and forward-deployed engineering roles</dd></div>
+        <div><dt>Résumé</dt><dd><a href="assets/Rami-Martinez-resume.pdf" type="application/pdf">One page, PDF</a></dd></div>
+        <div><dt>Elsewhere</dt><dd><a href="https://www.linkedin.com/in/rami-m-2931099b">LinkedIn</a> and <a href="https://github.com/0vertrained">GitHub</a></dd></div>
+      </dl>
       <nav class="index" id="work" aria-label="Work on this page">
         <ul>
           <li><a href="#caduceus">

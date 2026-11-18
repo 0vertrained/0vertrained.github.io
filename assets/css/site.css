@@ -1460,3 +1460,128 @@ main {
     grid-template-columns: 1.25fr 1fr;
   }
 }
+
+/* The bar that stays: once the hero has scrolled away, the parts of the page, the one now on screen, and the
+   résumé. On a phone the links scroll sideways under a fading edge and the résumé keeps its place. */
+html {
+  scroll-padding-top: 4.25rem;
+}
+
+.sitebar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 3.25rem;
+  /* The bar's contents keep to the column the page is set in. */
+  padding: env(safe-area-inset-top) max(var(--gutter), calc((100vw - var(--wide)) / 2)) 0;
+  border-bottom: 1px solid var(--rule);
+  background: var(--gypsum);
+  background: color-mix(in srgb, var(--gypsum) 86%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  backdrop-filter: blur(14px) saturate(1.3);
+  font: 600 0.9375rem/1 var(--sans);
+}
+
+.sitebar__links {
+  display: flex;
+  flex: 1 1 auto;
+  gap: 0.125rem;
+  min-width: 0;
+  margin: 0 0 0 -0.625rem;
+  padding: 0;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  list-style: none;
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 2rem), transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - 2rem), transparent);
+}
+
+.sitebar__links::-webkit-scrollbar {
+  display: none;
+}
+
+.sitebar__links li:last-child {
+  padding-right: 1.5rem;
+}
+
+.sitebar a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0 0.625rem;
+  color: var(--ink-soft);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.sitebar a:hover {
+  color: var(--ink);
+}
+
+.sitebar a:focus-visible {
+  outline-offset: -3px;
+}
+
+.sitebar a[aria-current] {
+  color: var(--ink);
+  box-shadow: inset 0 -2px 0 var(--ink);
+}
+
+.sitebar .sitebar__home {
+  color: var(--ink);
+  font-weight: 800;
+  font-stretch: 116%;
+  letter-spacing: 0.02em;
+}
+
+.sitebar .sitebar__resume {
+  flex: none;
+  min-height: 2.25rem;
+  padding: 0 0.85rem;
+  border: 1.5px solid var(--rule-strong);
+  border-radius: 0.3rem;
+  color: var(--ink);
+}
+
+.sitebar .sitebar__resume:hover {
+  border-color: var(--ink);
+}
+
+.sitebar .sitebar__resume:focus-visible {
+  outline-offset: 2px;
+}
+
+@media (max-width: 47.99rem) {
+  .hero__nav {
+    gap: 0;
+  }
+
+  .hero__nav .hero__nav-wide {
+    display: none;
+  }
+}
+
+/* Beside the opening paragraph on a wide screen, the facts a reader in a hurry is looking for. */
+.glance a {
+  font-weight: 600;
+}
+
+@media (min-width: 60rem) {
+  .intro {
+    grid-template-columns: minmax(0, 1fr) minmax(17rem, 21rem);
+    column-gap: clamp(3rem, 8vw, 8rem);
+    align-items: start;
+  }
+
+  .intro .index {
+    grid-column: 1 / -1;
+  }
+
+  .glance {
+    margin-top: 0.6rem;
+  }
+}

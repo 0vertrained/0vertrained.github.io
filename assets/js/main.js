@@ -5,6 +5,7 @@ const parts = [
   ["[data-leaves]", () => import("./leaves.js").then((m) => m.initLeaves)],
   ["[data-screens]", () => import("./screens.js").then((m) => m.initScreens)],
   ["[data-lattice-replay]", () => import("./lattice.js").then((m) => m.initLattice)],
+  ["[data-sitebar]", () => import("./nav.js").then((m) => m.initSitebar)],
 ];
 
 for (const [selector, load] of parts) {
