@@ -22,3 +22,25 @@ for (const [selector, load] of parts) {
     })
     .catch((error) => console.error(`${selector} did not load`, error));
 }
+
+// A recording's still frame is asked for when the reader is about a screen away from it, not with the page.
+// Without scripts, the page's own stylesheet shows the same picture behind the player.
+const stills = document.querySelectorAll("video[data-poster]");
+if (stills.length) {
+  const show = (video) => video.setAttribute("poster", video.dataset.poster);
+  if ("IntersectionObserver" in window) {
+    const near = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          show(entry.target);
+          near.unobserve(entry.target);
+        }
+      },
+      { rootMargin: "100% 0px" },
+    );
+    for (const video of stills) near.observe(video);
+  } else {
+    stills.forEach(show);
+  }
+}

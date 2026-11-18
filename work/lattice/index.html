@@ -18,6 +18,9 @@
   <link rel="preload" href="../../assets/fonts/source-serif-4.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../../assets/css/site.css">
   <script>document.documentElement.classList.add("js")</script>
+  <noscript><style>
+    .walkthrough--aside video { background: url("../../lattice/demo/capability-quadruped.poster.png") center / cover; }
+  </style></noscript>
   <script type="module" src="../../assets/js/main.js"></script>
 </head>
 <body class="page">
@@ -94,7 +97,7 @@
           </li>
         </ul>
         <figure class="walkthrough walkthrough--aside">
-          <video controls playsinline preload="none" poster="../../lattice/demo/capability-quadruped.poster.png" width="960" height="540" aria-label="External-camera replay of the Go1’s measured joint states as it climbs the three simulated steps">
+          <video controls playsinline preload="none" data-poster="../../lattice/demo/capability-quadruped.poster.png" width="960" height="540" aria-label="External-camera replay of the Go1’s measured joint states as it climbs the three simulated steps">
             <source src="../../lattice/demo/capability-quadruped.mp4" type="video/mp4">
             <a href="../../lattice/demo/capability-quadruped.mp4">Download the Go1 replay.</a>
           </video>
