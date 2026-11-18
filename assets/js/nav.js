@@ -39,12 +39,27 @@ export function initSitebar(bar) {
     }
   }
 
-  // A part is the one on screen while it crosses a line a third of the way down the window.
+  // A part is the one on screen while it crosses a line a third of the way down the window. The last part is
+  // too short to reach that line, so it is the one on screen whenever the foot of the page is.
+  let onLine = "";
+  let atFoot = false;
+  const settle = () => {
+    const id = atFoot ? targets[targets.length - 1].id : onLine;
+    if (id) mark(id);
+  };
   const watcher = new IntersectionObserver(
     (entries) => {
-      for (const entry of entries) if (entry.isIntersecting) mark(entry.target.id);
+      for (const entry of entries) if (entry.isIntersecting) onLine = entry.target.id;
+      settle();
     },
     { rootMargin: "-33% 0px -66% 0px", threshold: 0 },
   );
   for (const target of targets) watcher.observe(target);
+  const foot = document.querySelector("body > footer");
+  if (foot) {
+    new IntersectionObserver(([entry]) => {
+      atFoot = entry.isIntersecting;
+      settle();
+    }).observe(foot);
+  }
 }
