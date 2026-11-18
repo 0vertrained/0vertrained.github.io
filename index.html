@@ -32,6 +32,11 @@
   <link rel="modulepreload" href="assets/js/stars-data.js">
   <link rel="modulepreload" href="assets/js/palette.js">
   <script>document.documentElement.classList.add("js")</script>
+  <noscript><style>
+    #caduceus video { background: url("assets/img/caduceus/walkthrough.webp") center / cover; }
+    #ensemble video { background: url("assets/img/ensemble/run.webp") center / cover; }
+    #lattice video { background: url("assets/img/lattice/tour-opening-poster.webp") center / cover; }
+  </style></noscript>
   <script type="module" src="assets/js/main.js"></script>
 </head>
 <body>
@@ -100,497 +105,135 @@
         <div><dt>Résumé</dt><dd><a href="assets/Rami-Martinez-resume.pdf" type="application/pdf">One page, PDF</a></dd></div>
         <div><dt>Elsewhere</dt><dd><a href="https://www.linkedin.com/in/rami-m-2931099b">LinkedIn</a> and <a href="https://github.com/0vertrained">GitHub</a></dd></div>
       </dl>
-      <nav class="index" id="work" aria-label="Work on this page">
-        <ul>
-          <li><a href="#caduceus">
-            <img src="assets/img/caduceus/walkthrough.webp" width="1280" height="800" loading="lazy" decoding="async" alt="">
-            <span class="index__name" translate="no">Caduceus</span>
-            <span class="index__what">An AI agent for prior authorization that keeps patient data inside the clinic</span>
-            <span class="index__proof">181 identifiers planted in test records; none reached the outside model</span>
-          </a></li>
-          <li><a href="#ensemble">
-            <img src="assets/img/ensemble/run.webp" width="1280" height="800" loading="lazy" decoding="async" alt="">
-            <span class="index__name" translate="no">Ensemble</span>
-            <span class="index__what">A team of AI agents that builds a tested change, under a process written in code</span>
-            <span class="index__proof">7 of 7 tasks solved against hidden checks with one model, 4 of 7 with another</span>
-          </a></li>
-          <li><a href="#overtrained">
-            <img src="assets/img/overtrained/today.webp" width="540" height="1169" loading="lazy" decoding="async" alt="">
-            <span class="index__name" translate="no">0VERTRAINED</span>
-            <span class="index__what">A training app for athletes who lift and race, designed and built alone</span>
-            <span class="index__proof">2,030 automated tests; row-level security on all 31 tables</span>
-          </a></li>
-          <li><a href="#lattice">
-            <img src="assets/img/lattice/tour-opening-poster.webp" width="1280" height="800" loading="lazy" decoding="async" alt="">
-            <span class="index__name" translate="no">Lattice</span>
-            <span class="index__what">Robot missions that keep their objective when the route or the body changes</span>
-            <span class="index__proof">Three recorded runs; no inspection repeated after a detour or a handoff</span>
-          </a></li>
-        </ul>
-      </nav>
     </section>
 
-    <article class="project" id="caduceus" aria-labelledby="caduceus-title">
-      <header class="project__head">
-        <h2 class="project__title" id="caduceus-title" translate="no">Caduceus</h2>
-        <p class="project__kind">A prior-authorization agent that keeps patient data inside the clinic</p>
-      </header>
+    <section class="work" id="work" aria-labelledby="work-title">
+      <h2 class="work__title" id="work-title">Work</h2>
+      <p>Four projects, each with a case study: the product, how it’s checked, and one thing that went wrong and what I did about it.</p>
 
-      <figure class="walkthrough project__lead" id="caduceus-walkthrough">
-        <video controls preload="none" playsinline width="1280" height="800" poster="assets/img/caduceus/walkthrough.webp">
-          <source src="assets/media/caduceus-walkthrough.mp4" type="video/mp4">
-        </video>
-        <figcaption>The 2½-minute walkthrough, from a faxed referral to the insurer’s answer, with captions on screen and no sound.</figcaption>
-      </figure>
-
-      <div class="project__body">
-        <div class="project__main">
-          <div class="prose">
-            <p>Before a medical group can schedule an MRI or a knee replacement, the patient’s insurer has to approve it. Staff read the chart against the insurer’s criteria, chase the doctor for whatever is missing, and send the request by fax or portal. Caduceus does the reading. It reads the faxed referral, checks the patient’s record against the insurer’s own policy, asks the ordering doctor only what the record can’t answer, and drafts the request. Nothing goes out until a specialist approves it.</p>
-            <p>The customer, Mesa Verde Health, is a simulated six-clinic group, and every patient is synthetic. The rules are real: the criteria quote Medicare’s policy text, and the requests follow the federal rule that gives insurers 7 days to decide, or 72&nbsp;hours when it’s urgent, and a specific reason for every denial.</p>
-          </div>
-          <ul class="actions">
-            <li><a class="button button--primary" href="https://caduceusdemo.netlify.app/">Try the live demo</a></li>
-            <li><a class="button" href="#caduceus-walkthrough">Watch the 2½-minute walkthrough</a></li>
-            <li><a class="button" href="https://github.com/0vertrained/Caduceus">Read the code</a></li>
-          </ul>
-        </div>
-        <dl class="facts">
-          <div><dt>Built with</dt><dd>Python, FastAPI, Postgres, React, TypeScript, Tesseract, Docker</dd></div>
-          <div><dt>Models</dt><dd>Qwen2.5-1.5B on llama.cpp inside the network; Kimi K2.6 on de-identified text</dd></div>
-          <div><dt>Standards</dt><dd>FHIR R4, SMART on FHIR, OpenID Connect, CMS-0057-F</dd></div>
-          <div><dt>Runs on</dt><dd>Google Cloud Run and Netlify</dd></div>
-        </dl>
-      </div>
-
-      <figure class="leaves" data-leaves aria-labelledby="leaves-title">
-        <figcaption class="leaves__intro">
-          <h3 class="leaves__title" id="leaves-title">What leaves the building</h3>
-          <p>Anything that names a patient stays on a small model inside the clinic’s network. Before text goes out to the model that drafts the request, Caduceus takes the identifiers out, stamps the result so it can’t be swapped on the way, and scans it once more. This is its real de-identifier, run on a synthetic referral.</p>
-        </figcaption>
-        <div class="leaves__stage" data-leaves-stage>
-          <section class="leaves__side" aria-labelledby="leaves-inside">
-            <h4 class="leaves__where" id="leaves-inside">Inside Mesa Verde’s network</h4>
-            <p class="leaves__text" data-leaves-source><mark class="leaves__id" data-token="[NAME_1]">Gilbert Romero</mark>, born <mark class="leaves__id" data-token="[DATE_1]">June 12, 1954</mark>, MRN <mark class="leaves__id" data-token="[RECORD_NUMBER_1]">MV-204417</mark>, phone <mark class="leaves__id" data-token="[PHONE_1]">(505)&nbsp;555-0182</mark>. Right knee osteoarthritis, Kellgren–Lawrence grade&nbsp;4 on X-ray. Twelve weeks of physical therapy without relief. Requesting a right total knee replacement.</p>
-            <p class="leaves__who">Read here by Qwen2.5-1.5B, on a CPU beside the app, to summarize the chart.</p>
-          </section>
-          <div class="leaves__edge" aria-hidden="true"><span>Edge of the network</span></div>
-          <section class="leaves__side leaves__side--out" aria-labelledby="leaves-outside">
-            <h4 class="leaves__where" id="leaves-outside">Sent to the drafting model</h4>
-            <p class="leaves__text" data-leaves-result><span class="leaves__token">[NAME_1]</span>, born <span class="leaves__token">[DATE_1]</span>, MRN <span class="leaves__token">[RECORD_NUMBER_1]</span>, phone <span class="leaves__token">[PHONE_1]</span>. Right knee osteoarthritis, Kellgren–Lawrence grade&nbsp;4 on X-ray. Twelve weeks of physical therapy without relief. Requesting a right total knee replacement.</p>
-            <dl class="leaves__checks" data-leaves-checks>
-              <div><dt>Stamped</dt><dd>safe-harbor/1, over the text’s SHA-256 <span translate="no">6c22f8ad…</span></dd></div>
-              <div><dt>Checked at the edge</dt><dd>Stamp verified, scanned again, no identifiers left</dd></div>
-            </dl>
-          </section>
-        </div>
-        <div class="leaves__foot">
-          <p>Across the test suite, 181 identifiers were planted in records and notes. None reached the outside model.</p>
-          <button type="button" class="button button--quiet" data-leaves-run>Send it again</button>
-        </div>
-      </figure>
-
-      <section class="product" aria-labelledby="caduceus-title caduceus-product">
-        <h3 class="section-title" id="caduceus-product">The product</h3>
-        <div class="screens" data-screens>
-          <ul class="screens__list" tabindex="0" aria-label="Caduceus screens. Scroll sideways for more.">
-            <li><figure><img src="assets/img/caduceus/queue.webp" width="1280" height="800" loading="lazy" decoding="async" alt="The queue, with three faxed referrals at the top, read inside the clinic’s systems."><figcaption>The queue: faxes are read inside the network, then the day’s cases, in plain words.</figcaption></figure></li>
-            <li><figure><img src="assets/img/caduceus/fax-check.webp" width="1280" height="800" loading="lazy" decoding="async" alt="A poorly copied fax, with each field the reader was unsure of set beside the part of the page it came from."><figcaption>Every field the fax reader was unsure of goes to a person, beside the part of the page it came from.</figcaption></figure></li>
-            <li><figure><img src="assets/img/caduceus/case-evidence.webp" width="1280" height="800" loading="lazy" decoding="async" alt="A coverage criterion beside the visit note, with the supporting sentence highlighted."><figcaption>Every criterion that is met opens the page and highlights the sentence behind it.</figcaption></figure></li>
-            <li><figure><img src="assets/img/caduceus/attest.webp" width="1280" height="800" loading="lazy" decoding="async" alt="The ordering clinician’s request to attest: a chart summary written inside the network, then the one question the chart can’t answer."><figcaption>The clinician answers one question, usually on her phone. The chart summary is written inside the network and checked against the record.</figcaption></figure></li>
-            <li><figure><img src="assets/img/caduceus/sent-to-model.webp" width="1280" height="800" loading="lazy" decoding="async" alt="The panel showing exactly what the drafting model was sent, with identifiers taken out and the stamp verified."><figcaption>Every draft shows exactly what the model was sent.</figcaption></figure></li>
-            <li><figure><img src="assets/img/caduceus/where-to-look.webp" width="1280" height="800" loading="lazy" decoding="async" alt="A passage in nine pages of outside therapy notes, offered as where to look rather than as evidence."><figcaption>In a nine-page packet, it shows where to look, and never treats that as evidence.</figcaption></figure></li>
-            <li><figure><img src="assets/img/caduceus/denial.webp" width="1280" height="800" loading="lazy" decoding="async" alt="A denial with the insurer’s specific reason, the policy sentence and the record side by side."><figcaption>A denial, with the insurer’s reason, the policy and the record side by side, and an appeal drafted from them.</figcaption></figure></li>
-            <li><figure><img src="assets/img/caduceus/history.webp" width="1280" height="800" loading="lazy" decoding="async" alt="The case history: every step, who took it and when, in plain words, sealed in a hash chain."><figcaption>Every step, who took it and when, sealed in a hash-chained log.</figcaption></figure></li>
-          </ul>
-          <div class="screens__controls">
-            <button type="button" class="button button--icon" data-screens-prev aria-label="Previous screen"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7"/></svg></button>
-            <button type="button" class="button button--icon" data-screens-next aria-label="Next screen"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></button>
-          </div>
-        </div>
-      </section>
-
-      <section class="evidence" aria-labelledby="caduceus-title caduceus-checked">
-        <h3 class="section-title" id="caduceus-checked">How it’s checked</h3>
-        <table class="scorecard">
-          <thead>
-            <tr><th scope="col">What was measured</th><th scope="col">Result</th></tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row">Patient identifiers that reached the outside model</th><td>0 of 181 planted</td></tr>
-            <tr><th scope="row">Attacks that worked: an instruction hidden in a note, a tool called out of turn, a send with no approval, a forged stamp</th><td>0 of 4</td></tr>
-            <tr><th scope="row">Wrong fax fields accepted without a person checking them</th><td>0 of 27</td></tr>
-            <tr><th scope="row">Rules engine on 11 cases built to known answers</th><td>47 of 47 criteria</td></tr>
-            <tr><th scope="row">Rules engine on 36 held-out cases with messy records</th><td>88.5%, 4 unsafe errors</td></tr>
-            <tr><th scope="row">Chart-summary sentences that said more than the record, caught before anyone saw them</th><td>3 of 4</td></tr>
-            <tr><th scope="row">Accessibility, axe-core against WCAG 2.2 AA</th><td>0 violations on 50 screens</td></tr>
-            <tr><th scope="row">Automated tests</th><td>391, and 82 more runs on Postgres</td></tr>
-          </tbody>
-        </table>
-        <p class="note">Every number comes from synthetic data, and none is a claim about real patients.</p>
-      </section>
-
-      <section class="lesson" aria-labelledby="caduceus-lesson">
-        <h3 class="section-title" id="caduceus-lesson">The number that went down</h3>
-        <div class="prose">
-          <p>On cases built to known answers, the rules engine was right every time. That was the easy test. So I generated 36 cases it had never seen, with the mess real charts have: diagnoses entered in error, therapy still under way, codes outside the expected lists, arthritis in the other knee. Agreement fell to 88.5%, with 4 unsafe errors, where it called a criterion met when it wasn’t.</p>
-          <p>I published that number, fixed the engine where it was wrong, and left the last two for a clinical reviewer, because changing approved criteria isn’t the software’s call.</p>
-        </div>
-      </section>
-    </article>
-
-    <article class="project" id="ensemble" aria-labelledby="ensemble-title">
-      <header class="project__head">
-        <h2 class="project__title" id="ensemble-title" translate="no">Ensemble</h2>
-        <p class="project__kind">A software team of AI agents, held to a process that is written in code</p>
-      </header>
-
-      <figure class="walkthrough project__lead" id="ensemble-recording">
-        <video controls playsinline preload="none" poster="assets/img/ensemble/run.webp" width="1280" height="800" aria-label="Recording of the Ensemble app playing back one run, from the request to the release note">
-          <source src="assets/video/ensemble-run.mp4" type="video/mp4">
-          <a href="assets/video/ensemble-run.mp4">Download the recording</a>.
-        </video>
-        <figcaption>One real run, played back by the app from its own log: a request to add a rename command, from the requirements to the release note. The tests fail once on the way. 30 seconds, no sound.</figcaption>
-      </figure>
-
-      <div class="project__body">
-        <div class="project__main">
-          <div class="prose">
-            <p>Ensemble takes a request for a change to a codebase and hands it to a team of agents: a product owner, an architect, a designer, a tech lead, two developers, a reviewer, a QA engineer, a security reviewer and a release engineer, each a model with one job. What comes back is a tested, reviewed change and the text of a draft pull request. The agents don’t decide how the work goes. The process is a pipeline written in code, and they fill in its stages: every handoff is a typed document checked before anything builds on it, no change lands until it has passed review, the tests are run by the harness and never reported by a model, and nothing is written until a person approves the plan.</p>
-            <p>I wrote the orchestrator myself and used no agent framework, because the questions I care about are decided there: what an agent may do, who checks whose work, what happens when a model is confidently wrong, and what a run may spend. A run is an append-only log, and every screen is worked out from the events so far. That is why a finished run plays back like a recording, and why a run that was stopped, or was going when the app closed, picks up where its log ends. It’s in progress: the pipeline, the app and the evaluations are built, and opening the pull request on GitHub by itself comes next.</p>
-          </div>
-          <ul class="actions">
-            <li><a class="button button--primary" href="ensemble/">Replay five recorded runs</a></li>
-            <li><a class="button" href="#ensemble-recording">Watch one run</a></li>
-          </ul>
-        </div>
-        <dl class="facts">
-          <div><dt>Built with</dt><dd>TypeScript, Node, React, Vite and Vitest, with no agent framework</dd></div>
-          <div><dt>Models</dt><dd>Whatever Ollama serves, in the cloud or on the machine; measured here with <span translate="no">glm-5.3</span> and <span translate="no">gemma4:31b</span></dd></div>
-          <div><dt>Isolation</dt><dd>bubblewrap on Linux and the system sandbox on macOS, each put to the test on the machine before it is trusted</dd></div>
-          <div><dt>Runs on</dt><dd>One computer, or a small private server only its owner’s devices can reach</dd></div>
-          <div><dt>Status</dt><dd>In progress, with the repository private for now</dd></div>
-        </dl>
-      </div>
-
-      <section class="product" aria-labelledby="ensemble-title ensemble-runs-title">
-        <h3 class="section-title" id="ensemble-runs-title">Three of the recorded runs</h3>
-        <ul class="runs">
-          <li>
-            <h4>The tests were wrong</h4>
-            <p>A request to add a rename command to a small sample project, with <span translate="no">glm-5.3</span>. QA writes its tests from the acceptance criteria and never sees the code. Four of the 25 tests failed. The tech lead, who is shown the tests, the code and the output together, found the tests at fault: they matched an error message with a pattern that could not match. QA rewrote them, and all 25 passed.</p>
-            <p class="runs__measured">21 model calls, 304,806 tokens. Scored afterwards by 3 checks the team never saw; all passed.</p>
-            <a href="ensemble/#run-recorded-1">Replay the rename run</a>
-          </li>
-          <li>
-            <h4>The code was wrong</h4>
-            <p>The same team on a copy of <span translate="no">0VERTRAINED</span>, my own app, with <span translate="no">gemma4:31b</span>: let callers ask for running paces per kilometre. The harness ran the app’s own test suite, and one new test failed. This time the tech lead sent it to the developer: a function took the text “483” for a number, which the requirements ruled out. The fix was reviewed, and all 172 test files passed.</p>
-            <p class="runs__measured">18 model calls, 110,014 tokens. Nothing was pushed to the app’s repository.</p>
-            <a href="ensemble/#run-recorded-2">Replay the run on <span translate="no">0VERTRAINED</span></a>
-          </li>
-          <li>
-            <h4>It asked for help</h4>
-            <p>The first run on a project that already had code, with <span translate="no">gemma4:31b</span>. The tests failed three times, the rounds of fixes ran out, and the run stopped and said so. Every loop in the pipeline has a limit, and running out of one goes to a person instead of round again.</p>
-            <p class="runs__measured">23 model calls, 80,426 tokens. Why it failed is the lesson below.</p>
-            <a href="ensemble/#run-recorded-4">Replay the run that asked for help</a>
-          </li>
-        </ul>
-        <p class="note">Each is a log from a GitHub runner, played back by the same app with no server behind it. Download the logs: <a href="ensemble/runs/rename-glm-5.3.jsonl" download>the rename run</a>, <a href="ensemble/runs/km-paces-0vertrained-gemma4.jsonl" download>the run on <span translate="no">0VERTRAINED</span></a>, <a href="ensemble/runs/priorities-before-gemma4.jsonl" download>the run that asked for help</a>, <a href="ensemble/runs/priorities-after-gemma4.jsonl" download>the same request two hours later</a> and <a href="ensemble/runs/undo-glm-5.3.jsonl" download>a run where nothing went wrong</a>.</p>
-      </section>
-
-      <section class="product" aria-labelledby="ensemble-title ensemble-product">
-        <h3 class="section-title" id="ensemble-product">The product</h3>
-        <div class="screens" data-screens>
-          <ul class="screens__list" tabindex="0" aria-label="Ensemble screens. Scroll sideways for more.">
-            <li><figure><img src="assets/img/ensemble/plan-waits.webp" width="1280" height="800" loading="lazy" decoding="async" alt="The app while a plan waits: the headline reads 1 needs you, the tech lead’s robot waves, and the plan’s two tasks are listed with the file each may change."><figcaption>Nothing is written until a person approves the plan. The tech lead waves, and the headline says someone needs you.</figcaption></figure></li>
-            <li><figure><img src="assets/img/ensemble/test-verdict.webp" width="1280" height="800" loading="lazy" decoding="async" alt="The tests section after a failed test run: under the heading The tech lead on failed test run 1, two failures are each marked The test is wrong, with the reason written out."><figcaption>After a failed test run, the tech lead judges each failure. Here the test is wrong, and it says why.</figcaption></figure></li>
-            <li><figure><img src="assets/img/ensemble/harness-did.webp" width="1280" height="800" loading="lazy" decoding="async" alt="The list headed What the harness did: two replies sent back because they relied on files their authors had not read, then the five files the harness read for them."><figcaption>What the harness did itself is kept apart from what the agents wrote: here, two replies sent back for describing files their authors had not read.</figcaption></figure></li>
-            <li><figure><img src="assets/img/ensemble/asked-for-help.webp" width="1280" height="800" loading="lazy" decoding="async" alt="A run that ended early: the headline reads Escalated, and a banner says the team stopped and asked for help because tests were still failing after 2 fix rounds."><figcaption>A run that could not finish says so first, with the reason.</figcaption></figure></li>
-            <li><figure><img src="assets/img/ensemble/daylight.webp" width="1280" height="800" loading="lazy" decoding="async" alt="A finished run in the dark-on-light colouring: Run done, 17 of 90 model calls and 191,183 of 2,000,000 tokens used, and each part of the run marked done."><figcaption>The same display, dark on light. One ink in either: things differ by being lit, half lit, unlit or inverted.</figcaption></figure></li>
-            <li><figure><img src="assets/img/ensemble/runs.webp" width="1280" height="800" loading="lazy" decoding="async" alt="The list of recorded runs: four marked done and one marked Asked for help, each with its model, model calls and tokens."><figcaption>Every run is kept as its log, so any of them can be opened and played back.</figcaption></figure></li>
-          </ul>
-          <div class="screens__controls">
-            <button type="button" class="button button--icon" data-screens-prev aria-label="Previous screen"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7"/></svg></button>
-            <button type="button" class="button button--icon" data-screens-next aria-label="Next screen"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></button>
-          </div>
-        </div>
-        <div class="pocket">
-          <ul class="pocket__phones" aria-label="Ensemble on a phone">
-            <li><img src="assets/img/ensemble/monitor.webp" width="786" height="1704" loading="lazy" decoding="async" alt="The phone monitor while a plan waits: 1 needs you, the ten seats of the team with the tech lead waving, and two keys, Approve and Send back."></li>
-            <li><img src="assets/img/ensemble/overclock.webp" width="786" height="1704" loading="lazy" decoding="async" alt="Overclock on the phone: the team’s room with the lights out, a wire running from one developer to the model, that developer’s own log lines, and three keys, Pause, Boost and Nudge."></li>
-          </ul>
-          <dl class="features pocket__notes">
-            <div><dt>The monitor</dt><dd>The team’s room by itself on one fixed screen, made for a phone left on a stand. One line says whether anyone needs you, and while a plan waits the two keys answer it.</dd></div>
-            <div><dt>Overclock</dt><dd>The controls of a person running the team: hold one agent before its next call, move it to a heavier model, or leave it a note it reads from then on. Every command is written to the run’s log and shows in the replay.</dd></div>
-          </dl>
-        </div>
-        <p class="note">The desktop screens are from the recorded runs. The two phone screens are from the app’s scripted demo, which needs no model.</p>
-      </section>
-
-      <dl class="features" aria-label="How a run is held to its process">
-        <div><dt>Typed handoffs</dt><dd>Agents exchange documents, not chat. Each is checked against a schema and the rules of its stage, and a rejected one goes back to its author with the exact errors, a limited number of times.</dd></div>
-        <div><dt>Plans checked in code</dt><dd>A dependency cycle, an acceptance criterion no task covers, or two parallel tasks that own the same file rejects the plan before a person is asked about it.</dd></div>
-        <div><dt>Independent tests</dt><dd>QA writes tests from the acceptance criteria with the implementation kept out of its context. When they fail, the tech lead, who sees both sides, decides whether the code or the test is wrong.</dd></div>
-        <div><dt>Least privilege</dt><dd>Each role’s capabilities are checked in code. A developer writes only the files its task owns, QA only under the test folder, and nobody touches CI workflows or files that usually hold credentials. No agent can run a command.</dd></div>
-        <div><dt>Shut in</dt><dd>The two commands a run executes, installing the project and running tests a model wrote, run in a sandbox: no network for tests, no view of the home folder or the saved key, and a cap on processes.</dd></div>
-        <div><dt>Bounded</dt><dd>Every loop has a limit and every run a ceiling on model calls and tokens, checked before each call. A day has a ceiling too, in dollars and in tokens.</dd></div>
-      </dl>
-
-      <section class="evidence" aria-labelledby="ensemble-title ensemble-checked">
-        <h3 class="section-title" id="ensemble-checked">How it’s checked</h3>
-        <table class="scorecard">
-          <thead>
-            <tr><th scope="col">What was measured</th><th scope="col">Result</th></tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row">Benchmark tasks solved with <span translate="no">glm-5.3</span>, each scored by checks the team never sees</th><td>7 of 7, on 27 of 27 checks</td></tr>
-            <tr><th scope="row">The same benchmark with <span translate="no">gemma4:31b</span></th><td>4 of 7, on 18 of 27 checks</td></tr>
-            <tr><th scope="row">Runs the team called a success that then failed a hidden check, across both</th><td>0 of 11</td></tr>
-            <tr><th scope="row">Planted defects the reviewer caught and named, in two measurements</th><td>30 of 30</td></tr>
-            <tr><th scope="row">Correct changes the reviewer wrongly sent back, in the same two</th><td>0 of 9, then 3 of 9</td></tr>
-            <tr><th scope="row">Scripted runs cut off after each of their events, then continued from the log, that ended as the uncut run did</th><td>165 of 165</td></tr>
-            <tr><th scope="row">Attempts to read, write or reach out from inside the macOS sandbox that went the way they should</th><td>35 of 35</td></tr>
-            <tr><th scope="row">Requests that found the right wiki page, searching by words and by meaning, against words alone</th><td>7 of 8, against 5 of 8</td></tr>
-            <tr><th scope="row">Accessibility of the replay, axe-core against WCAG 2.2 AA, both colourings, phone and desktop</th><td>0 violations on 40 screens</td></tr>
-            <tr><th scope="row">Automated tests</th><td>410</td></tr>
-          </tbody>
-        </table>
-        <p class="note">The benchmark is small: seven tasks, six of them on one project of about a hundred lines. It can tell a model that fails from one that copes, not rank two that both cope. The three changes wrongly sent back were one case, three times: its criterion left a limit of zero open, and it has been tightened since and not measured again. Beside the pipeline there is an aide to talk an idea through, a wiki it keeps and the team is handed pages from, and skills it writes down for itself; those have been tried with scripted replies and recorded embeddings, not yet with a live model.</p>
-      </section>
-
-      <section class="lesson" aria-labelledby="ensemble-lesson">
-        <h3 class="section-title" id="ensemble-lesson">The tools nobody used</h3>
-        <div class="prose">
-          <p>The first time I pointed the team at a project that already had code, I had just given the agents tools to look at it: list the files, read one, search. The model used none of them. The architect described two functions the code didn’t have, the developers built on that, the tests failed three times, and the run asked for help. Its log holds 23 model calls and not one look at the code.</p>
-          <p>Asking more firmly in the prompt would have been a hope. So the harness checks instead: a design that names existing files its author hasn’t read is sent back with those files attached, and QA is shown the existing tests before its own are accepted. Less than two hours later the same request went to the same model. The harness sent back two replies, five files were read, and all 16 tests passed. Both runs are in the replay: <a href="ensemble/#run-recorded-4">the one that asked for help</a> and <a href="ensemble/#run-recorded-3">the one after the change</a>.</p>
-        </div>
-      </section>
-    </article>
-
-    <article class="project" id="overtrained" aria-labelledby="overtrained-title">
-      <header class="project__head">
-        <h2 class="project__title" id="overtrained-title" translate="no">0VERTRAINED</h2>
-        <p class="project__kind">A training app for athletes who lift and race, designed and built alone</p>
-      </header>
-
-      <div class="project__lead">
-        <ul class="phones" tabindex="0" aria-label="0VERTRAINED screens">
-          <li><figure><img src="assets/img/overtrained/today.webp" width="540" height="1169" loading="lazy" decoding="async" alt="The Today screen on a Monday: Upper A, push and triceps, a Start session button, and protein, steps and calories so far."><figcaption>Today: the day’s session, one tap from starting.</figcaption></figure></li>
-          <li><figure><img src="assets/img/overtrained/recovery.webp" width="540" height="1169" loading="lazy" decoding="async" alt="Recovery: the check-in taps above the verdict, Fresh at 97 and rising, and Green light, load the bar."><figcaption>Recovery asks how you feel before it shows the number.</figcaption></figure></li>
-          <li><figure><img src="assets/img/overtrained/session.webp" width="540" height="1169" loading="lazy" decoding="async" alt="A session on barbell bench press: last time 240 pounds for four sets of six, and today’s target, 245, since every set reached six reps without a technique flag."><figcaption>Every set last time hit its reps cleanly, so today’s target goes up the smallest step.</figcaption></figure></li>
-          <li><figure><img src="assets/img/overtrained/sunday-edition.webp" width="540" height="1169" loading="lazy" decoding="async" alt="The Sunday Edition: the week’s mornings with their recovery states, sleep debt, the load ledger and a volume digest."><figcaption>The Sunday Edition reviews the week, each morning scored as it was that day.</figcaption></figure></li>
-          <li><figure><img src="assets/img/overtrained/fuel.webp" width="540" height="1169" loading="lazy" decoding="async" alt="Fuel: protein first, with 78 grams and 1,530 calories left today, and the next meal that closes the gap."><figcaption>Fuel shows what’s still needed today and the next meal that closes it.</figcaption></figure></li>
-        </ul>
-        <p class="note">Captured from the app’s demo build, with seeded, made-up data.</p>
-      </div>
-
-      <div class="project__body">
-        <div class="project__main">
-          <div class="prose">
-            <p>0VERTRAINED is a private training ledger for people who lift and race. It logs strength, cardio, food and recovery, typed in or pulled from a wearable, and answers one question each morning: how hard should today be? I train this way myself, and I designed and built all of it, from the design system and the data model to the wearable integrations and the coach.</p>
-            <p>It’s in beta, with a cap on sign-ups. The camera form check is opt-in, and the AI coach is open only to my account for now.</p>
-          </div>
-          <ul class="actions">
-            <li><a class="button button--primary" href="https://0vertrained.netlify.app/#/demo">See the demo</a></li>
-            <li><a class="button" href="https://0vertrained.netlify.app/"><span>Visit <span translate="no">0VERTRAINED</span></span></a></li>
-          </ul>
-        </div>
-        <dl class="facts">
-          <div><dt>Built with</dt><dd>React, Vite, Supabase (Postgres with row-level security), Netlify Functions, Web Push</dd></div>
-          <div><dt>Wearables</dt><dd>Oura, Whoop and Strava, over OAuth</dd></div>
-          <div><dt>Models</dt><dd>A coach on Ollama Cloud, routed between fast, main and deep models</dd></div>
-          <div><dt>Status</dt><dd>In beta. The public site runs 19.2; version 19.6, shown here, is built and tested and not yet published.</dd></div>
-        </dl>
-      </div>
-
-      <dl class="features">
-        <div><dt>Recovery</dt><dd>Six named states, from Fresh to Deload advised, worked out from a week of HRV against the athlete’s own four-week baseline, never from a single morning. Oura is the main series and Whoop the fallback, and the two are never mixed.</dd></div>
-        <div><dt>Training</dt><dd>Targets that move from the last session, reps in reserve on every set, estimated one-rep-max trends, weekly sets per muscle against its growth range, a box score after every session, and a race plan that counts down through build and taper.</dd></div>
-        <div><dt>Food</dt><dd>Calorie needs measured from what the athlete eats against their smoothed weight trend, not a population formula, and meal plans from a constraint solver over 92&nbsp;recipes.</dd></div>
-        <div><dt>Coach</dt><dd>Each question goes to a fast, main or deep model by what it asks, with a fallback, a daily limit and a kill switch. The server picks the model, never the browser, and the coach’s logs keep no questions or answers.</dd></div>
-        <div><dt>Form check</dt><dd>A short clip of a lift goes to a hosted pose engine, which deletes it and sends back only measurements. The app turns those into cues, rep by rep.</dd></div>
-        <div><dt>Privacy</dt><dd>Wearable tokens are encrypted and stay on the server. Server functions take the user from a verified session, never from the request. Strava data never reaches a model, and a forgotten password is reset with a recovery phrase, so no email is involved.</dd></div>
-      </dl>
-
-      <section class="evidence" aria-labelledby="overtrained-title overtrained-checked">
-        <h3 class="section-title" id="overtrained-checked">How it’s checked</h3>
-        <table class="scorecard">
-          <thead>
-            <tr><th scope="col">What was measured</th><th scope="col">Result</th></tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row">Automated tests, all passing</th><td>2,030 in 170 files</td></tr>
-            <tr><th scope="row">Lint errors</th><td>0, with 31 warnings</td></tr>
-            <tr><th scope="row">Secrets found by the release gate’s scan of the built app</th><td>0</td></tr>
-            <tr><th scope="row">Database tables with row-level security</th><td>31 of 31</td></tr>
-            <tr><th scope="row">Coach routing and safety cases, run offline</th><td>10 of 10</td></tr>
-          </tbody>
-        </table>
-        <p class="note">Measured on version 19.6 on November 1, 2026.</p>
-      </section>
-
-      <section class="lesson" aria-labelledby="overtrained-lesson">
-        <h3 class="section-title" id="overtrained-lesson">The same morning, four times</h3>
-        <div class="prose">
-          <p>By version 19.5, about twenty modules gave advice, and a dozen had a panel of their own. The Recovery tab read the same morning four times on the way down a phone: a verdict, a list of signals, a coach’s interpretation and a readiness score, with a caution between them. It ran to 2.7 screens.</p>
-          <p>Version 19.6 keeps the verdict at the top and moves the rest under Technical details, which brings the tab to just over one screen. Nothing it weighed was dropped. The verdict already counted every limiter, so moving the signals changed what you see, not what decides the day.</p>
-        </div>
-      </section>
-    </article>
-
-    <article class="project" id="lattice" aria-labelledby="lattice-title">
-      <header class="project__head">
-        <h2 class="project__title" id="lattice-title" translate="no">Lattice</h2>
-        <p class="project__kind">Robot missions that keep their objective when the route or body changes</p>
-      </header>
-
-      <figure class="walkthrough project__lead" id="lattice-recording">
-        <video controls playsinline preload="none" poster="assets/img/lattice/tour-opening-poster.webp" width="1280" height="800" aria-label="Recording of the Lattice tour’s opening on the blocked aisle">
-          <source src="assets/video/lattice-tour-opening.mp4" type="video/mp4">
-          <a href="assets/video/lattice-tour-opening.mp4">Download the recording</a>.
-        </video>
-        <figcaption>The tour’s opening, recorded from the copy on this site: the warehouse plan, the stretch of aisle the lidar found blocked, the detour the planner found, and the rover’s recorded path at five times speed. 22 seconds, no sound.</figcaption>
-      </figure>
-
-      <div class="project__body">
-        <div class="project__main">
-          <div class="prose">
-            <p>Telling a robot what to do is the easy part; keeping the goal when the plan breaks is the hard one. A rover inspects a warehouse station, then finds its route blocked. Lattice holds the objective and prepares a west-aisle detour for review, keeping the completed inspection and its camera evidence. At the stair landing, a separately approved handoff lets a Go1 quadruped verify that evidence, climb three small steps and inspect the upper station. The route and the body change; the objective and its history stay with Lattice.</p>
-            <p>I built it to connect applied machine learning with the parts of robotics that have to keep working when a model is unsure or a connection drops. A Rust core plans routes, takes approvals and signs commands; a Rust agent on each body verifies those commands, and the evidence they carry, before handing them to ROS&nbsp;2 and Nav2 or to the MuJoCo gateway. Python supplies the language classifier and the marker detector, and the Go1 walks on a published locomotion policy.</p>
-          </div>
-          <ul class="actions">
-            <li><a class="button button--primary" href="lattice/#adaptive">Explore the guided tour</a></li>
-            <li><a class="button" href="#lattice-recording">Watch the tour’s opening</a></li>
-            <li><a class="button" href="https://github.com/0vertrained/Lattice">Read the code</a></li>
-          </ul>
-        </div>
-        <dl class="facts">
-          <div><dt>Built with</dt><dd>Rust, React, TypeScript, C++20, ROS 2 Jazzy, Nav2, Gazebo, MuJoCo, Python, NumPy, scikit-learn, OpenCV, PostgreSQL, OIDC</dd></div>
-          <div><dt>Scope</dt><dd>A Gazebo rover and a MuJoCo Go1 in separate physics worlds that share one map. Physical hardware is future work.</dd></div>
-          <div><dt>Runs on</dt><dd>Netlify for the tour and the operator console; Google Cloud Run, Cloud SQL and Keycloak for the core, which scales to zero between demos</dd></div>
-          <div><dt>My focus</dt><dd>Evaluating the models, integrating the robots, drawing the line between a model’s suggestion and a robot’s action, and making every failure visible</dd></div>
-        </dl>
-      </div>
-
-      <section class="product" aria-labelledby="lattice-title lattice-runs-title">
-        <h3 class="section-title" id="lattice-runs-title">Three recorded runs</h3>
-        <ul class="runs">
-          <li>
-            <h4>A blocked aisle</h4>
-            <p>An obstacle that isn’t on the map blocks the direct route, and the simulated lidar reports it. The core holds the round and proposes a west-aisle detour that keeps the finished inspection and its image; a stale review can’t clear a newer sensor report or restart motion.</p>
-            <p class="runs__measured">Detour prepared in 35&nbsp;ms. Held 46.8&nbsp;s for approval and the old command’s expiry. No inspection repeated.</p>
-            <a href="lattice/#adaptive">Explore the blocked aisle</a>
-          </li>
-          <li>
-            <h4>Stairs need a different body</h4>
-            <p>The planner matches each segment of the route to a body that can travel it: the rover covers the ground floor, and a Go1 waiting at the stair landing takes the steps, after its own approval and after checking the rover’s image against its recorded hash.</p>
-            <p class="runs__measured">Four steps in 37.4&nbsp;s. Rover 4.32&nbsp;m, Go1 3.57&nbsp;m, with foot contacts on all three 5&nbsp;cm risers.</p>
-            <a href="lattice/#capability">Explore the rover-to-Go1 route</a>
-          </li>
-          <li>
-            <h4>A second rover finishes</h4>
-            <p>Before Rover&nbsp;B takes over from Rover&nbsp;A, the core withdraws A’s permission to move and waits for its last signed command to expire. B gets the three remaining steps and A’s original image, and none of A’s work is done twice.</p>
-            <p class="runs__measured">A stopped 1.45&nbsp;s after the handoff was prepared and drifted 2.0&nbsp;cm. B finished 3 steps; 0 repeated.</p>
-            <a href="lattice/#handoff">Explore the two-rover handoff</a>
-          </li>
-        </ul>
-        <figure class="walkthrough walkthrough--aside">
-          <video controls playsinline preload="none" poster="lattice/demo/capability-quadruped.poster.png" width="960" height="540" aria-label="External-camera replay of the Go1’s measured joint states as it climbs the three simulated steps">
-            <source src="lattice/demo/capability-quadruped.mp4" type="video/mp4">
-            <a href="lattice/demo/capability-quadruped.mp4">Download the Go1 replay.</a>
+      <article class="piece" id="caduceus" aria-labelledby="caduceus-title">
+        <header class="piece__head">
+          <h3 class="piece__title" id="caduceus-title" translate="no"><a href="work/caduceus/">Caduceus</a></h3>
+          <p class="piece__kind">A prior-authorization agent that keeps patient data inside the clinic</p>
+        </header>
+        <figure class="walkthrough piece__media">
+          <video controls preload="none" playsinline width="1280" height="800" data-poster="assets/img/caduceus/walkthrough.webp" aria-label="Recording of the Caduceus walkthrough, from a faxed referral to the insurer’s answer">
+            <source src="assets/media/caduceus-walkthrough.mp4" type="video/mp4">
+            <a href="assets/media/caduceus-walkthrough.mp4">Download the walkthrough</a>.
           </video>
-          <figcaption>The Go1 on the three 5&nbsp;cm steps: a 15.7-second replay rendered from its measured joint states in the stairs run, walking on the pretrained <a href="https://github.com/0vertrained/Lattice/blob/main/simulation/quadruped/THIRD_PARTY.md">Walk These Ways policy</a>. <a href="lattice/demo/capability-quadruped.provenance.json" download>Read the replay’s provenance.</a></figcaption>
+          <figcaption>The 2½-minute walkthrough, from a faxed referral to the insurer’s answer, with captions on screen and no sound.</figcaption>
         </figure>
-        <p class="note">Each run is one recording and a bounded simulation measurement, not a claim about physical robots. Download the recordings: <a href="lattice/demo/adaptive-route.json" download>blocked aisle</a> with its <a href="lattice/demo/adaptive-blockage-scan.json" download>lidar scan</a>, <a href="lattice/demo/capability-route.json" download>rover to Go1</a> and <a href="lattice/demo/handoff.json" download>two rovers</a>.</p>
-      </section>
-
-      <section class="product" id="lattice-run" aria-labelledby="lattice-title lattice-execution-title">
-        <h3 class="section-title" id="lattice-execution-title">One round, including the interruption</h3>
-        <p class="prose">A fourth run: one rover inspects two stations and drives back to charge, and the core is stopped partway through. Scrub through the 74.5 seconds it recorded, 271 measured poses over 14.21&nbsp;m, including the stop, the reviewed recovery and the return.</p>
-        <div class="lattice-evidence" data-lattice-replay>
-          <figure class="walkthrough lattice-replay">
-            <svg viewBox="0 0 640 420" role="img" aria-label="Warehouse map showing the recorded rover path between two inspection stations and the charging station">
-              <rect x="30" y="30" width="580" height="360" rx="5" class="lattice-map__floor"/>
-              <path d="M320 30V390M30 210H610" class="lattice-map__grid"/>
-              <rect x="415.7" y="169.5" width="40.6" height="81" class="lattice-map__shelf"/>
-              <text x="436" y="270" text-anchor="middle" class="lattice-map__label">Shelf</text>
-              <circle cx="320" cy="97.5" r="13" class="lattice-map__goal"/>
-              <text x="320" y="65" text-anchor="middle" class="lattice-map__label">Inspection bay</text>
-              <circle cx="523" cy="210" r="7" class="lattice-map__dock"/>
-              <text x="523" y="238" text-anchor="middle" class="lattice-map__label">Loading dock</text>
-              <circle cx="146" cy="300" r="7" class="lattice-map__dock"/><text x="146" y="327" text-anchor="middle" class="lattice-map__label">Charging station</text>
-              <text x="48" y="370" class="lattice-map__label">10 × 8 m · map frame</text>
-              <polyline points="" class="lattice-map__path" data-lattice-path/>
-              <g data-lattice-rover visibility="hidden"><circle r="10" class="lattice-map__rover"/><path d="M0 0L19 0" class="lattice-map__heading"/></g>
-            </svg>
-            <div class="lattice-replay__controls" hidden data-lattice-controls>
-              <button type="button" class="button button--quiet" data-lattice-play aria-pressed="false">Play recorded run</button>
-              <label for="lattice-time">Mission time <output id="lattice-clock" for="lattice-time">0.0 s</output></label>
-              <input id="lattice-time" type="range" min="0" max="1" value="0" step="1" aria-describedby="lattice-replay-state" data-lattice-time>
-            </div>
-            <figcaption id="lattice-replay-state" data-lattice-state>Recorded telemetry loads when JavaScript is available. The camera image and the downloads below work without it.</figcaption>
-          </figure>
-          <figure class="walkthrough lattice-camera">
-            <img src="assets/img/lattice/round-1.jpg" width="320" height="240" loading="lazy" decoding="async" alt="Actual Gazebo camera image with a detected red octagonal safety marker outlined in green">
-            <figcaption>The bay inspection’s camera image with the detector’s box; the score is calibrated on synthetic crops, not physical cameras. <a href="assets/img/lattice/round-1.jpg" download>Download the original JPEG</a>; its hash is in the recording.</figcaption>
-          </figure>
+        <div class="piece__text">
+          <p>Before a clinic can schedule an MRI, the patient’s insurer has to approve it, and someone has to read the chart against the insurer’s criteria. Caduceus does the reading: it takes the faxed referral, checks the record against the insurer’s own policy, asks the doctor only what the record can’t answer, and drafts the request. Nothing goes out until a specialist approves it. The clinic is simulated, and every patient is synthetic.</p>
+          <p class="piece__built">Built with Python, FastAPI, Postgres, React, TypeScript, Tesseract and Docker.</p>
         </div>
-        <p class="note"><a href="assets/data/lattice-round.json" download>Download this round</a>. It’s a recording: nothing on this page connects to or controls a robot.</p>
-      </section>
-
-      <section class="product" aria-labelledby="lattice-title lattice-product">
-        <h3 class="section-title" id="lattice-product">The product</h3>
-        <div class="screens" data-screens>
-          <ul class="screens__list" tabindex="0" aria-label="Lattice screens. Scroll sideways for more.">
-            <li><figure><img src="assets/img/lattice/tour-handoff-proof.webp" width="1440" height="900" loading="lazy" decoding="async" alt="A two-channel timing trace for Rover A and Rover B over 2 minutes 20 seconds. A hatched band marks Rover A’s work held for handoff from 13.5 seconds until the approval at 75.2 seconds, with the readouts and the transfer record below."><figcaption>The two-rover handoff as a logic-analyser trace; the hatched band is the time A’s work was held for review.</figcaption></figure></li>
-            <li><figure><img src="assets/img/lattice/tour-camera-evidence.webp" width="1440" height="900" loading="lazy" decoding="async" alt="Two evidence plates side by side: the bay image with a red octagonal marker detected at 99.1%, and the loading-dock image with no marker, each with its source, capture time, detector score and model."><figcaption>Camera evidence as plates: the marker found at the bay and missing at the dock. A failed inspection is a result worth keeping.</figcaption></figure></li>
-            <li><figure><img src="assets/img/lattice/tour-restart-ladder.webp" width="1440" height="900" loading="lazy" decoding="async" alt="Restart recovery drawn as a relay ladder in the dark theme: three rungs, motion lease, hold and review, with the running state at 33.2 seconds selected."><figcaption>Restart recovery as a relay ladder: three interlocks, stepped through the moments the run recorded.</figcaption></figure></li>
-            <li><figure><img src="assets/img/lattice/console-fleet.webp" width="1440" height="900" loading="lazy" decoding="async" alt="The operator console’s Fleet section: plates for a warehouse rover and a stair quadruped online and a spare rover offline, each with a heartbeat trace, battery gauge, pose and capabilities, above a 3D view of the warehouse."><figcaption>The operator console opens on the fleet: each body’s heartbeat, battery and last reported pose.</figcaption></figure></li>
-            <li><figure><img src="assets/img/lattice/console-route-search.webp" width="1440" height="900" loading="lazy" decoding="async" alt="The capability route planner: a warehouse map with the selected route in yellow from the inspection bay to the stair transfer and up the stairs, and the west-aisle route the planner reached but ranked lower drawn in grey."><figcaption>The route planner draws its own search: the route it chose, the one it ranked lower, and where the quadruped takes over.</figcaption></figure></li>
-            <li><figure><img src="assets/img/lattice/console-replan.webp" width="1440" height="900" loading="lazy" decoding="async" alt="The review of the remaining route after a blockage: one completed step kept, four remaining steps, one retained observation, and a map with the reported blocked segment hatched in red and the west-aisle detour in yellow."><figcaption>After a blockage, the review keeps the finished step and its image and needs a fresh approval.</figcaption></figure></li>
-            <li><figure><img src="assets/img/lattice/console-ledger.webp" width="1440" height="900" loading="lazy" decoding="async" alt="The audit ledger in the dark theme: records newest first, each with its short hash and the hash it follows, the event, its object and who acted, joined by a chain line down the margin and marked Chain verified."><figcaption>The audit log as a ledger: each record carries the hash of the one before it, and the core rechecks every link.</figcaption></figure></li>
-          </ul>
-          <div class="screens__controls">
-            <button type="button" class="button button--icon" data-screens-prev aria-label="Previous screen"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7"/></svg></button>
-            <button type="button" class="button button--icon" data-screens-next aria-label="Next screen"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></button>
-          </div>
-        </div>
-        <p class="note">The first three screens are chapters of the tour; the console screens use sample data, except the route plans, which are the planner’s own output. On the <a href="https://lattice-robotics.netlify.app/">hosted site</a>, the console sits behind a sign-in.</p>
-      </section>
-
-      <dl class="features" aria-label="How a Lattice mission runs">
-        <div><dt>Propose</dt><dd>A trained intent classifier picks the skill for a language request and explicit rules resolve the place and bound the speed; an unclear request becomes a question or a refusal.</dd></div>
-        <div><dt>Approve</dt><dd>The core seals the plan and its failure policy into a digest, and Postgres commits the approval, the commands and the audit record in one transaction, so an altered or expired review fails and a retry never sends a command twice.</dd></div>
-        <div><dt>Navigate</dt><dd>The body checks each command’s signature, target, sequence and deadline before Nav2 or the Go1’s policy moves it, and local limits and connection watchdogs stay in charge.</dd></div>
-        <div><dt>Remember</dt><dd>Each observation keeps its body, capture time, confidence scope and image hash, and a later image without the marker never erases an earlier sighting.</dd></div>
-      </dl>
-
-      <section class="evidence" aria-labelledby="lattice-title lattice-results-title">
-        <h3 class="section-title" id="lattice-results-title">How it’s checked</h3>
-        <table class="scorecard">
+        <table class="scorecard piece__measured">
           <thead><tr><th scope="col">What was measured</th><th scope="col">Result</th></tr></thead>
           <tbody>
-            <tr><th scope="row">Clear language requests resolved to the right skill and place, on held-out cases</th><td>9 of 12</td></tr>
-            <tr><th scope="row">Ambiguous, unsupported and adversarial requests refused or sent back for clarification</th><td>24 of 24</td></tr>
-            <tr><th scope="row">Marker detector on 600 synthetic test crops, precision and recall at a 0.8 score</th><td>100%, 98.3%</td></tr>
-            <tr><th scope="row">Route-planner cases covering capabilities, staging, closures and refusals</th><td>30 of 30</td></tr>
-            <tr><th scope="row">Simulator scenarios completed, including two barriers that each needed a reviewed detour</th><td>3 of 3</td></tr>
-            <tr><th scope="row">Finished inspections repeated after a detour or a handoff</th><td>0</td></tr>
-            <tr><th scope="row">Stop after the core was interrupted mid-drive, and drift afterward</th><td>0.34&nbsp;s, 1.76&nbsp;cm</td></tr>
-            <tr><th scope="row">Accessibility of the tour and the console, axe-core against WCAG 2.1 AA, light and dark, phone and desktop</th><td>0 violations</td></tr>
+            <tr><th scope="row">Patient identifiers that reached the outside model</th><td>0 of 181 planted</td></tr>
+            <tr><th scope="row">Rules engine on 36 held-out cases with messy records</th><td>88.5%, 4 unsafe errors</td></tr>
+            <tr><th scope="row">Accessibility, axe-core against WCAG 2.2 AA</th><td>0 violations on 50 screens</td></tr>
           </tbody>
         </table>
-        <p class="note">The three clear requests it missed were refused or sent back for clarification, never turned into a wrong command. These small language and synthetic-image sets don’t establish adversarial robustness or accuracy on a physical camera. Read the full evaluations: <a href="assets/data/lattice-evaluation.json" download>language and markers</a>, the <a href="https://github.com/0vertrained/Lattice/blob/main/evaluation/adaptive-planner-2026-11-02.json">route planner</a> and the <a href="https://github.com/0vertrained/Lattice/blob/main/evaluation/adaptive-missions-2026-11-02.json">adaptive missions</a>, which also records an earlier integration failure.</p>
-      </section>
+        <ul class="actions">
+          <li><a class="button button--primary" href="work/caduceus/" aria-label="Read the case study of Caduceus">Read the case study</a></li>
+          <li><a class="button" href="https://caduceusdemo.netlify.app/">Try the live demo</a></li>
+          <li><a class="button" href="https://github.com/0vertrained/Caduceus" aria-label="Read the code of Caduceus">Read the code</a></li>
+        </ul>
+      </article>
 
-      <section class="lesson" aria-labelledby="lattice-lesson">
-        <h3 class="section-title" id="lattice-lesson">The marker the model couldn’t see</h3>
-        <div class="prose">
-          <p>The synthetic tests passed, but the first live camera inspection failed: the marker’s material rendered white in Gazebo, and the detector was trained to find red markers. It returned no detection, and Lattice kept the failed outcome and the image, which exposed the rendering problem. I fixed the asset rather than lowering the model’s threshold to hide the failure; the next run found the marker, and an inspection facing away from it still failed, with its image kept.</p>
-          <p>The rest of Lattice is tested the same way: occupy the destination, cut the connection, change the approval and retry it. A model call that succeeds only becomes a mission that succeeds when the robot brings back the evidence.</p>
+      <article class="piece" id="ensemble" aria-labelledby="ensemble-title">
+        <header class="piece__head">
+          <h3 class="piece__title" id="ensemble-title" translate="no"><a href="work/ensemble/">Ensemble</a></h3>
+          <p class="piece__kind">A software team of AI agents, held to a process that is written in code</p>
+        </header>
+        <figure class="walkthrough piece__media">
+          <video controls preload="none" playsinline width="1280" height="800" data-poster="assets/img/ensemble/run.webp" aria-label="Recording of the Ensemble app playing back one run, from the request to the release note">
+            <source src="assets/video/ensemble-run.mp4" type="video/mp4">
+            <a href="assets/video/ensemble-run.mp4">Download the recording</a>.
+          </video>
+          <figcaption>One real run, played back by the app from its own log, from the requirements to the release note. The tests fail once on the way. 30 seconds, no sound.</figcaption>
+        </figure>
+        <div class="piece__text">
+          <p>Ensemble takes a request for a change to a codebase and hands it to a team of agents, each a model with one job. The agents don’t decide how the work goes. The process is a pipeline written in code: every handoff is a typed document checked before anything builds on it, the tests are run by the harness and never reported by a model, and nothing is written until a person approves the plan. It’s in progress, and the repository is private for now.</p>
+          <p class="piece__built">Built with TypeScript, Node, React, Vite and Vitest, and no agent framework.</p>
         </div>
-      </section>
-    </article>
+        <table class="scorecard piece__measured">
+          <thead><tr><th scope="col">What was measured</th><th scope="col">Result</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Benchmark tasks solved with <span translate="no">glm-5.3</span>, each scored by checks the team never sees</th><td>7 of 7</td></tr>
+            <tr><th scope="row">The same benchmark with <span translate="no">gemma4:31b</span></th><td>4 of 7</td></tr>
+            <tr><th scope="row">Runs the team called a success that then failed a hidden check</th><td>0 of 11</td></tr>
+          </tbody>
+        </table>
+        <ul class="actions">
+          <li><a class="button button--primary" href="work/ensemble/" aria-label="Read the case study of Ensemble">Read the case study</a></li>
+          <li><a class="button" href="ensemble/">Replay five recorded runs</a></li>
+        </ul>
+      </article>
+
+      <article class="piece" id="overtrained" aria-labelledby="overtrained-title">
+        <header class="piece__head">
+          <h3 class="piece__title" id="overtrained-title" translate="no"><a href="work/overtrained/">0VERTRAINED</a></h3>
+          <p class="piece__kind">A training app for athletes who lift and race, designed and built alone</p>
+        </header>
+        <figure class="piece__media">
+          <ul class="piece__phones">
+            <li><img src="assets/img/overtrained/today.webp" width="540" height="1169" loading="lazy" decoding="async" alt="The Today screen on a Monday: Upper A, push and triceps, a Start session button, and protein, steps and calories so far."></li>
+            <li><img src="assets/img/overtrained/recovery.webp" width="540" height="1169" loading="lazy" decoding="async" alt="Recovery: the check-in taps above the verdict, Fresh at 97 and rising, and Green light, load the bar."></li>
+            <li><img src="assets/img/overtrained/session.webp" width="540" height="1169" loading="lazy" decoding="async" alt="A session on barbell bench press: last time 240 pounds for four sets of six, and today’s target, 245, since every set reached six reps without a technique flag."></li>
+          </ul>
+          <figcaption>Today, Recovery and a session under way, captured from the app’s demo build with seeded, made-up data.</figcaption>
+        </figure>
+        <div class="piece__text">
+          <p>A private training ledger for people who lift and race. It logs strength, cardio, food and recovery, typed in or pulled from a wearable, and answers one question each morning: how hard should today be? I train this way myself, and I designed and built all of it, from the design system and the data model to the wearable integrations and the coach. It’s in beta, with a cap on sign-ups.</p>
+          <p class="piece__built">Built with React, Vite, Supabase and Netlify Functions, with Oura, Whoop and Strava over OAuth.</p>
+        </div>
+        <table class="scorecard piece__measured">
+          <thead><tr><th scope="col">What was measured</th><th scope="col">Result</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Automated tests, all passing</th><td>2,030 in 170 files</td></tr>
+            <tr><th scope="row">Database tables with row-level security</th><td>31 of 31</td></tr>
+            <tr><th scope="row">Secrets found by the release gate’s scan of the built app</th><td>0</td></tr>
+          </tbody>
+        </table>
+        <ul class="actions">
+          <li><a class="button button--primary" href="work/overtrained/" aria-label="Read the case study of 0VERTRAINED">Read the case study</a></li>
+          <li><a class="button" href="https://0vertrained.netlify.app/#/demo">See the demo</a></li>
+        </ul>
+      </article>
+
+      <article class="piece" id="lattice" aria-labelledby="lattice-title">
+        <header class="piece__head">
+          <h3 class="piece__title" id="lattice-title" translate="no"><a href="work/lattice/">Lattice</a></h3>
+          <p class="piece__kind">Robot missions that keep their objective when the route or body changes</p>
+        </header>
+        <figure class="walkthrough piece__media">
+          <video controls preload="none" playsinline width="1280" height="800" data-poster="assets/img/lattice/tour-opening-poster.webp" aria-label="Recording of the Lattice tour’s opening on the blocked aisle">
+            <source src="assets/video/lattice-tour-opening.mp4" type="video/mp4">
+            <a href="assets/video/lattice-tour-opening.mp4">Download the recording</a>.
+          </video>
+          <figcaption>The tour’s opening: the warehouse plan, the stretch of aisle the lidar found blocked, and the detour the planner found. 22 seconds, no sound.</figcaption>
+        </figure>
+        <div class="piece__text">
+          <p>A rover inspects a warehouse station, then finds its route blocked. Lattice holds the objective and prepares a detour for review, keeping the finished inspection and its camera evidence. At the stairs, a separately approved handoff lets a quadruped verify that evidence and carry on. The route and the body change; the objective and its history stay. The robots are simulated, and every run is recorded.</p>
+          <p class="piece__built">Built with Rust, React, TypeScript, C++20, ROS&nbsp;2, Nav2, Gazebo, MuJoCo, Python and PostgreSQL.</p>
+        </div>
+        <table class="scorecard piece__measured">
+          <thead><tr><th scope="col">What was measured</th><th scope="col">Result</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Finished inspections repeated after a detour or a handoff</th><td>0</td></tr>
+            <tr><th scope="row">Ambiguous, unsupported and adversarial requests refused or sent back for clarification</th><td>24 of 24</td></tr>
+            <tr><th scope="row">Stop after the core was interrupted mid-drive, and drift afterward</th><td>0.34&nbsp;s, 1.76&nbsp;cm</td></tr>
+          </tbody>
+        </table>
+        <ul class="actions">
+          <li><a class="button button--primary" href="work/lattice/" aria-label="Read the case study of Lattice">Read the case study</a></li>
+          <li><a class="button" href="lattice/#adaptive">Explore the guided tour</a></li>
+          <li><a class="button" href="https://github.com/0vertrained/Lattice" aria-label="Read the code of Lattice">Read the code</a></li>
+        </ul>
+      </article>
+    </section>
 
     <section class="experience" id="experience" aria-labelledby="experience-title">
       <h2 class="experience__title" id="experience-title">Experience</h2>

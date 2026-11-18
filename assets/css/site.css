@@ -466,7 +466,7 @@ main {
   display: grid;
   gap: clamp(3rem, 6vw, 4.5rem);
   max-width: var(--wide);
-  margin: clamp(4.5rem, 11vw, 9rem) auto clamp(6rem, 14vw, 12rem);
+  margin: clamp(4.5rem, 11vw, 9rem) auto clamp(5rem, 11vw, 8.5rem);
 }
 
 .intro__lede {
@@ -476,107 +476,157 @@ main {
   letter-spacing: -0.005em;
 }
 
-.index {
-  scroll-margin-top: 2rem;
+/* Work, on the front page: for each project its product, what it is, three things that were measured, and the
+   way in to its case study. */
+.work {
+  container-type: inline-size;
+  max-width: var(--wide);
+  margin: 0 auto clamp(6rem, 12vw, 9.5rem);
 }
 
-/* The work, as cards: the product first, then the name, what it is, and one thing that was measured. */
-.index ul {
+.work > p {
+  max-width: var(--measure);
+  margin: 0;
+  font-size: clamp(1.1875rem, 1.8vw, 1.375rem);
+}
+
+/* A rule above each, as on the roles further down. In source order the name comes first, then the product,
+   then the words, which is the order a phone shows them in. */
+.piece {
   display: grid;
-  gap: clamp(1.5rem, 3vw, 2.5rem);
+  gap: 1.5rem;
+  margin-top: clamp(3.5rem, 7vw, 5.5rem);
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule-strong);
+}
+
+.piece > * {
+  min-width: 0;
+}
+
+.piece__head {
+  container-type: inline-size;
+}
+
+/* One size for the four names, set so the longest, 0VERTRAINED, fits the column it shares with the words. */
+.piece__title {
+  margin: 0;
+  font: 820 min(4rem, 10.4cqi)/0.95 var(--sans);
+  font-stretch: 125%;
+  letter-spacing: -0.02em;
+}
+
+.piece__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.piece__title a:hover,
+.piece__title a:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: 0.07em;
+  text-underline-offset: 0.12em;
+}
+
+.piece__kind {
+  max-width: 34ch;
+  margin: 0.75rem 0 0;
+  color: var(--ink-soft);
+  font: 500 clamp(1.0625rem, 1.6vw, 1.25rem)/1.35 var(--sans);
+}
+
+.piece__media {
+  margin: 0;
+}
+
+.piece__phones {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.6rem, 2.2cqi, 1.5rem);
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-/* Four pieces of work: two by two on a tablet, one row once each card is wide enough to read. */
-@media (min-width: 40rem) {
-  .index ul {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (min-width: 68rem) {
-  .index ul {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: clamp(1.5rem, 2.4vw, 2rem);
-  }
-}
-
-.index li {
-  display: flex;
-}
-
-.index li a {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  color: inherit;
-  text-decoration: none;
-}
-
-.index img {
-  display: block;
+.piece__phones img {
   width: 100%;
   height: auto;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-  object-position: top;
-  margin-bottom: 1.1rem;
-  border-radius: 0.5rem;
-  background: var(--surface);
+  border-radius: clamp(0.6rem, 1.7cqi, 1.25rem);
+  background: #f8f7f3;
   box-shadow: var(--shadow);
   outline: 1px solid var(--rule);
   outline-offset: -1px;
-  transition: transform 220ms ease;
 }
 
-.index li a:hover img,
-.index li a:focus-visible img {
-  transform: translateY(-2px);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .index img {
-    transition: none;
-  }
-
-  .index li a:hover img,
-  .index li a:focus-visible img {
-    transform: none;
-  }
-}
-
-.index__name {
-  font: 750 1.1875rem/1.25 var(--sans);
-  font-stretch: 112%;
-}
-
-.index__what {
-  margin-top: 0.3rem;
-  color: var(--ink-soft);
+.piece__text > p {
+  max-width: var(--measure);
+  margin: 0;
   font-size: 1.0625rem;
-  line-height: 1.45;
+  line-height: 1.55;
 }
 
-.index__proof {
-  margin-top: auto;
-  padding-top: 0.85rem;
-  border-top: 1px solid var(--rule);
+.piece__text > .piece__built {
+  margin-top: 1rem;
   color: var(--ink-soft);
   font: 500 0.9375rem/1.45 var(--sans);
-  font-variant-numeric: tabular-nums;
 }
 
-.index__what + .index__proof {
-  margin-top: 1.1rem;
+.piece .scorecard {
+  max-width: none;
 }
 
-.index li a:hover .index__name,
-.index li a:focus-visible .index__name {
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 0.2em;
+.piece .scorecard th,
+.piece .scorecard td {
+  padding: 0.7rem 0;
+}
+
+.piece .scorecard tbody th,
+.piece .scorecard td {
+  font-size: 1rem;
+}
+
+.piece .scorecard tbody th {
+  padding-right: 1.5rem;
+}
+
+.piece .actions {
+  margin-top: 0.5rem;
+}
+
+/* With room, the product and what was measured stand on the left, and the words and the ways in on the right. */
+@container (min-width: 54rem) {
+  .piece {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    grid-template-areas:
+      "media head"
+      "media text"
+      "measured actions";
+    grid-template-rows: auto 1fr auto;
+    column-gap: clamp(2.5rem, 5cqi, 4.5rem);
+  }
+
+  .piece__head {
+    grid-area: head;
+  }
+
+  .piece__media {
+    grid-area: media;
+  }
+
+  .piece__text {
+    grid-area: text;
+  }
+
+  .piece__measured {
+    grid-area: measured;
+    align-self: start;
+  }
+
+  .piece .actions {
+    grid-area: actions;
+    align-self: start;
+    margin-top: 0;
+  }
 }
 
 /* Each case study opens on its product, before a word of explanation. */
@@ -974,7 +1024,8 @@ main {
 
 .walkthrough figcaption,
 .screens figcaption,
-.phones figcaption {
+.phones figcaption,
+.piece__media figcaption {
   max-width: 36rem;
   margin-top: 0.85rem;
   color: var(--ink-soft);
@@ -1268,7 +1319,7 @@ main {
 
 /* Contact and colophon */
 
-/* Experience and contact close the page under the same large heading. */
+/* Work, experience and contact sit under the same large heading. */
 .experience,
 .contact {
   container-type: inline-size;
@@ -1280,10 +1331,11 @@ main {
   margin-bottom: clamp(4.5rem, 9vw, 7rem);
 }
 
+.work__title,
 .experience__title,
 .contact__title {
   margin: 0 0 1.25rem;
-  font: 820 clamp(2rem, 7.2cqi, 4.75rem)/0.98 var(--sans);
+  font: 820 clamp(2.5rem, 7.2cqi, 4.75rem)/0.98 var(--sans);
   font-stretch: 125%;
   letter-spacing: -0.02em;
 }
@@ -1575,10 +1627,6 @@ html {
     grid-template-columns: minmax(0, 1fr) minmax(17rem, 21rem);
     column-gap: clamp(3rem, 8vw, 8rem);
     align-items: start;
-  }
-
-  .intro .index {
-    grid-column: 1 / -1;
   }
 
   .glance {
