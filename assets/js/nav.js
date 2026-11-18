@@ -3,9 +3,17 @@
 
 export function initSitebar(bar) {
   const list = bar.querySelector(".sitebar__links");
+  if (!list) return;
+  // On a page of its own, a case study's link is the marked one from the start; bring it into the row.
+  const page = list.querySelector('a[aria-current="page"]');
+  if (page) {
+    const row = list.getBoundingClientRect();
+    const box = page.getBoundingClientRect();
+    if (box.right > row.right - 28) list.scrollLeft += box.right - row.right + 28;
+  }
   const links = [...bar.querySelectorAll('a[href^="#"]')];
   const targets = links.map((a) => document.getElementById(a.hash.slice(1))).filter(Boolean);
-  if (!list || !targets.length || !("IntersectionObserver" in window)) return;
+  if (!targets.length || !("IntersectionObserver" in window)) return;
   const calm = matchMedia("(prefers-reduced-motion: reduce)");
   let current = "";
 

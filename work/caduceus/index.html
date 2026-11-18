@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Caduceus: a prior-authorization agent, by Rami</title>
+  <meta name="description" content="Caduceus reads a faxed referral, checks the patient’s record against the insurer’s own policy and drafts the prior-authorization request, with anything that names a patient kept on a small model inside the clinic’s network. 181 identifiers were planted in test records, and none reached the outside model.">
+  <meta name="theme-color" content="#edefea" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0d131a" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
+  <link rel="canonical" href="https://0vertrained.github.io/work/caduceus/">
+  <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://0vertrained.github.io/work/caduceus/">
+  <meta property="og:title" content="Caduceus: a prior-authorization agent that keeps patient data inside the clinic">
+  <meta property="og:description" content="A case study by Rami: what it does, what leaves the building, and how it was checked on synthetic patients.">
+  <link rel="preload" href="../../assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../assets/fonts/source-serif-4.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/css/site.css">
+  <script>document.documentElement.classList.add("js")</script>
+  <script type="module" src="../../assets/js/main.js"></script>
+</head>
+<body class="page">
+  <a class="skip" href="#main">Skip to the case study</a>
+
+  <nav class="sitebar" data-sitebar aria-label="Rami’s work">
+    <ul class="sitebar__links">
+      <li><a class="sitebar__home" href="../../">Rami</a></li>
+      <li><a href="../caduceus/" translate="no" aria-current="page">Caduceus</a></li>
+      <li><a href="../ensemble/" translate="no">Ensemble</a></li>
+      <li><a href="../overtrained/" translate="no">0VERTRAINED</a></li>
+      <li><a href="../lattice/" translate="no">Lattice</a></li>
+      <li><a href="../../#experience">Experience</a></li>
+      <li><a href="../../#contact">Contact</a></li>
+    </ul>
+    <a class="sitebar__resume" href="../../assets/Rami-Martinez-resume.pdf" type="application/pdf">Résumé</a>
+  </nav>
+
+  <main id="main">
+    <article class="project" id="caduceus" aria-labelledby="caduceus-title">
+      <header class="project__head">
+        <h1 class="project__title" id="caduceus-title" translate="no">Caduceus</h1>
+        <p class="project__kind">A prior-authorization agent that keeps patient data inside the clinic</p>
+      </header>
+
+      <figure class="walkthrough project__lead" id="caduceus-walkthrough">
+        <video controls preload="none" playsinline width="1280" height="800" poster="../../assets/img/caduceus/walkthrough.webp">
+          <source src="../../assets/media/caduceus-walkthrough.mp4" type="video/mp4">
+        </video>
+        <figcaption>The 2½-minute walkthrough, from a faxed referral to the insurer’s answer, with captions on screen and no sound.</figcaption>
+      </figure>
+
+      <div class="project__body">
+        <div class="project__main">
+          <div class="prose">
+            <p>Before a medical group can schedule an MRI or a knee replacement, the patient’s insurer has to approve it. Staff read the chart against the insurer’s criteria, chase the doctor for whatever is missing, and send the request by fax or portal. Caduceus does the reading. It reads the faxed referral, checks the patient’s record against the insurer’s own policy, asks the ordering doctor only what the record can’t answer, and drafts the request. Nothing goes out until a specialist approves it.</p>
+            <p>The customer, Mesa Verde Health, is a simulated six-clinic group, and every patient is synthetic. The rules are real: the criteria quote Medicare’s policy text, and the requests follow the federal rule that gives insurers 7 days to decide, or 72&nbsp;hours when it’s urgent, and a specific reason for every denial.</p>
+          </div>
+          <ul class="actions">
+            <li><a class="button button--primary" href="https://caduceusdemo.netlify.app/">Try the live demo</a></li>
+            <li><a class="button" href="#caduceus-walkthrough">Watch the 2½-minute walkthrough</a></li>
+            <li><a class="button" href="https://github.com/0vertrained/Caduceus">Read the code</a></li>
+          </ul>
+        </div>
+        <dl class="facts">
+          <div><dt>Built with</dt><dd>Python, FastAPI, Postgres, React, TypeScript, Tesseract, Docker</dd></div>
+          <div><dt>Models</dt><dd>Qwen2.5-1.5B on llama.cpp inside the network; Kimi K2.6 on de-identified text</dd></div>
+          <div><dt>Standards</dt><dd>FHIR R4, SMART on FHIR, OpenID Connect, CMS-0057-F</dd></div>
+          <div><dt>Runs on</dt><dd>Google Cloud Run and Netlify</dd></div>
+        </dl>
+      </div>
+
+      <figure class="leaves" data-leaves aria-labelledby="leaves-title">
+        <figcaption class="leaves__intro">
+          <h2 class="leaves__title" id="leaves-title">What leaves the building</h2>
+          <p>Anything that names a patient stays on a small model inside the clinic’s network. Before text goes out to the model that drafts the request, Caduceus takes the identifiers out, stamps the result so it can’t be swapped on the way, and scans it once more. This is its real de-identifier, run on a synthetic referral.</p>
+        </figcaption>
+        <div class="leaves__stage" data-leaves-stage>
+          <section class="leaves__side" aria-labelledby="leaves-inside">
+            <h3 class="leaves__where" id="leaves-inside">Inside Mesa Verde’s network</h3>
+            <p class="leaves__text" data-leaves-source><mark class="leaves__id" data-token="[NAME_1]">Gilbert Romero</mark>, born <mark class="leaves__id" data-token="[DATE_1]">June 12, 1954</mark>, MRN <mark class="leaves__id" data-token="[RECORD_NUMBER_1]">MV-204417</mark>, phone <mark class="leaves__id" data-token="[PHONE_1]">(505)&nbsp;555-0182</mark>. Right knee osteoarthritis, Kellgren–Lawrence grade&nbsp;4 on X-ray. Twelve weeks of physical therapy without relief. Requesting a right total knee replacement.</p>
+            <p class="leaves__who">Read here by Qwen2.5-1.5B, on a CPU beside the app, to summarize the chart.</p>
+          </section>
+          <div class="leaves__edge" aria-hidden="true"><span>Edge of the network</span></div>
+          <section class="leaves__side leaves__side--out" aria-labelledby="leaves-outside">
+            <h3 class="leaves__where" id="leaves-outside">Sent to the drafting model</h3>
+            <p class="leaves__text" data-leaves-result><span class="leaves__token">[NAME_1]</span>, born <span class="leaves__token">[DATE_1]</span>, MRN <span class="leaves__token">[RECORD_NUMBER_1]</span>, phone <span class="leaves__token">[PHONE_1]</span>. Right knee osteoarthritis, Kellgren–Lawrence grade&nbsp;4 on X-ray. Twelve weeks of physical therapy without relief. Requesting a right total knee replacement.</p>
+            <dl class="leaves__checks" data-leaves-checks>
+              <div><dt>Stamped</dt><dd>safe-harbor/1, over the text’s SHA-256 <span translate="no">6c22f8ad…</span></dd></div>
+              <div><dt>Checked at the edge</dt><dd>Stamp verified, scanned again, no identifiers left</dd></div>
+            </dl>
+          </section>
+        </div>
+        <div class="leaves__foot">
+          <p>Across the test suite, 181 identifiers were planted in records and notes. None reached the outside model.</p>
+          <button type="button" class="button button--quiet" data-leaves-run>Send it again</button>
+        </div>
+      </figure>
+
+      <section class="product" aria-labelledby="caduceus-title caduceus-product">
+        <h2 class="section-title" id="caduceus-product">The product</h2>
+        <div class="screens" data-screens>
+          <ul class="screens__list" tabindex="0" aria-label="Caduceus screens. Scroll sideways for more.">
+            <li><figure><img src="../../assets/img/caduceus/queue.webp" width="1280" height="800" loading="lazy" decoding="async" alt="The queue, with three faxed referrals at the top, read inside the clinic’s systems."><figcaption>The queue: faxes are read inside the network, then the day’s cases, in plain words.</figcaption></figure></li>
+            <li><figure><img src="../../assets/img/caduceus/fax-check.webp" width="1280" height="800" loading="lazy" decoding="async" alt="A poorly copied fax, with each field the reader was unsure of set beside the part of the page it came from."><figcaption>Every field the fax reader was unsure of goes to a person, beside the part of the page it came from.</figcaption></figure></li>
+            <li><figure><img src="../../assets/img/caduceus/case-evidence.webp" width="1280" height="800" loading="lazy" decoding="async" alt="A coverage criterion beside the visit note, with the supporting sentence highlighted."><figcaption>Every criterion that is met opens the page and highlights the sentence behind it.</figcaption></figure></li>
+            <li><figure><img src="../../assets/img/caduceus/attest.webp" width="1280" height="800" loading="lazy" decoding="async" alt="The ordering clinician’s request to attest: a chart summary written inside the network, then the one question the chart can’t answer."><figcaption>The clinician answers one question, usually on her phone. The chart summary is written inside the network and checked against the record.</figcaption></figure></li>
+            <li><figure><img src="../../assets/img/caduceus/sent-to-model.webp" width="1280" height="800" loading="lazy" decoding="async" alt="The panel showing exactly what the drafting model was sent, with identifiers taken out and the stamp verified."><figcaption>Every draft shows exactly what the model was sent.</figcaption></figure></li>
+            <li><figure><img src="../../assets/img/caduceus/where-to-look.webp" width="1280" height="800" loading="lazy" decoding="async" alt="A passage in nine pages of outside therapy notes, offered as where to look rather than as evidence."><figcaption>In a nine-page packet, it shows where to look, and never treats that as evidence.</figcaption></figure></li>
+            <li><figure><img src="../../assets/img/caduceus/denial.webp" width="1280" height="800" loading="lazy" decoding="async" alt="A denial with the insurer’s specific reason, the policy sentence and the record side by side."><figcaption>A denial, with the insurer’s reason, the policy and the record side by side, and an appeal drafted from them.</figcaption></figure></li>
+            <li><figure><img src="../../assets/img/caduceus/history.webp" width="1280" height="800" loading="lazy" decoding="async" alt="The case history: every step, who took it and when, in plain words, sealed in a hash chain."><figcaption>Every step, who took it and when, sealed in a hash-chained log.</figcaption></figure></li>
+          </ul>
+          <div class="screens__controls">
+            <button type="button" class="button button--icon" data-screens-prev aria-label="Previous screen"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7"/></svg></button>
+            <button type="button" class="button button--icon" data-screens-next aria-label="Next screen"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
+      </section>
+
+      <section class="evidence" aria-labelledby="caduceus-title caduceus-checked">
+        <h2 class="section-title" id="caduceus-checked">How it’s checked</h2>
+        <table class="scorecard">
+          <thead>
+            <tr><th scope="col">What was measured</th><th scope="col">Result</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Patient identifiers that reached the outside model</th><td>0 of 181 planted</td></tr>
+            <tr><th scope="row">Attacks that worked: an instruction hidden in a note, a tool called out of turn, a send with no approval, a forged stamp</th><td>0 of 4</td></tr>
+            <tr><th scope="row">Wrong fax fields accepted without a person checking them</th><td>0 of 27</td></tr>
+            <tr><th scope="row">Rules engine on 11 cases built to known answers</th><td>47 of 47 criteria</td></tr>
+            <tr><th scope="row">Rules engine on 36 held-out cases with messy records</th><td>88.5%, 4 unsafe errors</td></tr>
+            <tr><th scope="row">Chart-summary sentences that said more than the record, caught before anyone saw them</th><td>3 of 4</td></tr>
+            <tr><th scope="row">Accessibility, axe-core against WCAG 2.2 AA</th><td>0 violations on 50 screens</td></tr>
+            <tr><th scope="row">Automated tests</th><td>391, and 82 more runs on Postgres</td></tr>
+          </tbody>
+        </table>
+        <p class="note">Every number comes from synthetic data, and none is a claim about real patients.</p>
+      </section>
+
+      <section class="lesson" aria-labelledby="caduceus-lesson">
+        <h2 class="section-title" id="caduceus-lesson">The number that went down</h2>
+        <div class="prose">
+          <p>On cases built to known answers, the rules engine was right every time. That was the easy test. So I generated 36 cases it had never seen, with the mess real charts have: diagnoses entered in error, therapy still under way, codes outside the expected lists, arthritis in the other knee. Agreement fell to 88.5%, with 4 unsafe errors, where it called a criterion met when it wasn’t.</p>
+          <p>I published that number, fixed the engine where it was wrong, and left the last two for a clinical reviewer, because changing approved criteria isn’t the software’s call.</p>
+        </div>
+      </section>
+    </article>
+
+    <nav class="onward" aria-label="More work">
+      <a class="onward__next" href="../ensemble/">
+        <span class="onward__label">Next</span>
+        <span class="onward__name" translate="no">Ensemble</span>
+        <span class="onward__what">A software team of AI agents, held to a process that is written in code</span>
+      </a>
+      <a class="onward__all" href="../../#work">All four pieces of work</a>
+    </nav>
+  </main>
+
+  <footer class="colophon">
+    <p>© 2026 Rami. Set in Archivo and Source Serif&nbsp;4. Nothing about your visit is tracked.</p>
+  </footer>
+</body>
+</html>
