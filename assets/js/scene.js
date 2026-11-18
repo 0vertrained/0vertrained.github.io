@@ -744,6 +744,94 @@ export function createScene(canvas) {
   let geometry = null;
   let sprite = null;
 
+  // A small copy of the picture, `target` pixels wide, for whatever wants to look at what was drawn (track.js).
+  // The graphics card halves the canvas, averaging as it goes, then takes the last step to the width asked
+  // for, and the copy is read back when the card has finished with it, so reading never holds the page up.
+  let shrink = null;
+  let reading = false;
+  function snapshot(target = 300) {
+    if (!geometry || reading || gl.isContextLost()) return Promise.resolve(null);
+    const { width, height } = geometry;
+    const key = `${width}x${height}:${target}`;
+    if (!shrink || shrink.key !== key) {
+      if (shrink) {
+        for (const level of shrink.levels) {
+          gl.deleteFramebuffer(level.fbo);
+          gl.deleteTexture(level.texture);
+        }
+      }
+      const levels = [];
+      let w = width;
+      let h = height;
+      // A texture unit of their own, so the scene's textures stay where the shader expects them.
+      gl.activeTexture(gl.TEXTURE7);
+      do {
+        const halve = w / 2 >= target;
+        h = Math.max(1, Math.round(halve ? h / 2 : (h * target) / w));
+        w = Math.max(1, halve ? Math.round(w / 2) : target);
+        const texture = gl.createTexture();
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.texStorage2D(gl.TEXTURE_2D, 1, gl.RGBA8, w, h);
+        const fbo = gl.createFramebuffer();
+        gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+        gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
+        levels.push({ fbo, texture, w, h });
+      } while (w > target && levels.length < 6);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+      shrink = { key, levels };
+    }
+    const { levels } = shrink;
+    let from = null;
+    let fw = width;
+    let fh = height;
+    for (const level of levels) {
+      gl.bindFramebuffer(gl.READ_FRAMEBUFFER, from);
+      gl.bindFramebuffer(gl.DRAW_FRAMEBUFFER, level.fbo);
+      gl.blitFramebuffer(0, 0, fw, fh, 0, 0, level.w, level.h, gl.COLOR_BUFFER_BIT, gl.LINEAR);
+      from = level.fbo;
+      fw = level.w;
+      fh = level.h;
+    }
+    gl.bindFramebuffer(gl.READ_FRAMEBUFFER, from);
+    // A buffer of its own for each copy: the browser readies a buffer it has been asked to read pixels into,
+    // and reading into the same one again throws that work away.
+    const pack = gl.createBuffer();
+    gl.bindBuffer(gl.PIXEL_PACK_BUFFER, pack);
+    gl.bufferData(gl.PIXEL_PACK_BUFFER, fw * fh * 4, gl.STREAM_READ);
+    gl.readPixels(0, 0, fw, fh, gl.RGBA, gl.UNSIGNED_BYTE, 0);
+    gl.bindBuffer(gl.PIXEL_PACK_BUFFER, null);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    const sync = gl.fenceSync(gl.SYNC_GPU_COMMANDS_COMPLETE, 0);
+    gl.flush();
+    reading = true;
+    return new Promise((resolve) => {
+      const started = performance.now();
+      const poll = () => {
+        const status = gl.isContextLost() ? gl.WAIT_FAILED : gl.clientWaitSync(sync, 0, 0);
+        const waited = performance.now() - started;
+        // Most cards are done within a frame or two. One that draws in software can take seconds: ask it less
+        // often, and give up on it after ten.
+        if (status === gl.TIMEOUT_EXPIRED && waited < 10000) {
+          setTimeout(poll, waited < 250 ? 8 : 60);
+          return;
+        }
+        reading = false;
+        let data = null;
+        if (status === gl.ALREADY_SIGNALED || status === gl.CONDITION_SATISFIED) {
+          data = new Uint8Array(fw * fh * 4);
+          gl.bindBuffer(gl.PIXEL_PACK_BUFFER, pack);
+          gl.getBufferSubData(gl.PIXEL_PACK_BUFFER, 0, data);
+          gl.bindBuffer(gl.PIXEL_PACK_BUFFER, null);
+        }
+        gl.deleteBuffer(pack);
+        gl.deleteSync(sync);
+        // Rows run from the bottom of the picture up, as the graphics card keeps them.
+        resolve(data && { data, width: fw, height: fh });
+      };
+      setTimeout(poll, 0);
+    });
+  }
+
   function makeSprite(radius) {
     const size = Math.ceil(radius * 6) | 1;
     const c = document.createElement("canvas");
@@ -889,6 +977,7 @@ export function createScene(canvas) {
     },
 
     geometry: () => geometry,
+    snapshot,
   };
 }
 
