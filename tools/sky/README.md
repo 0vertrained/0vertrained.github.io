@@ -47,15 +47,19 @@ from the page's own renders, so their geometry is the page's geometry.
    November colours (bare cottonwoods, dry grass, piñon and juniper, light snow on the summits), no people
    and no text. Each other frame was then relit from two references, the master and that hour's plate, and
    asked to keep the master's land and change only its light. Strips at 4:1 keep the geometry within a
-   tenth of a degree or so; full-frame generations tended to make the mountains about twice as tall, and
+   tenth or two of a degree; full-frame generations tended to make the mountains about twice as tall, and
    masked inpainting was not honoured, which is why the sky is not asked of the model at all. At 4K each
    image cost 3 credits; the set was about 60.
-4. **Lock.** `python3 -I lock.py frames skyline.json textures` finds the sky/land edge in each frame near
-   where the traced skyline says it should be and stretches every column so the edge lands exactly on the
-   skyline, then writes the textures: PNG, and WebP at 3200 × 800 and 1600 × 400. The frames the page
-   serves were re-encoded at 2560 × 640 (quality 80) and 1600 × 400 (quality 78); the lock report lists
-   each frame's drift before the lock, typically 0.03° to 0.06°. The page samples the photographs only
-   below the skyline, so their sky never shows.
+4. **Lock.** `python3 -I lock.py frames skyline.json textures` (it needs `pip install numpy pillow`) finds
+   the sky/land edge in each frame near where the traced skyline says it should be, as the first sharp change
+   below open sky, and stretches every column so the edge lands exactly on the skyline. Above the skyline it
+   carries the ridge's colour on upward in place of the generated sky, so there is no sky in the texture for
+   filtering to pull down over the ridge. It writes a PNG at 3200 × 800 for checking and the two WebP files
+   the page serves, 2560 × 640 (quality 80) and 1600 × 400 (quality 78); copy those into `assets/img/land/`.
+   Each frame's edge is found in that frame alone, because the frames do not all hold the range at the same
+   height: the lock report lists each one's drift before the lock, a hundredth or two of a degree for most,
+   but 0.2° for late afternoon and 0.09° for golden hour and civil dusk. An edge borrowed from the master
+   leaves a pale strip of generated sky along the ridge in those frames.
 5. **Checks.** `node render.cjs out desk 06:40,12:30,17:05 2026-11-08` renders the finished hero at given
    times, and the `og` size makes the social image.
 
