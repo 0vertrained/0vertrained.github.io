@@ -32,6 +32,16 @@ page that has the part.
   native range input, so it works by keyboard and screen reader. Where WebGL 2 is missing, the name is drawn
   in CSS with a shadow cast the same way. `tools/sky/` holds the tools that made the skyline and the
   photographs, and says how to make another set.
+- **Blob tracking.** `assets/js/track.js` looks at the view the way a blob tracker looks at film. Each time
+  the hero draws, `scene.js` hands it a small copy of the picture: the graphics card shrinks the canvas, and
+  the copy is read back when the card has finished with it, so the page is never held up. In that copy it
+  finds what stands out bright against its surroundings, such as snow on the peak, a lit window, a star, the
+  moon or the sun. Land is measured against land and sky against sky, so snow on a summit is not lost against
+  a bright sky. It boxes a few of the finds, labels each with its bearing and its height above the horizon,
+  and with its name where it has one, joins them with lines that pass behind the plaster name, and every few
+  seconds lets one go and takes up another. The pointer over the view is followed the same way. A control
+  beside the hour hides it and the choice is kept in the browser; under reduced motion the boxes hold
+  still. It is a vision technique run on the page's own picture, and has nothing to do with tracking readers.
 - **The bar.** `assets/js/nav.js` marks the part of the front page now on screen in the bar that stays at
   the top, and keeps that link in view where the links scroll sideways on a phone.
 - **What leaves the building.** `assets/js/leaves.js` animates the real output of Caduceus's de-identifier.
@@ -42,7 +52,11 @@ page that has the part.
   frame when the reader is about a screen away. Without scripts, a `<noscript>` rule in the page shows the
   same picture behind the player.
 
-Motion follows `prefers-reduced-motion`, colour follows `prefers-color-scheme`, and nothing is tracked.
+Motion follows `prefers-reduced-motion` and colour follows `prefers-color-scheme`. These pages collect
+nothing about the reader and send nothing anywhere: no cookies, no analytics, nothing loaded from another
+site. The one thing they keep in the browser is whether the blob tracking is shown. (The Lattice tour and
+the Ensemble page described below are builds of those projects, and keep their own settings there, such as
+the tour's theme.)
 
 The résumé the page links to is built, not uploaded. `tools/resume/resume.json` holds the content, and each
 file in `tools/resume/variants/` lays a version for one kind of role over it: its own headline and summary,
