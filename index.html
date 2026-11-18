@@ -44,6 +44,7 @@
 
   <header class="hero" id="top" data-hero data-land-base="assets/img/land/">
     <canvas class="hero__relief" data-relief aria-hidden="true"></canvas>
+    <canvas class="hero__track" data-track aria-hidden="true"></canvas>
     <p class="hero__flat" data-relief-flat aria-hidden="true">RAMI</p>
 
     <nav class="hero__nav" aria-label="Elsewhere">
@@ -77,7 +78,10 @@
       </div>
       <div class="sunpath__foot">
         <label class="sunpath__label" for="light-time">Drag along the sun’s path to change the hour</label>
-        <button type="button" class="sunpath__now" data-light-now hidden>Back to now</button>
+        <span class="sunpath__buttons">
+          <button type="button" class="sunpath__quiet" data-track-toggle hidden title="The boxes follow the brightest things in the view. The numbers are each one’s bearing and its height above the horizon.">Hide blob tracking</button>
+          <button type="button" class="sunpath__now" data-light-now hidden>Back to now</button>
+        </span>
       </div>
     </div>
   </header>

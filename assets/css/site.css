@@ -199,6 +199,21 @@ p {
   opacity: 1;
 }
 
+/* The tracking drawn over the view (track.js). It is decoration: the pointer passes through it. */
+.hero__track {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+
+.hero--tracking .hero__track {
+  opacity: 1;
+}
+
 .hero__flat {
   position: absolute;
   inset: 0 0 18% 0;
@@ -247,7 +262,8 @@ p {
   outline-color: var(--sky-ink);
 }
 
-.hero .sunpath__now:focus-visible {
+.hero .sunpath__now:focus-visible,
+.hero .sunpath__quiet:focus-visible {
   outline-color: var(--hero-ink);
 }
 
@@ -292,6 +308,7 @@ html:not(.js) .sunpath {
   bottom: max(2.25rem, env(safe-area-inset-bottom));
   width: min(36rem, 42vw);
   color: var(--hero-ink);
+  container-type: inline-size;
 }
 
 .sunpath__track {
@@ -394,9 +411,12 @@ html:not(.js) .sunpath {
   min-height: 2.75rem;
 }
 
+/* The hint gives way to the buttons beside it: it takes a second line before they leave the row. */
 .sunpath__label {
+  flex: 1 1 14rem;
   color: var(--hero-soft);
   font: 500 0.9375rem/1.3 var(--sans);
+  text-wrap: balance;
   text-shadow: 0 0 0.18em var(--hero-halo-near), 0 0 0.6em var(--hero-halo-near), 0 0 1.25rem var(--hero-halo);
 }
 
@@ -415,6 +435,46 @@ html:not(.js) .sunpath {
 .sunpath__now:hover {
   background: var(--hero-ink);
   color: var(--hero-halo);
+}
+
+/* The buttons' row is kept whether or not a button is showing, so nothing moves when one comes or goes. */
+.sunpath__buttons {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 0.25rem 0.75rem;
+  min-height: 2.75rem;
+}
+
+/* Where the hint and both buttons will not sit side by side, the hint has a row to itself from the start. */
+@container (max-width: 35.99rem) {
+  .sunpath__label {
+    flex-basis: 100%;
+  }
+}
+
+/* A second, quieter control beside the first. */
+.sunpath__quiet {
+  min-height: 2.75rem;
+  padding: 0 0.25rem;
+  border: 0;
+  background: none;
+  color: var(--hero-soft);
+  font: 500 0.9375rem var(--sans);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  text-shadow: 0 0 0.18em var(--hero-halo-near), 0 0 0.6em var(--hero-halo-near), 0 0 1.25rem var(--hero-halo);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.sunpath__quiet:hover {
+  color: var(--hero-ink);
+}
+
+.sunpath__quiet[hidden] {
+  display: none;
 }
 
 .sunpath__now[hidden] {
@@ -450,6 +510,7 @@ html:not(.js) .sunpath {
 }
 
 .hero--plate .hero__nav,
+.hero--plate .hero__track,
 .hero--plate .hero__label,
 .hero--plate .sunpath,
 .hero--plate .hero__flat {

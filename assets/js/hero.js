@@ -102,6 +102,8 @@ export function initHero(root) {
   const marker = root.querySelector("[data-sun-marker]");
   const riseLabel = root.querySelector("[data-sunrise]");
   const setLabel = root.querySelector("[data-sunset]");
+  const trackLayer = root.querySelector("[data-track]");
+  const trackToggle = root.querySelector("[data-track-toggle]");
 
   // Query parameters for making stills and plates of the view (see tools/sky). Anything malformed is ignored.
   // ?at=<ISO instant> pins the scene to a moment.
@@ -121,6 +123,8 @@ export function initHero(root) {
   let live = true;
   let tween = null;
   let relief = null;
+  let tracker = null;
+  let trackerAsked = false;
   let visible = true;
   let pendingDraw = false;
 
@@ -173,16 +177,59 @@ export function initHero(root) {
     if (!landShownAt) landShownAt = performance.now();
     const t = pinned || reducedMotion.matches ? 1 : Math.min(1, (performance.now() - landShownAt) / 1100);
     if (t < 1) schedule();
+    else startTracking();
     root.dataset.land = t < 1 ? "fading" : "ready";
     return { ...pair, on: easeInOut(t), frame: LAND_FRAME };
+  }
+
+  /** The tracking over the view (track.js) starts once the photographs are in, and reads each picture drawn. */
+  function startTracking() {
+    if (trackerAsked || plate || still || !trackLayer || !relief) return;
+    trackerAsked = true;
+    let wanted = true;
+    try {
+      wanted = localStorage.getItem("blob-tracking") !== "off";
+    } catch {
+      // No storage: tracking stays on, and the choice lasts for the visit.
+    }
+    import("./track.js")
+      .then(({ createTracker }) => {
+        tracker = createTracker(root, relief, trackLayer, { landmarks: SUMMITS, skyline: BANDS.crest });
+        if (!tracker) return;
+        const show = (on) => {
+          root.classList.toggle("hero--tracking", on);
+          if (trackToggle) trackToggle.textContent = on ? "Hide blob tracking" : "Show blob tracking";
+        };
+        tracker.setVisible(visible);
+        tracker.setEnabled(wanted);
+        show(wanted);
+        if (trackToggle) {
+          trackToggle.hidden = false;
+          trackToggle.addEventListener("click", () => {
+            const on = !tracker.enabled;
+            tracker.setEnabled(on);
+            show(on);
+            if (on) schedule();
+            try {
+              localStorage.setItem("blob-tracking", on ? "on" : "off");
+            } catch {
+              // The choice still holds for this visit.
+            }
+          });
+        }
+        schedule();
+      })
+      .catch((error) => console.error("tracking did not load", error));
   }
 
   function render() {
     pendingDraw = false;
     const date = at(minutes);
     const light = lightAt(date);
-    const lit = relief ? relief.draw(date, starFree(), landFor(light)) : null;
+    const clear = starFree();
+    const lit = relief ? relief.draw(date, clear, landFor(light)) : null;
     if (lit) {
+      tracker?.scene(relief.geometry(), light, clear);
       // Text over the wall and over the sky each take the colour that reads best there.
       const { wall, sky } = surfaceLuminance(lit);
       root.classList.toggle("hero--dark", wall < 0.19);
@@ -300,6 +347,7 @@ export function initHero(root) {
 
   new IntersectionObserver(([entry]) => {
     visible = entry.isIntersecting;
+    tracker?.setVisible(visible);
     if (visible) schedule();
   }).observe(root);
 
@@ -347,7 +395,9 @@ export function initHero(root) {
     root.classList.add("hero--relief");
     canvas.addEventListener("webglcontextlost", () => {
       relief = null;
-      root.classList.remove("hero--relief");
+      tracker?.setEnabled(false);
+      root.classList.remove("hero--relief", "hero--tracking");
+      if (trackToggle) trackToggle.hidden = true;
       render();
     });
     let lastSize = [innerWidth, innerHeight];
@@ -360,10 +410,13 @@ export function initHero(root) {
         lastSize = [innerWidth, innerHeight];
         if (relief) {
           bake();
+          tracker?.resize();
           schedule();
         }
       }, 180);
     });
+    // If the photographs never arrive, the drawn land is tracked instead.
+    setTimeout(startTracking, 9000);
     if (shared === null && !reducedMotion.matches) {
       const target = minutesNow();
       const rise = times.sunrise ? (times.sunrise - midnight) / 60000 : null;
