@@ -1388,14 +1388,58 @@ main {
   font: 500 1.0625rem/1.45 var(--sans);
 }
 
-.roles > li > p:not(.roles__when, .roles__title) {
+.roles .roles__story p {
   margin: 0 0 0.85rem;
   font-size: 1.0625rem;
   line-height: 1.55;
 }
 
-.roles > li > p:last-child {
+.roles .roles__story p:last-child {
   margin-bottom: 0;
+}
+
+/* What a reader in a hurry is looking for in a role: under its title on a phone, beside the account of it
+   where there is room. */
+.roles__marks {
+  margin: 0.25rem 0 1.25rem;
+  padding-top: 0;
+  border-top: 0;
+}
+
+@container (min-width: 60rem) {
+  .roles {
+    max-width: none;
+  }
+
+  .roles > li {
+    display: grid;
+    grid-template-columns: minmax(0, var(--measure)) minmax(14rem, 19rem);
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas:
+      "head marks"
+      "title marks"
+      "story marks";
+    justify-content: space-between;
+    column-gap: 4rem;
+  }
+
+  .roles__head {
+    grid-area: head;
+  }
+
+  .roles .roles__title {
+    grid-area: title;
+  }
+
+  .roles__story {
+    grid-area: story;
+  }
+
+  .roles__marks {
+    grid-area: marks;
+    align-self: start;
+    margin: 0.2rem 0 0;
+  }
 }
 
 .colophon {
