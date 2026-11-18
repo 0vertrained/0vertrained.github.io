@@ -1,9 +1,25 @@
 # 0vertrained.github.io
 
-Rami's portfolio: one page, served by GitHub Pages at https://0vertrained.github.io.
+Rami's portfolio, served by GitHub Pages at https://0vertrained.github.io: a front page with the work in
+brief, and a case study for each project.
 
-The page is plain HTML, CSS and JavaScript modules, with no framework and no build step. It works without
-JavaScript; the scripts add the parts that move.
+The pages are plain HTML, CSS and JavaScript modules, with no framework and no build step. They work without
+JavaScript; the scripts add the parts that move, and `assets/js/main.js` loads each part's script only on a
+page that has the part.
+
+## The pages
+
+- `index.html` is the front page: the view east, an introduction, each project in brief (its product, three
+  things that were measured, and the ways in), experience and contact.
+- `work/caduceus/`, `work/ensemble/`, `work/overtrained/` and `work/lattice/` are the case studies. They are
+  written by hand like the front page and share its stylesheet and scripts, so a project's name, the line
+  under it and any number shown in both places are changed in both.
+- `404.html` is what GitHub Pages serves for an address with nothing at it. Its links are written from the
+  root so they work at any depth.
+- `assets/img/share/` holds the picture each case study's link unfolds into when it is shared. Serve the
+  site, then `node tools/share/build.cjs` draws the four again from the site's own fonts and screenshots.
+
+## The parts that move
 
 - **The view east.** `assets/js/sky.js` works out where the sun and moon stand over Santa Fe at any minute
   (NOAA's solar equations, and the Astronomical Almanac's short series for the moon), and the light they give.
@@ -16,10 +32,15 @@ JavaScript; the scripts add the parts that move.
   native range input, so it works by keyboard and screen reader. Where WebGL 2 is missing, the name is drawn
   in CSS with a shadow cast the same way. `tools/sky/` holds the tools that made the skyline and the
   photographs, and says how to make another set.
+- **The bar.** `assets/js/nav.js` marks the part of the front page now on screen in the bar that stays at
+  the top, and keeps that link in view where the links scroll sideways on a phone.
 - **What leaves the building.** `assets/js/leaves.js` animates the real output of Caduceus's de-identifier.
 - **One round, including the interruption.** `assets/js/lattice.js` replays the 271 measured Gazebo map poses
   of one recorded inspection round (`assets/data/lattice-round.json`), including the core being stopped and the
   reviewed recovery. It reads a checked-in file and never contacts a robot.
+- **Still frames.** A recording far down a page is marked `data-poster`, and `main.js` gives it its still
+  frame when the reader is about a screen away. Without scripts, a `<noscript>` rule in the page shows the
+  same picture behind the player.
 
 Motion follows `prefers-reduced-motion`, colour follows `prefers-color-scheme`, and nothing is tracked.
 
@@ -48,7 +69,7 @@ generated with Higgsfield from this page's own renders.
 `lattice/` is a generated static build from `0vertrained/Lattice`: four recorded stories
 (blocked aisle, rover to quadruped, two-rover handoff, core restart), each told in chapters
 drawn from its recording, with light and dark themes and an optional 3D replay. It requires
-JavaScript and makes no robot API calls; the case study on the main page works without it.
+JavaScript and makes no robot API calls; the case study in `work/lattice/` works without it.
 `theme.js` and `favicon.svg` sit beside its `index.html` because the tour's
 Content-Security-Policy allows only same-origin scripts, so the theme can't be set inline.
 Rebuild it from the Lattice checkout with:
