@@ -11,10 +11,10 @@ const out = process.argv[2] || path.join(__dirname, '../../assets/img/share');
 // The name and the line under it are the ones each case study opens with. A screenshot is drawn 900 px wide and
 // runs off the card; width draws it smaller where more of it should show.
 const CARDS = [
-  { project: 'caduceus', title: 'Caduceus', kind: 'A prior-authorization agent that keeps patient data inside the clinic', shots: ['assets/img/caduceus/fax-check.webp'] },
-  { project: 'ensemble', title: 'Ensemble', kind: 'A software team of AI agents, held to a process that is written in code', shots: ['assets/img/ensemble/run.webp'] },
-  { project: 'overtrained', title: '0VERTRAINED', kind: 'A training app for athletes who lift and race, designed and built alone', shots: ['assets/img/overtrained/today.webp', 'assets/img/overtrained/recovery.webp', 'assets/img/overtrained/session.webp'] },
-  { project: 'lattice', title: 'Lattice', kind: 'Robot missions that keep their objective when the route or body changes', shots: ['assets/img/lattice/tour-opening-poster.webp'], width: 770 },
+  { project: 'caduceus', title: 'Caduceus', kind: 'An AI agent for insurance approvals that keeps patient data inside the clinic', shots: ['assets/img/caduceus/fax-check.webp'] },
+  { project: 'ensemble', title: 'Ensemble', kind: 'A team of AI agents that writes software and isn’t allowed to grade its own work', shots: ['assets/img/ensemble/run.webp'] },
+  { project: 'overtrained', title: '0VERTRAINED', kind: 'A training app for people who lift and race, designed and built alone', shots: ['assets/img/overtrained/today.webp', 'assets/img/overtrained/recovery.webp', 'assets/img/overtrained/session.webp'] },
+  { project: 'lattice', title: 'Lattice', kind: 'Software that keeps a robot’s mission going when the route is blocked or the robot changes', shots: ['assets/img/lattice/tour-opening-poster.webp'], width: 770 },
 ];
 
 (async () => {
