@@ -1409,6 +1409,10 @@ main {
   font-size: clamp(1.1875rem, 1.8vw, 1.375rem);
 }
 
+.contact .actions {
+  margin-top: 0;
+}
+
 /* The roles, most recent first: a rule above each, the employer and the dates on one line where there is room. */
 .roles {
   display: grid;
