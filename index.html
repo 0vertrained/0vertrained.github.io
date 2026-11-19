@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Rami, full-stack and AI engineer</title>
-  <meta name="description" content="Rami builds AI products end to end: a prior-authorization agent that keeps patient data inside the clinic, a team of AI agents held to a process written in code, a training app for athletes, and robot missions that keep their objective across bodies.">
+  <meta name="description" content="Rami builds AI products end to end: an AI agent for insurance approvals that keeps patient data inside the clinic, a team of AI agents that can’t grade its own work, a training app for people who lift and race, and software that keeps a robot’s mission going when the plan breaks.">
   <meta name="theme-color" content="#edefea" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0d131a" media="(prefers-color-scheme: dark)">
   <meta name="color-scheme" content="light dark">
@@ -117,12 +117,12 @@
 
     <section class="work" id="work" aria-labelledby="work-title">
       <h2 class="work__title" id="work-title">Work</h2>
-      <p>Four projects, each with a case study: the product, how it’s checked, and one thing that went wrong and what I did about it.</p>
+      <p>Four things I’ve built. Each has a case study covering what it does, how I tested it, and one thing that went wrong.</p>
 
       <article class="piece" id="caduceus" aria-labelledby="caduceus-title">
         <header class="piece__head">
           <h3 class="piece__title" id="caduceus-title" translate="no"><a href="work/caduceus/">Caduceus</a></h3>
-          <p class="piece__kind">A prior-authorization agent that keeps patient data inside the clinic</p>
+          <p class="piece__kind">An AI agent for insurance approvals that keeps patient data inside the clinic</p>
         </header>
         <figure class="walkthrough piece__media">
           <video controls preload="none" playsinline width="1280" height="800" data-poster="assets/img/caduceus/walkthrough.webp" aria-label="Recording of the Caduceus walkthrough, from a faxed referral to the insurer’s answer">
@@ -132,15 +132,15 @@
           <figcaption>The 2½-minute walkthrough, from a faxed referral to the insurer’s answer, with captions on screen and no sound.</figcaption>
         </figure>
         <div class="piece__text">
-          <p>Before a clinic can schedule an MRI, the patient’s insurer has to approve it, and someone has to read the chart against the insurer’s criteria. Caduceus does the reading: it takes the faxed referral, checks the record against the insurer’s own policy, asks the doctor only what the record can’t answer, and drafts the request. Nothing goes out until a specialist approves it. The clinic is simulated, and every patient is synthetic.</p>
+          <p>Before a clinic can book an MRI, the patient’s insurer has to approve it. That step is called prior authorization, and it means someone reads the chart against the insurer’s rules and chases the doctor for whatever is missing. Caduceus does the reading and drafts the request. The hard part is privacy: anything that names a patient stays with a small model inside the clinic’s network, and names, dates and record numbers are swapped for placeholders before any text reaches the larger model outside. A person approves every request. The clinic is simulated and the patients are made up.</p>
           <p class="piece__built">Built with Python, FastAPI, Postgres, React, TypeScript, Tesseract and Docker.</p>
         </div>
         <table class="scorecard piece__measured">
           <thead><tr><th scope="col">What was measured</th><th scope="col">Result</th></tr></thead>
           <tbody>
-            <tr><th scope="row">Patient identifiers that reached the outside model</th><td>0 of 181 planted</td></tr>
-            <tr><th scope="row">Rules engine on 36 held-out cases with messy records</th><td>88.5%, 4 unsafe errors</td></tr>
-            <tr><th scope="row">Accessibility, axe-core against WCAG 2.2 AA</th><td>0 violations on 50 screens</td></tr>
+            <tr><th scope="row">Made-up patient details I planted in the records that reached the outside model</th><td>0 of 181</td></tr>
+            <tr><th scope="row">Insurer’s criteria judged correctly on 36 messy cases it had never seen</th><td>88.5%, with 4 unsafe errors</td></tr>
+            <tr><th scope="row">Accessibility problems found by automated checks against WCAG 2.2 AA</th><td>0 on 50 screens</td></tr>
           </tbody>
         </table>
         <ul class="actions">
@@ -153,7 +153,7 @@
       <article class="piece" id="ensemble" aria-labelledby="ensemble-title">
         <header class="piece__head">
           <h3 class="piece__title" id="ensemble-title" translate="no"><a href="work/ensemble/">Ensemble</a></h3>
-          <p class="piece__kind">A software team of AI agents, held to a process that is written in code</p>
+          <p class="piece__kind">A team of AI agents that writes software and isn’t allowed to grade its own work</p>
         </header>
         <figure class="walkthrough piece__media">
           <video controls preload="none" playsinline width="1280" height="800" data-poster="assets/img/ensemble/run.webp" aria-label="Recording of the Ensemble app playing back one run, from the request to the release note">
@@ -163,15 +163,15 @@
           <figcaption>One real run, played back by the app from its own log, from the requirements to the release note. The tests fail once on the way. 30 seconds, no sound.</figcaption>
         </figure>
         <div class="piece__text">
-          <p>Ensemble takes a request for a change to a codebase and hands it to a team of agents, each a model with one job. The agents don’t decide how the work goes. The process is a pipeline written in code: every handoff is a typed document checked before anything builds on it, the tests are run by the harness and never reported by a model, and nothing is written until a person approves the plan. It’s in progress, and the repository is private for now.</p>
+          <p>You give Ensemble a change you want made to a codebase, and a team of AI agents takes it from requirements to a tested, reviewed result: an architect, developers, a reviewer, a tester and more, each a model with one job. What keeps them honest is that the process isn’t theirs to decide. It’s a pipeline I wrote in code. Every handoff is a document checked against a schema, the tests are run by the system instead of reported by a model, and nothing is written until a person approves the plan. It’s still in progress, and the code is private for now.</p>
           <p class="piece__built">Built with TypeScript, Node, React, Vite and Vitest, and no agent framework.</p>
         </div>
         <table class="scorecard piece__measured">
           <thead><tr><th scope="col">What was measured</th><th scope="col">Result</th></tr></thead>
           <tbody>
-            <tr><th scope="row">Benchmark tasks solved with <span translate="no">glm-5.3</span>, each scored by checks the team never sees</th><td>7 of 7</td></tr>
-            <tr><th scope="row">The same benchmark with <span translate="no">gemma4:31b</span></th><td>4 of 7</td></tr>
-            <tr><th scope="row">Runs the team called a success that then failed a hidden check</th><td>0 of 11</td></tr>
+            <tr><th scope="row">Benchmark tasks solved with <span translate="no">glm-5.3</span>, each scored by checks the agents never see</th><td>7 of 7</td></tr>
+            <tr><th scope="row">The same tasks with <span translate="no">gemma4:31b</span></th><td>4 of 7</td></tr>
+            <tr><th scope="row">Times the team reported success and a hidden check disagreed</th><td>0 of 11</td></tr>
           </tbody>
         </table>
         <ul class="actions">
@@ -183,7 +183,7 @@
       <article class="piece" id="overtrained" aria-labelledby="overtrained-title">
         <header class="piece__head">
           <h3 class="piece__title" id="overtrained-title" translate="no"><a href="work/overtrained/">0VERTRAINED</a></h3>
-          <p class="piece__kind">A training app for athletes who lift and race, designed and built alone</p>
+          <p class="piece__kind">A training app for people who lift and race, designed and built alone</p>
         </header>
         <figure class="piece__media">
           <ul class="piece__phones">
@@ -194,15 +194,15 @@
           <figcaption>Today, Recovery and a session under way, captured from the app’s demo build with seeded, made-up data.</figcaption>
         </figure>
         <div class="piece__text">
-          <p>A private training ledger for people who lift and race. It logs strength, cardio, food and recovery, typed in or pulled from a wearable, and answers one question each morning: how hard should today be? I train this way myself, and I designed and built all of it, from the design system and the data model to the wearable integrations and the coach. It’s in beta, with a cap on sign-ups.</p>
+          <p>A private training log for people who lift weights and also race. It records strength work, cardio, food and recovery, typed in or pulled from a wearable, and answers one question each morning: how hard should today be? The answer comes from a week of heart-rate variability measured against your own four-week baseline, never from one rough night. I train this way myself, and I designed and built all of it: the data model, the wearable integrations, the AI coach and every screen. It’s in beta, with a cap on sign-ups.</p>
           <p class="piece__built">Built with React, Vite, Supabase and Netlify Functions, with Oura, Whoop and Strava over OAuth.</p>
         </div>
         <table class="scorecard piece__measured">
           <thead><tr><th scope="col">What was measured</th><th scope="col">Result</th></tr></thead>
           <tbody>
             <tr><th scope="row">Automated tests, all passing</th><td>2,030 in 170 files</td></tr>
-            <tr><th scope="row">Database tables with row-level security</th><td>31 of 31</td></tr>
-            <tr><th scope="row">Secrets found by the release gate’s scan of the built app</th><td>0</td></tr>
+            <tr><th scope="row">Database tables where the database itself decides who may read each row (row-level security)</th><td>31 of 31</td></tr>
+            <tr><th scope="row">Passwords and keys found in the built app by the pre-release scan</th><td>0</td></tr>
           </tbody>
         </table>
         <ul class="actions">
@@ -215,7 +215,7 @@
       <article class="piece" id="lattice" aria-labelledby="lattice-title">
         <header class="piece__head">
           <h3 class="piece__title" id="lattice-title" translate="no"><a href="work/lattice/">Lattice</a></h3>
-          <p class="piece__kind">Robot missions that keep their objective when the route or body changes</p>
+          <p class="piece__kind">Software that keeps a robot’s mission going when the route is blocked or the robot changes</p>
         </header>
         <figure class="walkthrough piece__media">
           <video controls preload="none" playsinline width="1280" height="800" data-poster="assets/img/lattice/tour-opening-poster.webp" aria-label="Recording of the Lattice tour’s opening on the blocked aisle">
@@ -225,15 +225,15 @@
           <figcaption>The tour’s opening: the warehouse plan, the stretch of aisle the lidar found blocked, and the detour the planner found. 22 seconds, no sound.</figcaption>
         </figure>
         <div class="piece__text">
-          <p>A rover inspects a warehouse station, then finds its route blocked. Lattice holds the objective and prepares a detour for review, keeping the finished inspection and its camera evidence. At the stairs, a separately approved handoff lets a quadruped verify that evidence and carry on. The route and the body change; the objective and its history stay. The robots are simulated, and every run is recorded.</p>
+          <p>Telling a robot what to do is the easy part. Keeping the goal when the plan breaks is the hard one. Here a rover inspecting a warehouse finds its aisle blocked. Lattice holds the mission, works out a detour and waits for a person to approve it, without repeating the inspection already done. At the stairs it hands over to a four-legged robot, which checks the rover’s camera evidence before carrying on. Every command is signed and expires, so a robot can’t act on a forged or stale order. The robots are simulated, and every run is recorded.</p>
           <p class="piece__built">Built with Rust, React, TypeScript, C++20, ROS&nbsp;2, Nav2, Gazebo, MuJoCo, Python and PostgreSQL.</p>
         </div>
         <table class="scorecard piece__measured">
           <thead><tr><th scope="col">What was measured</th><th scope="col">Result</th></tr></thead>
           <tbody>
             <tr><th scope="row">Finished inspections repeated after a detour or a handoff</th><td>0</td></tr>
-            <tr><th scope="row">Ambiguous, unsupported and adversarial requests refused or sent back for clarification</th><td>24 of 24</td></tr>
-            <tr><th scope="row">Stop after the core was interrupted mid-drive, and drift afterward</th><td>0.34&nbsp;s, 1.76&nbsp;cm</td></tr>
+            <tr><th scope="row">Unclear, unsupported or hostile instructions that were refused or questioned instead of obeyed</th><td>24 of 24</td></tr>
+            <tr><th scope="row">Time to stop after the central system was cut off mid-drive, and drift afterward</th><td>0.34&nbsp;s, 1.76&nbsp;cm</td></tr>
           </tbody>
         </table>
         <ul class="actions">
