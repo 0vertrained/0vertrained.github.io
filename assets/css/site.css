@@ -537,6 +537,14 @@ main {
   letter-spacing: -0.005em;
 }
 
+.intro__lede p {
+  margin: 0;
+}
+
+.intro__lede p + p {
+  margin-top: 0.7em;
+}
+
 /* Work, on the front page: for each project its product, what it is, three things that were measured, and the
    way in to its case study. */
 .work {
