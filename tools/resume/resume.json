@@ -68,7 +68,7 @@
       },
       "bullets": [
         "Prior-authorization agent for a simulated health system: reads the faxed referral, checks the record against the insurer's policy text, asks the clinician only for what's missing and drafts the request for specialist approval.",
-        "Keeps patient data inside the clinic: a local model de-identifies text before it reaches the drafting model; 181 identifiers planted across the test suite, none reached the outside model. 200+ tests, hash-chained audit log."
+        "Keeps patient data inside the clinic: a local model de-identifies text before it reaches the drafting model; 181 identifiers planted across the test suite, none reached the outside model. 390+ tests, hash-chained audit log."
       ]
     },
     {
@@ -92,7 +92,7 @@
       },
       "bullets": [
         "Training ledger for athletes who lift and race, built alone: per-metric arbitration between Oura and Whoop, a daily readiness verdict from a week of HRV against a four-week baseline, and a server-routed LLM coach.",
-        "In beta; 2,030 automated tests, row-level security on every table, encrypted wearable tokens."
+        "In beta; 2,049 automated tests, row-level security on every table, encrypted wearable tokens."
       ]
     }
   ],

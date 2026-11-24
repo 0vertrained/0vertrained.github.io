@@ -22,7 +22,7 @@
       },
       "bullets": [
         "Training app for athletes who lift and race, built alone end to end: a React PWA on serverless functions and PostgreSQL, with per-metric arbitration between Oura and Whoop, a daily readiness verdict and an LLM coach.",
-        "In beta; 2,030 automated tests, row-level security on every table, encrypted wearable tokens."
+        "In beta; 2,049 automated tests, row-level security on every table, encrypted wearable tokens."
       ]
     },
     {
@@ -34,7 +34,7 @@
       },
       "bullets": [
         "Prior-authorization agent for a simulated health system: a FastAPI service and a React review interface that read the faxed referral, check the record against the insurer's policy text and draft the request for specialist approval.",
-        "Keeps patient data inside the clinic: a local model de-identifies text before it reaches the drafting model; 181 identifiers planted across the test suite, none reached the outside model. 200+ tests, hash-chained audit log."
+        "Keeps patient data inside the clinic: a local model de-identifies text before it reaches the drafting model; 181 identifiers planted across the test suite, none reached the outside model. 390+ tests, hash-chained audit log."
       ]
     },
     {
