@@ -1,0 +1,305 @@
+{
+  "builtAt": "2026-11-24T17:58:55.468Z",
+  "runs": [
+    {
+      "name": "20261111-072720-benchmark2",
+      "number": 2,
+      "startedAt": "2026-11-11T06:46:52.811Z",
+      "finished": true,
+      "models": {
+        "strong": "glm-5.3",
+        "fast": "glm-5.3",
+        "roles": {}
+      },
+      "repeats": 1,
+      "crews": [
+        {
+          "crew": "team",
+          "scored": 7,
+          "solved": 7,
+          "tasks": 7,
+          "rate": 1,
+          "margin": 0,
+          "checksPassed": 27,
+          "checksTotal": 27,
+          "modelCalls": 149,
+          "tokens": 1896423,
+          "durationSec": 4619
+        }
+      ],
+      "tasks": [
+        {
+          "id": "due-dates",
+          "title": "Add due dates to tasks",
+          "crew": "team",
+          "runs": 1,
+          "scored": 1,
+          "solved": 1,
+          "checksPassed": 4,
+          "checksTotal": 4,
+          "modelCalls": 25,
+          "tokens": 370363,
+          "durationSec": 828
+        },
+        {
+          "id": "filters",
+          "title": "Filter and search the list",
+          "crew": "team",
+          "runs": 1,
+          "scored": 1,
+          "solved": 1,
+          "checksPassed": 4,
+          "checksTotal": 4,
+          "modelCalls": 19,
+          "tokens": 214206,
+          "durationSec": 445
+        },
+        {
+          "id": "id-reuse",
+          "title": "A new task can get an id that is already in use",
+          "crew": "team",
+          "runs": 1,
+          "scored": 1,
+          "solved": 1,
+          "checksPassed": 3,
+          "checksTotal": 3,
+          "modelCalls": 14,
+          "tokens": 128848,
+          "durationSec": 300
+        },
+        {
+          "id": "km-paces",
+          "title": "Show running paces per kilometre",
+          "crew": "team",
+          "runs": 1,
+          "scored": 1,
+          "solved": 1,
+          "checksPassed": 4,
+          "checksTotal": 4,
+          "modelCalls": 25,
+          "tokens": 393749,
+          "durationSec": 1192
+        },
+        {
+          "id": "priorities",
+          "title": "Add priorities to tasks",
+          "crew": "team",
+          "runs": 1,
+          "scored": 1,
+          "solved": 1,
+          "checksPassed": 4,
+          "checksTotal": 4,
+          "modelCalls": 28,
+          "tokens": 293268,
+          "durationSec": 595
+        },
+        {
+          "id": "rename",
+          "title": "Add a rename command",
+          "crew": "team",
+          "runs": 1,
+          "scored": 1,
+          "solved": 1,
+          "checksPassed": 3,
+          "checksTotal": 3,
+          "modelCalls": 21,
+          "tokens": 304806,
+          "durationSec": 778
+        },
+        {
+          "id": "undo",
+          "title": "Add an undo command",
+          "crew": "team",
+          "runs": 1,
+          "scored": 1,
+          "solved": 1,
+          "checksPassed": 5,
+          "checksTotal": 5,
+          "modelCalls": 17,
+          "tokens": 191183,
+          "durationSec": 481
+        }
+      ]
+    },
+    {
+      "name": "20261110-210322-benchmark1",
+      "number": 1,
+      "startedAt": "2026-11-10T20:55:00.631Z",
+      "finished": true,
+      "models": {
+        "strong": "gemma4:31b",
+        "fast": "gemma4:31b",
+        "roles": {}
+      },
+      "repeats": 1,
+      "crews": [
+        {
+          "crew": "team",
+          "scored": 7,
+          "solved": 4,
+          "tasks": 7,
+          "rate": 0.5714285714285714,
+          "margin": 0.3959797974644666,
+          "checksPassed": 18,
+          "checksTotal": 27,
+          "modelCalls": 96,
+          "tokens": 326278,
+          "durationSec": 602
+        }
+      ],
+      "tasks": [
+        {
+          "id": "due-dates",
+          "title": "Add due dates to tasks",
+          "crew": "team",
+          "runs": 1,
+          "scored": 1,
+          "solved": 1,
+          "checksPassed": 4,
+          "checksTotal": 4,
+          "modelCalls": 14,
+          "tokens": 46381,
+          "durationSec": 23
+        },
+        {
+          "id": "filters",
+          "title": "Filter and search the list",
+          "crew": "team",
+          "runs": 1,
+          "scored": 1,
+          "solved": 0,
+          "checksPassed": 1,
+          "checksTotal": 4,
+          "modelCalls": 15,
+          "tokens": 43564,
+          "durationSec": 15
+        },
+        {
+          "id": "id-reuse",
+          "title": "A new task can get an id that is already in use",
+          "crew": "team",
+          "runs": 1,
+          "scored": 1,
+          "solved": 1,
+          "checksPassed": 3,
+          "checksTotal": 3,
+          "modelCalls": 10,
+          "tokens": 20951,
+          "durationSec": 20
+        },
+        {
+          "id": "km-paces",
+          "title": "Show running paces per kilometre",
+          "crew": "team",
+          "runs": 1,
+          "scored": 1,
+          "solved": 1,
+          "checksPassed": 4,
+          "checksTotal": 4,
+          "modelCalls": 15,
+          "tokens": 77955,
+          "durationSec": 470
+        },
+        {
+          "id": "priorities",
+          "title": "Add priorities to tasks",
+          "crew": "team",
+          "runs": 1,
+          "scored": 1,
+          "solved": 1,
+          "checksPassed": 4,
+          "checksTotal": 4,
+          "modelCalls": 16,
+          "tokens": 53142,
+          "durationSec": 24
+        },
+        {
+          "id": "rename",
+          "title": "Add a rename command",
+          "crew": "team",
+          "runs": 1,
+          "scored": 1,
+          "solved": 0,
+          "checksPassed": 1,
+          "checksTotal": 3,
+          "modelCalls": 12,
+          "tokens": 37566,
+          "durationSec": 22
+        },
+        {
+          "id": "undo",
+          "title": "Add an undo command",
+          "crew": "team",
+          "runs": 1,
+          "scored": 1,
+          "solved": 0,
+          "checksPassed": 1,
+          "checksTotal": 5,
+          "modelCalls": 14,
+          "tokens": 46719,
+          "durationSec": 28
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "tasks": [
+        {
+          "id": "due-dates",
+          "title": "Add due dates to tasks"
+        },
+        {
+          "id": "filters",
+          "title": "Filter and search the list"
+        },
+        {
+          "id": "id-reuse",
+          "title": "A new task can get an id that is already in use"
+        },
+        {
+          "id": "km-paces",
+          "title": "Show running paces per kilometre"
+        },
+        {
+          "id": "priorities",
+          "title": "Add priorities to tasks"
+        },
+        {
+          "id": "rename",
+          "title": "Add a rename command"
+        },
+        {
+          "id": "undo",
+          "title": "Add an undo command"
+        }
+      ],
+      "runs": [
+        2,
+        1
+      ],
+      "models": [
+        {
+          "model": "glm-5.3",
+          "crew": "team",
+          "runs": 1,
+          "scored": 7,
+          "solved": 7,
+          "modelCalls": 149,
+          "tokens": 1896423,
+          "durationSec": 4619
+        },
+        {
+          "model": "gemma4:31b",
+          "crew": "team",
+          "runs": 1,
+          "scored": 7,
+          "solved": 4,
+          "modelCalls": 96,
+          "tokens": 326278,
+          "durationSec": 602
+        }
+      ]
+    }
+  ]
+}
