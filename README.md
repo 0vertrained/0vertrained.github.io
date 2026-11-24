@@ -129,3 +129,22 @@ The recording at the head of the case study (`assets/video/ensemble-run.mp4`) is
 first run at its own pace. The desktop stills in `assets/img/ensemble/` are the same page at chosen steps;
 the two phone stills are the app's scripted demo, which needs no model. The page was checked with axe-core
 against WCAG 2.2 AA on 40 screens: ten moments of the runs, in both colourings, at desktop and phone width.
+
+## Ensemble benchmark results
+
+`ensemble/results/` is the page of every run of Ensemble's benchmark: what the team solved by checks it never
+saw, and the model calls, tokens and time each task took. `0vertrained/Ensemble` makes it with its `results`
+command from the reports its **Benchmark** workflow keeps on the `live-runs` branch. It is one static file
+that runs no scripts; `results.json` beside it holds the same numbers, and `OFL.txt` the licence of its
+typeface.
+
+Ensemble's **Publish the benchmark results** workflow writes this folder, and nothing else here, when a
+benchmark run ends, if that repository has a secret named `PORTFOLIO_TOKEN`: a fine-grained token that can
+write the contents of this repository and no other. The page can also be built by hand from the Ensemble
+checkout, after `npm install` and `npm run build`:
+
+```bash
+node packages/cli/dist/main.js results --runs /path/to/live-runs/runs --out /path/to/this/portfolio/ensemble/results
+```
+
+The copy here was built that way on 24 November 2026, from the two runs of 10 and 11 November.
