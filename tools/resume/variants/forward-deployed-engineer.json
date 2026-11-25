@@ -36,6 +36,18 @@
       ]
     },
     {
+      "name": "Ensemble",
+      "stack": "TypeScript, Node.js, React, Ollama, Vitest",
+      "link": {
+        "label": "0vertrained.github.io/work/ensemble",
+        "url": "https://0vertrained.github.io/work/ensemble/"
+      },
+      "bullets": [
+        "Harness for a team of AI agents in a startup's roles that turns a change request into a tested, reviewed change: my own orchestrator, typed handoffs, a person approving each plan, sandboxed commands.",
+        "In progress; using glm-5.3 it solved 7 of 7 benchmark tasks on hidden checks, with no false claims of success."
+      ]
+    },
+    {
       "name": "Lattice",
       "stack": "Rust, React, TypeScript, ROS 2, Gazebo, MuJoCo",
       "link": {
