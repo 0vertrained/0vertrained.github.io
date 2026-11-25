@@ -1,6 +1,422 @@
 {
-  "builtAt": "2026-11-24T17:58:55.468Z",
+  "builtAt": "2026-11-25T04:45:31.625Z",
   "runs": [
+    {
+      "name": "20261125-044506-benchmark3",
+      "number": 3,
+      "startedAt": "2026-11-25T03:19:30.098Z",
+      "finished": true,
+      "models": {
+        "strong": "glm-5.3",
+        "fast": "glm-5.3",
+        "roles": {}
+      },
+      "repeats": 1,
+      "crews": [
+        {
+          "crew": "team",
+          "scored": 11,
+          "solved": 1,
+          "tasks": 11,
+          "rate": 0.09090909090909091,
+          "margin": 0.17818181818181816,
+          "checksPassed": 12,
+          "checksTotal": 23,
+          "modelCalls": 49,
+          "tokens": 1467251,
+          "durationSec": 5132
+        },
+        {
+          "crew": "alone",
+          "scored": 11,
+          "solved": 1,
+          "tasks": 11,
+          "rate": 0.09090909090909091,
+          "margin": 0.17818181818181816,
+          "checksPassed": 13,
+          "checksTotal": 23,
+          "modelCalls": 34,
+          "tokens": 1796387,
+          "durationSec": 5099
+        }
+      ],
+      "tasks": [
+        {
+          "id": "click-command-suggestions",
+          "title": "Suggest commands for a misspelled command name",
+          "crew": "team",
+          "runs": 1,
+          "scored": 1,
+          "solved": 0,
+          "checksPassed": 1,
+          "checksTotal": 3,
+          "modelCalls": 26,
+          "tokens": 869085,
+          "durationSec": 2341,
+          "source": {
+            "repo": "pallets/click",
+            "link": "https://github.com/pallets/click/pull/3228"
+          }
+        },
+        {
+          "id": "click-command-suggestions",
+          "title": "Suggest commands for a misspelled command name",
+          "crew": "alone",
+          "runs": 1,
+          "scored": 1,
+          "solved": 1,
+          "checksPassed": 3,
+          "checksTotal": 3,
+          "modelCalls": 19,
+          "tokens": 1136958,
+          "durationSec": 2554,
+          "source": {
+            "repo": "pallets/click",
+            "link": "https://github.com/pallets/click/pull/3228"
+          }
+        },
+        {
+          "id": "click-default-map-nargs",
+          "title": "A string in default_map is not split for options that take several values",
+          "crew": "team",
+          "runs": 1,
+          "scored": 1,
+          "solved": 0,
+          "checksPassed": 1,
+          "checksTotal": 2,
+          "modelCalls": 5,
+          "tokens": 136223,
+          "durationSec": 601,
+          "source": {
+            "repo": "pallets/click",
+            "link": "https://github.com/pallets/click/pull/3364"
+          }
+        },
+        {
+          "id": "click-default-map-nargs",
+          "title": "A string in default_map is not split for options that take several values",
+          "crew": "alone",
+          "runs": 1,
+          "scored": 1,
+          "solved": 0,
+          "checksPassed": 1,
+          "checksTotal": 2,
+          "modelCalls": 15,
+          "tokens": 659429,
+          "durationSec": 1839,
+          "source": {
+            "repo": "pallets/click",
+            "link": "https://github.com/pallets/click/pull/3364"
+          }
+        },
+        {
+          "id": "click-func-type-message",
+          "title": "A parameter type function's error message is thrown away",
+          "crew": "team",
+          "runs": 1,
+          "scored": 1,
+          "solved": 1,
+          "checksPassed": 2,
+          "checksTotal": 2,
+          "modelCalls": 18,
+          "tokens": 461943,
+          "durationSec": 1483,
+          "source": {
+            "repo": "pallets/click",
+            "link": "https://github.com/pallets/click/pull/3211"
+          }
+        },
+        {
+          "id": "click-func-type-message",
+          "title": "A parameter type function's error message is thrown away",
+          "crew": "alone",
+          "runs": 1,
+          "scored": 1,
+          "solved": 0,
+          "checksPassed": 1,
+          "checksTotal": 2,
+          "modelCalls": 0,
+          "tokens": 0,
+          "durationSec": 16,
+          "source": {
+            "repo": "pallets/click",
+            "link": "https://github.com/pallets/click/pull/3211"
+          }
+        },
+        {
+          "id": "click-prompt-ansi",
+          "title": "prompt and confirm keep color codes when color is off",
+          "crew": "team",
+          "runs": 1,
+          "scored": 1,
+          "solved": 0,
+          "checksPassed": 1,
+          "checksTotal": 2,
+          "modelCalls": 0,
+          "tokens": 0,
+          "durationSec": 21,
+          "source": {
+            "repo": "pallets/click",
+            "link": "https://github.com/pallets/click/pull/3653"
+          }
+        },
+        {
+          "id": "click-prompt-ansi",
+          "title": "prompt and confirm keep color codes when color is off",
+          "crew": "alone",
+          "runs": 1,
+          "scored": 1,
+          "solved": 0,
+          "checksPassed": 1,
+          "checksTotal": 2,
+          "modelCalls": 0,
+          "tokens": 0,
+          "durationSec": 35,
+          "source": {
+            "repo": "pallets/click",
+            "link": "https://github.com/pallets/click/pull/3653"
+          }
+        },
+        {
+          "id": "cobra-completion-os-args",
+          "title": "Shell completion writes into os.Args",
+          "crew": "team",
+          "runs": 1,
+          "scored": 1,
+          "solved": 0,
+          "checksPassed": 1,
+          "checksTotal": 2,
+          "modelCalls": 0,
+          "tokens": 0,
+          "durationSec": 48,
+          "source": {
+            "repo": "spf13/cobra",
+            "link": "https://github.com/spf13/cobra/pull/2356"
+          }
+        },
+        {
+          "id": "cobra-completion-os-args",
+          "title": "Shell completion writes into os.Args",
+          "crew": "alone",
+          "runs": 1,
+          "scored": 1,
+          "solved": 0,
+          "checksPassed": 1,
+          "checksTotal": 2,
+          "modelCalls": 0,
+          "tokens": 0,
+          "durationSec": 53,
+          "source": {
+            "repo": "spf13/cobra",
+            "link": "https://github.com/spf13/cobra/pull/2356"
+          }
+        },
+        {
+          "id": "cobra-no-duplicate-args",
+          "title": "A validator that refuses repeated arguments",
+          "crew": "team",
+          "runs": 1,
+          "scored": 1,
+          "solved": 0,
+          "checksPassed": 1,
+          "checksTotal": 2,
+          "modelCalls": 0,
+          "tokens": 0,
+          "durationSec": 53,
+          "source": {
+            "repo": "spf13/cobra",
+            "link": "https://github.com/spf13/cobra/pull/2397"
+          }
+        },
+        {
+          "id": "cobra-no-duplicate-args",
+          "title": "A validator that refuses repeated arguments",
+          "crew": "alone",
+          "runs": 1,
+          "scored": 1,
+          "solved": 0,
+          "checksPassed": 1,
+          "checksTotal": 2,
+          "modelCalls": 0,
+          "tokens": 0,
+          "durationSec": 46,
+          "source": {
+            "repo": "spf13/cobra",
+            "link": "https://github.com/spf13/cobra/pull/2397"
+          }
+        },
+        {
+          "id": "commander-help-group-conflict",
+          "title": "The help option leaves its group when one of its flags is taken",
+          "crew": "team",
+          "runs": 1,
+          "scored": 1,
+          "solved": 0,
+          "checksPassed": 1,
+          "checksTotal": 2,
+          "modelCalls": 0,
+          "tokens": 0,
+          "durationSec": 102,
+          "source": {
+            "repo": "tj/commander.js",
+            "link": "https://github.com/tj/commander.js/pull/2637"
+          }
+        },
+        {
+          "id": "commander-help-group-conflict",
+          "title": "The help option leaves its group when one of its flags is taken",
+          "crew": "alone",
+          "runs": 1,
+          "scored": 1,
+          "solved": 0,
+          "checksPassed": 1,
+          "checksTotal": 2,
+          "modelCalls": 0,
+          "tokens": 0,
+          "durationSec": 93,
+          "source": {
+            "repo": "tj/commander.js",
+            "link": "https://github.com/tj/commander.js/pull/2637"
+          }
+        },
+        {
+          "id": "commander-inspect-ipv6",
+          "title": "The inspector port is not moved on for an IPv6 host",
+          "crew": "team",
+          "runs": 1,
+          "scored": 1,
+          "solved": 0,
+          "checksPassed": 1,
+          "checksTotal": 2,
+          "modelCalls": 0,
+          "tokens": 0,
+          "durationSec": 94,
+          "source": {
+            "repo": "tj/commander.js",
+            "link": "https://github.com/tj/commander.js/pull/2636"
+          }
+        },
+        {
+          "id": "commander-inspect-ipv6",
+          "title": "The inspector port is not moved on for an IPv6 host",
+          "crew": "alone",
+          "runs": 1,
+          "scored": 1,
+          "solved": 0,
+          "checksPassed": 1,
+          "checksTotal": 2,
+          "modelCalls": 0,
+          "tokens": 0,
+          "durationSec": 93,
+          "source": {
+            "repo": "tj/commander.js",
+            "link": "https://github.com/tj/commander.js/pull/2636"
+          }
+        },
+        {
+          "id": "commander-unicode-variadic",
+          "title": "Option placeholders in other scripts are not recognised as variadic",
+          "crew": "team",
+          "runs": 1,
+          "scored": 1,
+          "solved": 0,
+          "checksPassed": 1,
+          "checksTotal": 2,
+          "modelCalls": 0,
+          "tokens": 0,
+          "durationSec": 93,
+          "source": {
+            "repo": "tj/commander.js",
+            "link": "https://github.com/tj/commander.js/pull/2615"
+          }
+        },
+        {
+          "id": "commander-unicode-variadic",
+          "title": "Option placeholders in other scripts are not recognised as variadic",
+          "crew": "alone",
+          "runs": 1,
+          "scored": 1,
+          "solved": 0,
+          "checksPassed": 1,
+          "checksTotal": 2,
+          "modelCalls": 0,
+          "tokens": 0,
+          "durationSec": 87,
+          "source": {
+            "repo": "tj/commander.js",
+            "link": "https://github.com/tj/commander.js/pull/2615"
+          }
+        },
+        {
+          "id": "ron-char-apostrophe",
+          "title": "An unescaped apostrophe is accepted as a char and a byte literal",
+          "crew": "team",
+          "runs": 1,
+          "scored": 1,
+          "solved": 0,
+          "checksPassed": 1,
+          "checksTotal": 2,
+          "modelCalls": 0,
+          "tokens": 0,
+          "durationSec": 155,
+          "source": {
+            "repo": "ron-rs/ron",
+            "link": "https://github.com/ron-rs/ron/pull/656"
+          }
+        },
+        {
+          "id": "ron-char-apostrophe",
+          "title": "An unescaped apostrophe is accepted as a char and a byte literal",
+          "crew": "alone",
+          "runs": 1,
+          "scored": 1,
+          "solved": 0,
+          "checksPassed": 1,
+          "checksTotal": 2,
+          "modelCalls": 0,
+          "tokens": 0,
+          "durationSec": 142,
+          "source": {
+            "repo": "ron-rs/ron",
+            "link": "https://github.com/ron-rs/ron/pull/656"
+          }
+        },
+        {
+          "id": "ron-implicit-some",
+          "title": "implicit_some drops a Some that has no parentheses",
+          "crew": "team",
+          "runs": 1,
+          "scored": 1,
+          "solved": 0,
+          "checksPassed": 1,
+          "checksTotal": 2,
+          "modelCalls": 0,
+          "tokens": 0,
+          "durationSec": 141,
+          "source": {
+            "repo": "ron-rs/ron",
+            "link": "https://github.com/ron-rs/ron/pull/655"
+          }
+        },
+        {
+          "id": "ron-implicit-some",
+          "title": "implicit_some drops a Some that has no parentheses",
+          "crew": "alone",
+          "runs": 1,
+          "scored": 1,
+          "solved": 0,
+          "checksPassed": 1,
+          "checksTotal": 2,
+          "modelCalls": 0,
+          "tokens": 0,
+          "durationSec": 141,
+          "source": {
+            "repo": "ron-rs/ron",
+            "link": "https://github.com/ron-rs/ron/pull/655"
+          }
+        }
+      ]
+    },
     {
       "name": "20261111-072720-benchmark2",
       "number": 2,
@@ -243,6 +659,79 @@
     }
   ],
   "groups": [
+    {
+      "tasks": [
+        {
+          "id": "click-command-suggestions",
+          "title": "Suggest commands for a misspelled command name"
+        },
+        {
+          "id": "click-default-map-nargs",
+          "title": "A string in default_map is not split for options that take several values"
+        },
+        {
+          "id": "click-func-type-message",
+          "title": "A parameter type function's error message is thrown away"
+        },
+        {
+          "id": "click-prompt-ansi",
+          "title": "prompt and confirm keep color codes when color is off"
+        },
+        {
+          "id": "cobra-completion-os-args",
+          "title": "Shell completion writes into os.Args"
+        },
+        {
+          "id": "cobra-no-duplicate-args",
+          "title": "A validator that refuses repeated arguments"
+        },
+        {
+          "id": "commander-help-group-conflict",
+          "title": "The help option leaves its group when one of its flags is taken"
+        },
+        {
+          "id": "commander-inspect-ipv6",
+          "title": "The inspector port is not moved on for an IPv6 host"
+        },
+        {
+          "id": "commander-unicode-variadic",
+          "title": "Option placeholders in other scripts are not recognised as variadic"
+        },
+        {
+          "id": "ron-char-apostrophe",
+          "title": "An unescaped apostrophe is accepted as a char and a byte literal"
+        },
+        {
+          "id": "ron-implicit-some",
+          "title": "implicit_some drops a Some that has no parentheses"
+        }
+      ],
+      "runs": [
+        3
+      ],
+      "models": [
+        {
+          "model": "glm-5.3",
+          "crew": "team",
+          "runs": 1,
+          "scored": 11,
+          "solved": 1,
+          "modelCalls": 49,
+          "tokens": 1467251,
+          "durationSec": 5132
+        },
+        {
+          "model": "glm-5.3",
+          "crew": "alone",
+          "runs": 1,
+          "scored": 11,
+          "solved": 1,
+          "modelCalls": 34,
+          "tokens": 1796387,
+          "durationSec": 5099
+        }
+      ]
+    },
     {
       "tasks": [
         {
