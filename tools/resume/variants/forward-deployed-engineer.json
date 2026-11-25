@@ -11,6 +11,11 @@
         "services"
       ]
     },
+    "Software Engineer I": {
+      "text": {
+        "interface": "Built Java Spring Boot microservices on enterprise APIs; led the design and release of a React/TypeScript interface."
+      }
+    },
     "Business Informatics III": {
       "text": {
         "cycle": "Worked with specialty and radiology clinics to cut referral cycle time from order to scheduled appointment, gathering their requirements and coordinating Epic Referrals and Cadence enhancements with analysts."
@@ -38,8 +43,7 @@
         "url": "https://lattice-robotics.netlify.app"
       },
       "bullets": [
-        "Robot-fleet control plane that keeps a mission's objective when the route or the body changes: a Rust core plans, holds detours and handoffs for operator approval and signs commands; an agent on each robot verifies them.",
-        "A guided public tour replays three recorded runs: no completed inspection repeated after a detour or handoff."
+        "Control plane that keeps a robot fleet's missions going through detours and handoffs, each approved by an operator."
       ]
     },
     {
@@ -50,8 +54,7 @@
         "url": "https://0vertrained.com"
       },
       "bullets": [
-        "Training app for athletes who lift and race, taken alone from idea to beta: per-metric arbitration between Oura and Whoop, a daily readiness verdict and a server-routed LLM coach.",
-        "In beta; 2,049 automated tests, row-level security on every table, encrypted wearable tokens."
+        "Training app for athletes who lift and race, taken alone from idea to beta: Oura and Whoop data, a readiness verdict and an LLM coach, with 2,049 automated tests and row-level security on every table."
       ]
     }
   ],
